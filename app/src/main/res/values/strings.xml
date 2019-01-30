@@ -16,4 +16,5 @@
     <string name="ErrorPasswordOnlyCharOrDigits">Password must contain only characters or digits</string>
     <string name="signUpSuccessfully">Sign up successfully</string>
     <string name="loginSuccessfully">Login successfully</string>
+    <string name="imageMainScreen">ImageMainScreen</string>
 </resources>

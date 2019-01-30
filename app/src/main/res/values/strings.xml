@@ -10,4 +10,10 @@
     <string name="gmail">Gmail</string>
     <string name="signUp">Sign Up</string>
     <string name="signUpANewAccount">Sign Up A New Account</string>
+    <string name="ErrorUsername4Characters">Username must contain at least 4 characters</string>
+    <string name="ErrorPassword4Characters">Password must contain at least 4 characters</string>
+    <string name="ErrorUsernameOnlyCharOrDigits">Username must contain only characters or digits</string>
+    <string name="ErrorPasswordOnlyCharOrDigits">Password must contain only characters or digits</string>
+    <string name="signUpSuccessfully">Sign up successfully</string>
+    <string name="loginSuccessfully">Login successfully</string>
 </resources>

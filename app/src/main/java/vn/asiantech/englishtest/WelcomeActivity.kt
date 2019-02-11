@@ -1,7 +1,7 @@
 package vn.asiantech.englishtest
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class WelcomeActivity : AppCompatActivity() {
         initWelcomeFragment()
     }
 
-    private fun initWelcomeFragment(){
+    private fun initWelcomeFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.welcomeFragment, WelcomeFragment())
         transaction.commit()

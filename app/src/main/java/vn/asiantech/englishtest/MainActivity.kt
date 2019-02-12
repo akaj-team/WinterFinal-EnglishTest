@@ -10,13 +10,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initFragment()
-    }
-
-    private fun initFragment() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.listListeningTestsFragment, ListListeningTestsFragment())
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }

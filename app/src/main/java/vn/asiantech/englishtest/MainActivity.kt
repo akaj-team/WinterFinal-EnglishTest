@@ -16,8 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun screenDelay() {
         Handler().postDelayed({
-            val intentToLoginScreen = Intent(this, WelcomeActivity::class.java)
-            startActivity(intentToLoginScreen)
+            startActivity(Intent(this, WelcomeActivity::class.java))
             finish()
         }, 3000)
     }

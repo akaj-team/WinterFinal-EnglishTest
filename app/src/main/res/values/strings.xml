@@ -1,8 +1,5 @@
 <resources>
     <string name="appName">WinterFinal-EnglishTest</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="listeningTest">Listening Test</string>
-    <string name="readingTest">Reading Test</string>
     <string name="welcome">Welcome to TOEIC practice app</string>
     <string name="chooseOneTest">Choose the test you want to take</string>
     <string name="imageListeningTest">Image Listening Test</string>

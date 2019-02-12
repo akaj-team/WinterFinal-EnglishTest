@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">WinterFinal-EnglishTest</string>
+    <string name="appName">WinterFinal-EnglishTest</string>
+    <string name="toeicPractice">TOEIC Practice</string>
 </resources>

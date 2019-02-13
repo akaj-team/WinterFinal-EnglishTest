@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/doTestToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/btnBackToListTest"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/ic_arrow_back_white_18dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"/>
+
+        <TextView
+                android:text="@string/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="80dp"
+                android:id="@+id/textView"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textSize20dp"/>
+
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="70dp"
+                android:id="@+id/btnListQuestions"
+                android:background="@drawable/ic_view_comfy_white_18dp"
+                android:layout_marginTop="10dp"/>
+
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btnSettings"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_settings_white_18dp"/>
+    </RelativeLayout>
+
+    <FrameLayout
+            android:id="@+id/fragmentQuestionsDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/doTestToolbar">
+
+    </FrameLayout>
+</RelativeLayout>

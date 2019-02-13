@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">WinterFinal-EnglishTest</string>
+    <string name="appName">WinterFinal-EnglishTest</string>
+    <string name="welcome">Welcome to TOEIC practice app</string>
+    <string name="chooseOneTest">Choose the test you want to take</string>
+    <string name="imageListeningTest">Image Listening Test</string>
+    <string name="imageReadingTest">Image Reading Test</string>
+    <string name="imageWelcome">imageWelcome</string>
+    <string name="practiceMakesPerfect">Practice Makes Perfect</string>
+    <string name="listening">Listening</string>
+    <string name="reading">Reading</string>
 </resources>

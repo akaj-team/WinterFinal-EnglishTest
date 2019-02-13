@@ -18,10 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity"/>
-        <activity android:name=".ListListeningTestsActivity">
-        </activity>
-        <activity android:name=".ListReadingTestsActivity">
-        </activity>
+        <activity android:name=".ListListeningTestsActivity"/>
+        <activity android:name=".ListReadingTestsActivity"/>
     </application>
-
 </manifest>

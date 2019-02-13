@@ -17,11 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity"/>
-        <activity android:name=".ListListeningTestsActivity">
-        </activity>
-        <activity android:name=".ListReadingTestsActivity">
-        </activity>
+        <activity android:name=".ReadingTestsActivity"/>
     </application>
-
 </manifest>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:text="@string/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvWelcome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
+            android:textSize="@dimen/textSize24dp"
+            android:textColor="@color/colorRed"
+            android:gravity="center"/>
+
+    <TextView
+            android:text="@string/chooseOneTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvChooseOneTest"
+            android:layout_marginTop="80dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textSize20dp"/>
+
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imgListeningTest"
+            android:src="@drawable/img_listening_test"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/imageListeningTest"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseOneTest"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"/>
+
+    <ImageView
+            android:src="@drawable/img_reading_test"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imgReadingTest"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/imageReadingTest"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseOneTest"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"/>
+
+    <TextView
+            android:text="@string/practiceMakesPerfect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSlogan"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseOneTest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="250dp"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/textSize20dp"/>
+
+    <TextView
+            android:text="@string/listening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvListening"
+            app:layout_constraintTop_toBottomOf="@+id/imgListeningTest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
+            android:textSize="@dimen/textSize20dp"
+            android:textColor="@color/colorBlack"/>
+
+    <android.support.constraint.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="192dp"
+            android:id="@+id/guidelineCenter"/>
+
+    <TextView
+            android:text="@string/reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvReading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/imgReadingTest"
+            android:textSize="@dimen/textSize20dp"
+            android:textColor="@color/colorBlack"/>
+
+</android.support.constraint.ConstraintLayout>

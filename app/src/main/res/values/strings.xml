@@ -9,4 +9,11 @@
     <string name="practiceMakesPerfect">Practice Makes Perfect</string>
     <string name="listening">Listening</string>
     <string name="reading">Reading</string>
+    <string name="level">Level</string>
+    <string name="submit">SUBMIT</string>
+    <string name="questionDetailHere">Question Detail Here</string>
+    <string name="confirmExit">Confirm Exit</string>
+    <string name="doYouWantToExit">Do you want to exit?</string>
+    <string name="no">NO</string>
+    <string name="yes">YES</string>
 </resources>

@@ -26,11 +26,13 @@ class ListReadingTestAdapter(private val listTests: List<ListReadingTestItems>) 
 
     inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(listItems: ListReadingTestItems) {
-            itemView.tvTestName.text = listItems.testNumber
-            itemView.tvTime.text = listItems.timeText
-            itemView.tvTimeDisplay.text = listItems.timeDisplay
-            itemView.tvScore.text = listItems.scoreText
-            itemView.tvScoreDisplay.text = listItems.scoreDisplay.toString()
+            with(itemView){
+                with(listItems) {
+                    tvTestName.text = testNumber
+                    tvTimeDisplay.text = timeDisplay
+                    tvScoreDisplay.text = scoreDisplay.toString()
+                }
+            }
         }
     }
 }

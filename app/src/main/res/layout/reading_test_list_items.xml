@@ -44,7 +44,6 @@
                 android:layout_marginEnd="80dp"/>
 
         <TextView
-                android:text="@string/timeDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTimeDisplay"
@@ -54,7 +53,6 @@
                 android:textColor="@color/colorBlack"/>
 
         <TextView
-                android:text="@string/score40"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvScoreDisplay"

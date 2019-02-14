@@ -16,7 +16,6 @@ class ReadingTestsActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentListReadingTests, ListReadingTestFragment())
-            .addToBackStack(null)
             .commit()
     }
 }

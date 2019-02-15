@@ -25,7 +25,7 @@ class ListReadingTestFragment : Fragment() {
 
     private fun initRecycleView() {
         recycleViewListReadingTests.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(activity)
         recycleViewListReadingTests.layoutManager = linearLayoutManager
         setData()
         mAdapter = mListReadingTestItems?.let { ListReadingTestAdapter(it) }

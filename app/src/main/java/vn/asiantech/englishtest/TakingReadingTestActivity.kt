@@ -23,7 +23,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnListQuestions -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentQuestionsDisplay, ListQuestionsFragment())
+                    .replace(R.id.fragmentQuestionsDisplay, ListQuestionFragment())
                     .addToBackStack(null)
                     .commit()
             }

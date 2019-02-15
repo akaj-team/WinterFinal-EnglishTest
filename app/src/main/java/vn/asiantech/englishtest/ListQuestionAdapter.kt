@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_question_items.view.*
 import vn.asiantech.englishtest.model.ListQuestionItems
 
-class ListQuestionsAdapter(private val listQuestions: List<ListQuestionItems>) :
-    RecyclerView.Adapter<ListQuestionsAdapter.ListQuestionViewHolder>() {
+class ListQuestionAdapter(private val listQuestions: List<ListQuestionItems>) :
+    RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListQuestionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_question_items, parent, false)
         return ListQuestionViewHolder(view)

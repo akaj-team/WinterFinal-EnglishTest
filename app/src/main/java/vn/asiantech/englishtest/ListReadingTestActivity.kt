@@ -3,7 +3,7 @@ package vn.asiantech.englishtest
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-class ListReadingTestsActivity : AppCompatActivity() {
+class ListReadingTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

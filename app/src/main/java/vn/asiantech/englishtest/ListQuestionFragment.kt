@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.model.ListQuestionItems
 
-class ListQuestionsFragment : Fragment() {
+class ListQuestionFragment : Fragment() {
     private var mListQuestionItems: List<ListQuestionItems>? = null
 
     override fun onCreateView(
@@ -27,7 +27,7 @@ class ListQuestionsFragment : Fragment() {
         recycleViewListQuestions.setHasFixedSize(true)
         recycleViewListQuestions.layoutManager = GridLayoutManager(activity, 5 )
         setData()
-        recycleViewListQuestions.adapter = mListQuestionItems?.let { ListQuestionsAdapter(it) }
+        recycleViewListQuestions.adapter = mListQuestionItems?.let { ListQuestionAdapter(it) }
     }
 
     private fun setData() {

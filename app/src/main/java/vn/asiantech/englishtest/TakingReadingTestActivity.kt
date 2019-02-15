@@ -21,11 +21,16 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentQuestionsDisplay, ListQuestionFragment())
-                    .addToBackStack(null)
-                    .commit()
+                if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragmentQuestionsDisplay, ListQuestionFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is ListQuestionFragment) {
+                    super.onBackPressed()
+                }
             }
             R.id.btnBackToListTest -> {
                 onBackPressed()
@@ -53,8 +58,14 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         with(alert) {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
-            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no)) { dialogInterface, _ -> dialogInterface.dismiss() }
-            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes)) { _, _ -> /*Forward to List Reading Test Screen*/ }
+            setButton(
+                AlertDialog.BUTTON_NEGATIVE,
+                getString(R.string.no)
+            ) { dialogInterface, _ -> dialogInterface.dismiss() }
+            setButton(
+                AlertDialog.BUTTON_POSITIVE,
+                getString(R.string.yes)
+            ) { _, _ -> /*Forward to List Reading Test Screen*/ }
             show()
         }
     }

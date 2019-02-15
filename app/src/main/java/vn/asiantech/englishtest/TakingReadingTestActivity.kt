@@ -16,6 +16,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         btnListQuestions.setOnClickListener(this)
 
         initQuestionDetailFragment()
+        chronometer.start()
     }
 
     override fun onClick(view: View?) {

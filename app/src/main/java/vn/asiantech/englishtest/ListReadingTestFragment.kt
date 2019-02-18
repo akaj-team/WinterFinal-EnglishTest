@@ -23,9 +23,9 @@ class ListReadingTestFragment : Fragment() {
         initRecycleView()
     }
 
-    fun initRecycleView() {
+    private fun initRecycleView() {
         recycleViewListReadingTests.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(activity)
         recycleViewListReadingTests.layoutManager = linearLayoutManager
         setData()
         mAdapter = mListReadingTestItems?.let { ListReadingTestAdapter(it) }
@@ -34,5 +34,16 @@ class ListReadingTestFragment : Fragment() {
 
     private fun setData() {
         //TODO
+        val maxTestNumber = 20
+        mListReadingTestItems = ArrayList()
+        for (i in 0 until maxTestNumber) {
+            (mListReadingTestItems as ArrayList<ListReadingTestItems>).add(
+                ListReadingTestItems(
+                    getString(R.string.practice) + " ${i + 1}",
+                    getString(R.string.time),
+                    40
+                )
+            )
+        }
     }
 }

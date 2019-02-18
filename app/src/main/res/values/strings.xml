@@ -1,6 +1,23 @@
 <resources>
     <string name="appName">WinterFinal-EnglishTest</string>
     <string name="imageWelcome">imageWelcome</string>
+    <string name="practiceMakesPerfect">Practice Makes Perfect</string>
+    <string name="listening">Listening</string>
+    <string name="reading">Reading</string>
+    <string name="app_name">WinterFinal-EnglishTest</string>
+    <string name="ltqc">Van Hung</string>
+    <string name="navigationDrawerOpen">Open navigation drawer</string>
+    <string name="navigationDrawerClose">Close navigation drawer</string>
+    <string name="navHeaderTitle">Android Studio</string>
+    <string name="navHeaderSubtitle">android.studio@android.com</string>
+    <string name="navHeaderDesc">Navigation header</string>
+    <string name="actionSettings">Settings</string>
+    <string name="p5Basic">P5 - Basic</string>
+    <string name="p5Intermediate">P5 - Intermediate</string>
+    <string name="p5Advanced">P5 Advanced</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="send">Send</string>
     <string name="toeicPractice">TOEIC Practice Reading</string>
     <string name="practice">Practice</string>
     <string name="time">Time</string>

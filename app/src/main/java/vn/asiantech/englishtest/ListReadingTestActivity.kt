@@ -1,14 +1,21 @@
 package vn.asiantech.englishtest
 
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 
 class ListReadingTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-
+        setSupportActionBar(toolbar as Toolbar)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar as Toolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
         initFragment()
     }
 
@@ -17,5 +24,13 @@ class ListReadingTestActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragmentListReadingTests, ListReadingTestFragment())
             .commit()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

@@ -7,15 +7,15 @@
                 <item
                         android:id="@+id/itemReadingLevelBasic"
                         android:icon="@drawable/ic_looks_5_black_24dp"
-                        android:title="@string/p5Basic"/>
+                        android:title="@string/part5Basic"/>
                 <item
                         android:id="@+id/itemReadingLevelIntermediate"
                         android:icon="@drawable/ic_looks_5_black_24dp"
-                        android:title="@string/p5Intermediate"/>
+                        android:title="@string/part5Intermediate"/>
                 <item
                         android:id="@+id/itemReadingLevelAdvanced"
                         android:icon="@drawable/ic_looks_5_black_24dp"
-                        android:title="@string/p5Advanced"/>
+                        android:title="@string/part5Advanced"/>
             </group>
         </menu>
     </item>

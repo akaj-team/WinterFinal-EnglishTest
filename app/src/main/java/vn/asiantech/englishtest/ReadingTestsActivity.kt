@@ -15,6 +15,7 @@ class ReadingTestsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
         setSupportActionBar(toolbar as Toolbar)
+        supportActionBar?.title = getString(R.string.part5Basic)
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -23,6 +24,7 @@ class ReadingTestsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             R.string.navigationDrawerClose
         )
         drawerLayout.addDrawerListener(toggle)
+
         toggle.syncState()
         initFragment()
         navigationView.setNavigationItemSelectedListener(this)
@@ -49,14 +51,17 @@ class ReadingTestsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             R.id.itemReadingLevelBasic -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
                 initFragment()
+                supportActionBar?.title = getString(R.string.part5Basic)
             }
             R.id.itemReadingLevelIntermediate -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
                 initFragment()
+                supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemReadingLevelAdvanced -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
                 initFragment()
+                supportActionBar?.title = getString(R.string.part5Advanced)
             }
         }
         return true

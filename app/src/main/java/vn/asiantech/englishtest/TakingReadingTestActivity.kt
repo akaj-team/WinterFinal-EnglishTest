@@ -5,12 +5,24 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.showquestionviewpager.TempAdapter
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taking_reading_test)
+        val data = arrayListOf<ListQuestionDetailItem>()
+        data.add(ListQuestionDetailItem("1. Author Ken Yabuki wrote a magazine article based on _______ recent visit to Iceland",
+            "A. he","B. his","C. him","D. himself"))
+        data.add(ListQuestionDetailItem("1. Author Ken Yabuki wrote a magazine article based on _______ recent visit to Iceland",
+            "A. he","B. his","C. him","D. himself"))
+        data.add(ListQuestionDetailItem("1. Author Ken Yabuki wrote a magazine article based on _______ recent visit to Iceland",
+            "A. he","B. his","C. him","D. himself"))
+        data.add(ListQuestionDetailItem("1. Author Ken Yabuki wrote a magazine article based on _______ recent visit to Iceland",
+            "A. he","B. his","C. him","D. himself"))
+        questionDetailPager.adapter = TempAdapter(supportFragmentManager, data)
 
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -21,31 +33,31 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                supportFragmentManager
+                /*supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragmentQuestionsDisplay, ListQuestionFragment())
                     .addToBackStack(null)
-                    .commit()
+                    .commit()*/
             }
             R.id.btnBackToListTest -> {
                 onBackPressed()
             }
         }
     }
-
+/*
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
             alertDialog()
         } else {
             super.onBackPressed()
         }
-    }
+    }*/
 
     private fun initQuestionDetailFragment() {
-        supportFragmentManager
+        /*supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentQuestionsDisplay, QuestionDetailFragment())
-            .commit()
+            .commit()*/
     }
 
     private fun alertDialog() {

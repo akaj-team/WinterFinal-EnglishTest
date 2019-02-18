@@ -1,12 +1,11 @@
 package vn.asiantech.englishtest.model
 
-import android.os.Parcel
 import java.io.Serializable
 
-class ListQuestionDetailItem(val questionDetail : String,
-                                  val answerA : String,
-                                  val answerB : String,
-                                  val answerC : String,
-                                  val answerD : String) : Serializable
-
-
+class ListQuestionDetailItem : Serializable {
+    val question : String? = null
+    val answerA : String? = null
+    val answerB : String? = null
+    val answerC : String? = null
+    val answerD : String? = null
+}

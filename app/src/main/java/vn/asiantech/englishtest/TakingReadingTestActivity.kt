@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
-import kotlinx.android.synthetic.main.fragment_list_questions.*
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -44,8 +43,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
             alertDialog()
-        }
-        else {
+        } else {
             super.onBackPressed()
         }
     }

@@ -22,8 +22,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 TODO("not implemented")
             }
             override fun onDataChange(p0: DataSnapshot) {
-                for (h in p0.children) {
-                    val question = h.getValue(ListQuestionDetailItem::class.java)
+                for (i in p0.children) {
+                    val question = i.getValue(ListQuestionDetailItem::class.java)
                     questionList.add(question!!)
                 }
                 questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
@@ -31,8 +31,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         })
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
-
-        initQuestionDetailFragment()
     }
 
     override fun onClick(view: View?) {
@@ -55,13 +53,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             super.onBackPressed()
         }
-    }
-
-    private fun initQuestionDetailFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.questionDetailPager, QuestionDetailFragment())
-            .commit()
     }
 
     private fun alertDialog() {

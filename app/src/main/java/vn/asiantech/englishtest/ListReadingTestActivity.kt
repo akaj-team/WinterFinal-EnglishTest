@@ -12,8 +12,8 @@ class ListReadingTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-        setSupportActionBar(toolbar as Toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar as Toolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose)
+        setSupportActionBar(toolBar as Toolbar)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         initFragment()
@@ -22,7 +22,7 @@ class ListReadingTestActivity : AppCompatActivity() {
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentListReadingTests, ListReadingTestFragment())
+            .replace(R.id.frListReadingTests, ListReadingTestFragment())
             .commit()
     }
 

@@ -14,19 +14,19 @@
         <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
-                android:id="@+id/toolbar"
+                android:id="@+id/toolBar"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:elevation="4dp" tools:targetApi="lollipop"/>
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/fragmentListReadingTests"/>
+                android:id="@+id/frListReadingTests"/>
 
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
+            android:id="@+id/navView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"

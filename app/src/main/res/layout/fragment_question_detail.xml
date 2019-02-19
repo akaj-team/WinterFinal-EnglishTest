@@ -16,7 +16,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:id="@+id/questionDetail"
+                android:id="@+id/tvQuestion"
                 android:text="@string/questionDetailHere"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"/>
@@ -37,7 +37,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/answerA"
+                    android:id="@+id/tvAnswerA"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
                     android:text="@string/questionDetailHere"/>
@@ -51,7 +51,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/answerB"
+                    android:id="@+id/tvAnswerB"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
                     android:text="@string/questionDetailHere"/>
@@ -64,7 +64,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/answerC"
+                    android:id="@+id/tvAnswerC"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
                     android:text="@string/questionDetailHere"/>
@@ -78,7 +78,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/answerD"
+                    android:id="@+id/tvAnswerD"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
                     android:text="@string/questionDetailHere"/>

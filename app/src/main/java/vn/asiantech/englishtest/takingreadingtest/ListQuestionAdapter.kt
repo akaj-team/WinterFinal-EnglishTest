@@ -1,13 +1,14 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.takingreadingtest
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_question_items.view.*
-import vn.asiantech.englishtest.model.ListQuestionItems
+import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.model.ListQuestionItem
 
-class ListQuestionAdapter(private val listQuestions: List<ListQuestionItems>) :
+class ListQuestionAdapter(private val listQuestions: List<ListQuestionItem>) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListQuestionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_question_items, parent, false)
@@ -23,7 +24,7 @@ class ListQuestionAdapter(private val listQuestions: List<ListQuestionItems>) :
     }
 
     inner class ListQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(listItems: ListQuestionItems) {
+        fun bindView(listItems: ListQuestionItem) {
             with(itemView) { with(listItems) { tvQuestionNumber.text = testNumber.toString() } }
         }
     }

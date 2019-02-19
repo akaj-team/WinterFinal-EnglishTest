@@ -1,12 +1,11 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.takingreadingtest
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import vn.asiantech.englishtest.R
 
 class QuestionDetailFragment : Fragment() {
 

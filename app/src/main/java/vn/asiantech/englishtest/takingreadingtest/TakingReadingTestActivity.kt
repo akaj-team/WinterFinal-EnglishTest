@@ -1,10 +1,11 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.takingreadingtest
 
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import vn.asiantech.englishtest.R
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -25,7 +26,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragmentQuestionsDisplay, ListQuestionFragment())
+                        .replace(
+                            R.id.fragmentQuestionsDisplay,
+                            ListQuestionFragment()
+                        )
                         .addToBackStack(null)
                         .commit()
                 }
@@ -50,7 +54,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private fun initQuestionDetailFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentQuestionsDisplay, QuestionDetailFragment())
+            .replace(
+                R.id.fragmentQuestionsDisplay,
+                QuestionDetailFragment()
+            )
             .commit()
     }
 

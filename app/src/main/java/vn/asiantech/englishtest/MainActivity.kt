@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun screenDelay() {
         Handler().postDelayed({
-            startActivity(Intent(this, TakingReadingTestActivity::class.java))
+            startActivity(Intent(this, ListReadingTestActivity::class.java))
             finish()
         }, 3000)
     }

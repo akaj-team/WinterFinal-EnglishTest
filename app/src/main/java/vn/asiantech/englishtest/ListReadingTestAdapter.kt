@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.reading_test_list_items.view.*
 import vn.asiantech.englishtest.model.ListReadingTestItems
 
-class ListReadingTestAdapter(private val listTests: List<ListReadingTestItems>) :
+class ListReadingTestAdapter(private val listTests: List<ListReadingTestItems>, private val  listener : OnItemClickListener) :
     RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
@@ -24,15 +24,24 @@ class ListReadingTestAdapter(private val listTests: List<ListReadingTestItems>) 
         holder.bindView(listTests[position])
     }
 
-    inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        override fun onClick(v: View?) {
+            listener.onClick(layoutPosition)
+        }
+
         fun bindView(listItems: ListReadingTestItems) {
-            with(itemView){
+            with(itemView) {
                 with(listItems) {
                     tvTestName.text = testNumber
                     tvTimeDisplay.text = timeDisplay
                     tvScoreDisplay.text = scoreDisplay.toString()
                 }
             }
+            itemView.clPractice.setOnClickListener(this)
         }
+    }
+    interface OnItemClickListener {
+        fun onClick(position: Int)
     }
 }

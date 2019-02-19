@@ -23,17 +23,17 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
+                if (supportFragmentManager.findFragmentById(R.id.frQuestionsDisplay) is QuestionDetailFragment) {
                     supportFragmentManager
                         .beginTransaction()
                         .replace(
-                            R.id.fragmentQuestionsDisplay,
+                            R.id.frQuestionsDisplay,
                             ListQuestionFragment()
                         )
                         .addToBackStack(null)
                         .commit()
                 }
-                if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is ListQuestionFragment) {
+                if (supportFragmentManager.findFragmentById(R.id.frQuestionsDisplay) is ListQuestionFragment) {
                     super.onBackPressed()
                 }
             }
@@ -44,7 +44,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.fragmentQuestionsDisplay) is QuestionDetailFragment) {
+        if (supportFragmentManager.findFragmentById(R.id.frQuestionsDisplay) is QuestionDetailFragment) {
             alertDialog()
         } else {
             super.onBackPressed()
@@ -55,7 +55,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         supportFragmentManager
             .beginTransaction()
             .replace(
-                R.id.fragmentQuestionsDisplay,
+                R.id.frQuestionsDisplay,
                 QuestionDetailFragment()
             )
             .commit()

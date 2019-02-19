@@ -34,7 +34,7 @@ class ListReadingTestFragment : Fragment() {
 
     private fun setData() {
         //TODO
-        val maxTestNumber = 20
+        val maxTestNumber = 10
         for (i in 0 until maxTestNumber) {
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(

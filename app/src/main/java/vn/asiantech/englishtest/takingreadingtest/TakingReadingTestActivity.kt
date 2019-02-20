@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.takingreadingtest
 
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
 import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
@@ -58,13 +59,15 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
         //dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic01")
         dataQuestion.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
+            override fun onCancelled(dataPractice : DatabaseError) {
                 TODO("not implemented")
             }
-            override fun onDataChange(p0: DataSnapshot) {
-                for (i in p0.children) {
+            override fun onDataChange(dataPractice: DataSnapshot) {
+                for (i in dataPractice.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
-                    questionList.add(question!!)
+                    question?.let {
+                        questionList.add(it)
+                    }
                 }
                 questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
@@ -76,7 +79,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnListQuestions -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.questionDetailPager, ListQuestionFragment())
+                    .replace(
+                        R.id.questionDetailPager,
+                        ListQuestionFragment()
+                    )
                     .addToBackStack(null)
                     .commit()
             }
@@ -87,26 +93,24 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
-            alertDialog()
+            showAlertDialog()
         } else {
             super.onBackPressed()
         }
     }
 
-    private fun alertDialog() {
-        val alert = AlertDialog.Builder(this).create()
-        with(alert) {
+    private fun showAlertDialog() {
+        AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
-            setButton(
-                AlertDialog.BUTTON_NEGATIVE,
-                getString(R.string.no)
-            ) { dialogInterface, _ -> dialogInterface.dismiss() }
-            setButton(
-                AlertDialog.BUTTON_POSITIVE,
-                getString(R.string.yes)
-            ) { _, _ -> super.onBackPressed() }
-            show()
-        }
+            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+            { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+            { _, _ ->
+                super.onBackPressed()
+            }
+        }.show()
     }
 }

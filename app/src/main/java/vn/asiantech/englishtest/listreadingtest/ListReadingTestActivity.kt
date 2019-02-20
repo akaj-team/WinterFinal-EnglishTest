@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
+import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -15,7 +16,10 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
         setSupportActionBar(toolBar as Toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar,
+            R.string.navigationDrawerOpen,
+            R.string.navigationDrawerClose
+        )
         supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
 
@@ -27,9 +31,20 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frListReadingTests, ListReadingTestFragment())
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-            .replace(R.id.frListReadingTests, ListReadingTestFragment())
+            .replace(
+                R.id.frListReadingTests,
+                ListReadingTestFragment()
+            )
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTests,
+                ListReadingTestFragment()
+            )
             .commit()
     }
 

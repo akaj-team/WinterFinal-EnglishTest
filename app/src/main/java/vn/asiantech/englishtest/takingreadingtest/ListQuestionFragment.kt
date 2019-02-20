@@ -6,11 +6,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_taking_reading_test.view.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment() {
+
+
     private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
 
     override fun onCreateView(
@@ -22,6 +25,7 @@ class ListQuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        onClickSubmit(view)
     }
 
     private fun initRecycleView() {
@@ -39,5 +43,9 @@ class ListQuestionFragment : Fragment() {
         for (i in 0 until maxQuestionNumber) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
         }
+    }
+
+    private fun onClickSubmit(view: View){
+        //TODO Stop Chronometer
     }
 }

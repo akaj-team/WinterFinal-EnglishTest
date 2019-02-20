@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -48,4 +47,3 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
-

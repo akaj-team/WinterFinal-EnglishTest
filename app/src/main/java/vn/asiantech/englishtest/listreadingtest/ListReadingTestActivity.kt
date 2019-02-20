@@ -15,8 +15,10 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+
         setSupportActionBar(toolBar as Toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar,
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolBar as Toolbar,
             R.string.navigationDrawerOpen,
             R.string.navigationDrawerClose
         )
@@ -31,20 +33,8 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(
-                R.id.frListReadingTests,
-                ListReadingTestFragment()
-            )
-            .setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left,
-                R.anim.slide_in_right,
-                R.anim.slide_out_right
-            )
-            .replace(
-                R.id.frListReadingTests,
-                ListReadingTestFragment()
-            )
+            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
+            .replace(R.id.frListReadingTests, ListReadingTestFragment())
             .commit()
     }
 

@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,32 +7,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_list_reading_test.*
+import kotlinx.android.synthetic.main.fragment_list_basic_level.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItems
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
-
-class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
+class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
 
     private var mListReadingTestItems: List<ListReadingTestItems>? = null
-    private var mAdapter: ListReadingTestAdapter? = null
-    private var position = 0
-
-    companion object {
-        private const val ARG_POSITION = "arg_position"
-        fun getInstance(position: Int): ListReadingTestFragment =
-            ListReadingTestFragment().apply {
-                val bundle = Bundle().apply {
-                    putInt(ARG_POSITION, position)
-                }
-                arguments = bundle
-            }
-    }
+    private val level = 3
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        arguments?.let {
-            position = it.getInt(ListReadingTestFragment.ARG_POSITION)
-        }
-        return inflater.inflate(R.layout.fragment_list_reading_test, container, false)
+        return inflater.inflate(R.layout.fragment_list_basic_level, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,12 +27,12 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     private fun initRecycleView() {
-        recycleViewListReadingTests.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(activity)
-        recycleViewListReadingTests.layoutManager = linearLayoutManager
         setData()
-        mAdapter = mListReadingTestItems?.let { ListReadingTestAdapter(it, this) }
-        recycleViewListReadingTests.adapter = mAdapter
+        recycleViewListReadingTests.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(activity)
+            adapter = mListReadingTestItems?.let { ListReadingTestAdapter(it, this@ListAdvancedLevelFragment) }
+        }
     }
 
     private fun setData() {
@@ -69,60 +55,71 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
             0 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
 
             }
             1 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
 
             }
             2 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             3 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             4 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             5 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             6 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
 
             }
             7 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
 
             }
             8 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             9 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
             10 -> {
                 val intent = Intent(activity, TakingReadingTestActivity::class.java)
                 intent.putExtra("position", position)
+                intent.putExtra("level", level)
                 startActivity(intent)
             }
         }

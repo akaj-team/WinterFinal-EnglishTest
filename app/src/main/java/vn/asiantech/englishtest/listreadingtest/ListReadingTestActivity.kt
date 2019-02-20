@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.model.ListReadingTestItems
-import vn.asiantech.englishtest.showlevelenglishviewpager.LevelAdapter
+import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var listPractice = arrayListOf<ListReadingTestItems>()
@@ -17,21 +17,61 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
         setSupportActionBar(toolBar as Toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar,
+            R.string.navigationDrawerOpen,
+            R.string.navigationDrawerClose
+        )
         supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        initFragment()
+        initBasicLevelFragment()
         setData()
         navigationView.setNavigationItemSelectedListener(this)
     }
 
-    private fun initFragment() {
+    private fun initBasicLevelFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.viewpagerLevel, ListReadingTestFragment())
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-            .replace(R.id.viewpagerLevel, ListReadingTestFragment())
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListBasicLevelFragment()
+            )
+            .commit()
+    }
+    private fun initIntermediateLevelFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListIntermediateLevelFragment()
+            )
+            .commit()
+    }
+    private fun initAdvancedLevelFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListAdvancedLevelFragment()
+            )
             .commit()
     }
     private fun setData() {
@@ -46,7 +86,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 )
             )
         }
-        viewpagerLevel.adapter = LevelAdapter(supportFragmentManager, listPractice)
     }
 
     override fun onBackPressed() {
@@ -61,17 +100,17 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         when (item.itemId) {
             R.id.itemReadingLevelBasic -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initBasicLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Basic)
             }
             R.id.itemReadingLevelIntermediate -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initIntermediateLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemReadingLevelAdvanced -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initAdvancedLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Advanced)
             }
         }

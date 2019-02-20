@@ -1,10 +1,11 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.reading_test_list_items.view.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItems
 
 class ListReadingTestAdapter(private val listTests: List<ListReadingTestItems>, private val  listener : OnItemClickListener) :

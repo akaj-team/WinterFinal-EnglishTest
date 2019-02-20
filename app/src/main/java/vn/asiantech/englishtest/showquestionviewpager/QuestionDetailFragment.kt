@@ -37,12 +37,14 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(data) {
-            tvQuestion.text = this?.question
-            tvAnswerA.text = this?.answerA
-            tvAnswerB.text = this?.answerB
-            tvAnswerC.text = this?.answerC
-            tvAnswerD.text = this?.answerD
+        data?.let {
+            with(it) {
+                tvQuestion.text = question
+                tvAnswerA.text = answerA
+                tvAnswerB.text = answerB
+                tvAnswerC.text = answerC
+                tvAnswerD.text = answerD
+            }
         }
     }
 }

@@ -10,21 +10,20 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
 
-
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-        setSupportActionBar(toolbar as Toolbar)
-        supportActionBar?.title = getString(R.string.part5Basic)
+        setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
-            toolbar as Toolbar,
+            toolBar as Toolbar,
             R.string.navigationDrawerOpen,
             R.string.navigationDrawerClose
         )
+        supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
 
         toggle.syncState()
@@ -35,11 +34,13 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .replace(
-                R.id.frListReadingTests,
-                ListReadingTestFragment()
+            .replace(R.id.frListReadingTests, ListReadingTestFragment())
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
             )
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
             .replace(R.id.frListReadingTests, ListReadingTestFragment())
             .commit()
     }

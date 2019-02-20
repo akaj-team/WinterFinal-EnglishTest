@@ -22,7 +22,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/textSize16dp"/>
+                android:textSize="@dimen/dimen16dp"/>
 
         <TextView
                 android:text="@string/time"

@@ -32,14 +32,14 @@
                 android:id="@+id/tvLevel"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/textSize20dp" tools:ignore="RelativeOverlap"/>
+                android:textSize="@dimen/dimen20dp" tools:ignore="RelativeOverlap"/>
 
         <Chronometer
                 android:id="@+id/chronometer"
                 android:layout_width="50dp"
                 android:layout_height="20dp"
                 android:gravity="center"
-                android:textSize="@dimen/textSize16dp"
+                android:textSize="@dimen/dimen16dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorWhite"
                 android:layout_alignParentEnd="true"

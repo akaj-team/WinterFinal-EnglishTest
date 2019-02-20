@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -8,21 +8,19 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
+import vn.asiantech.englishtest.R
 
-class ReadingTestsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-        setSupportActionBar(toolbar as Toolbar)
-        supportActionBar?.title = getString(R.string.part5Basic)
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar as Toolbar,
+        setSupportActionBar(toolBar as Toolbar)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar,
             R.string.navigationDrawerOpen,
             R.string.navigationDrawerClose
         )
+        supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
 
         toggle.syncState()
@@ -33,8 +31,20 @@ class ReadingTestsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-            .replace(R.id.fragmentListReadingTests, ListReadingTestFragment())
+            .replace(
+                R.id.frListReadingTests,
+                ListReadingTestFragment()
+            )
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTests,
+                ListReadingTestFragment()
+            )
             .commit()
     }
 

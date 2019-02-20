@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/reading">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/itemReadingLevelBasic"
+                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:title="@string/part5Basic"/>
+                <item
+                        android:id="@+id/itemReadingLevelIntermediate"
+                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:title="@string/part5Intermediate"/>
+                <item
+                        android:id="@+id/itemReadingLevelAdvanced"
+                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:title="@string/part5Advanced"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                    android:id="@+id/itemShare"
+                    android:icon="@drawable/ic_share_black_24dp"
+                    android:title="@string/share"/>
+            <item
+                    android:id="@+id/itemSend"
+                    android:icon="@drawable/ic_send_black_24dp"
+                    android:title="@string/send"/>
+        </menu>
+    </item>
+</menu>

@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.listreadingtest
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list_reading_test.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItems
 
 class ListReadingTestFragment : Fragment() {

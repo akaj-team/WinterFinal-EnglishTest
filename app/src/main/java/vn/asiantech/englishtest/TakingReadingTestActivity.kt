@@ -56,7 +56,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic10")
             }
         }
-        //dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic01")
         dataQuestion.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")

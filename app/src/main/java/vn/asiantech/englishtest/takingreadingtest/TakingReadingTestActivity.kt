@@ -14,21 +14,22 @@ import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     private var questionList = arrayListOf<ListQuestionDetailItem>()
-    var isClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taking_reading_test)
         dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic01")
         dataQuestion.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
+            override fun onCancelled(dataPractice: DatabaseError) {
                 TODO("not implemented")
             }
 
-            override fun onDataChange(p0: DataSnapshot) {
-                for (i in p0.children) {
+            override fun onDataChange(dataPractice: DataSnapshot) {
+                for (i in dataPractice.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
-                    questionList.add(question!!)
+                    question?.let {
+                        questionList.add(it)
+                    }
                 }
                 questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
@@ -47,7 +48,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     supportFragmentManager
                         .beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                        .setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_top)
                         .replace(R.id.frListQuestions, ListQuestionFragment())
                         .addToBackStack(null)
                         .commit()
@@ -62,25 +63,23 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
             super.onBackPressed()
-        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment){
-            alertDialog()
+        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
+            showAlertDialog()
         }
     }
 
-    private fun alertDialog() {
-        val alert = AlertDialog.Builder(this).create()
-        with(alert) {
+    private fun showAlertDialog() {
+        AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
-            setButton(
-                AlertDialog.BUTTON_NEGATIVE,
-                getString(R.string.no)
-            ) { dialogInterface, _ -> dialogInterface.dismiss() }
-            setButton(
-                AlertDialog.BUTTON_POSITIVE,
-                getString(R.string.yes)
-            ) { _, _ -> super.onBackPressed() }
-            show()
-        }
+            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+            { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+            { _, _ ->
+                super.onBackPressed()
+            }
+        }.show()
     }
 }

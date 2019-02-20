@@ -24,8 +24,8 @@ class ListQuestionAdapter(private val listQuestions: List<ListQuestionItem>) :
     }
 
     inner class ListQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(listItems: ListQuestionItem) {
-            with(itemView) { with(listItems) { tvQuestionNumber.text = testNumber.toString() } }
+        fun bindView(listItem: ListQuestionItem) {
+            with(itemView) { with(listItem) { tvQuestionNumber.text = testNumber.toString() } }
         }
     }
 }

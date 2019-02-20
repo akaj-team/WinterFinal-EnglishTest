@@ -5,7 +5,7 @@
 
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:textColor="@color/colorAccent"
             android:gravity="center"
             android:text="@string/questionDetailHere"
@@ -15,11 +15,11 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:id="@+id/tvQuestion"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textSize16dp"
                 android:text="@string/questionDetailHere"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"/>
+                android:padding="20dp"/>
 
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
@@ -40,6 +40,8 @@
                     android:id="@+id/tvAnswerA"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/textSize16dp"
                     android:text="@string/questionDetailHere"/>
 
             <View
@@ -54,6 +56,8 @@
                     android:id="@+id/tvAnswerB"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/textSize16dp"
                     android:text="@string/questionDetailHere"/>
             <View
                     android:id="@+id/divider2"
@@ -67,6 +71,8 @@
                     android:id="@+id/tvAnswerC"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/textSize16dp"
                     android:text="@string/questionDetailHere"/>
 
             <View
@@ -81,6 +87,8 @@
                     android:id="@+id/tvAnswerD"
                     android:paddingBottom="15dp"
                     android:paddingTop="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/textSize16dp"
                     android:text="@string/questionDetailHere"/>
 
         </LinearLayout>

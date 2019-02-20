@@ -11,21 +11,17 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment() {
-
-    private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
+    private var mListQuestionItems: List<ListQuestionItem>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_list_questions, container, false)
-        onClickSubmit()
-        return view
+        return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
-        onClickSubmit()
     }
 
     private fun initRecycleView() {
@@ -33,19 +29,18 @@ class ListQuestionFragment : Fragment() {
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
-            adapter = ListQuestionAdapter(listQuestionItems)
+            mListQuestionItems?.let {
+                ListQuestionAdapter(it)
+            }
         }
     }
 
     private fun setData() {
         //TODO
         val maxQuestionNumber = 40
+        mListQuestionItems = ArrayList()
         for (i in 0 until maxQuestionNumber) {
-            (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
+            (mListQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
         }
-    }
-
-    private fun onClickSubmit() {
-        //TODO Stop Chronometer
     }
 }

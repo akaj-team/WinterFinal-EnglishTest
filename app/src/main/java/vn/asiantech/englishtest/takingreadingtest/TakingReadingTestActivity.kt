@@ -6,14 +6,16 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
-import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     private var questionList = arrayListOf<ListQuestionDetailItem>()
+    var isClicked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_taking_reading_test)
@@ -22,6 +24,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }
+
             override fun onDataChange(p0: DataSnapshot) {
                 for (i in p0.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
@@ -39,22 +42,28 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.questionDetailPager, ListQuestionFragment())
-                    .addToBackStack(null)
-                    .commit()
+                if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
+                    super.onBackPressed()
+                } else {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                        .replace(R.id.frListQuestions, ListQuestionFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
             R.id.btnBackToListTest -> {
                 onBackPressed()
             }
         }
     }
+
     override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
-            alertDialog()
-        } else {
+        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
             super.onBackPressed()
+        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment){
+            alertDialog()
         }
     }
 

@@ -7,18 +7,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_list_basic_level.*
+import kotlinx.android.synthetic.main.fragment_list_level.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
 
-    private var mListReadingTestItems: List<ListReadingTestItem>? = null
+    private var listReadingTestItems: List<ListReadingTestItem>? = null
     private val level = 3
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_basic_level, container, false)
+        return inflater.inflate(R.layout.fragment_list_level, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,16 +31,16 @@ class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClick
         recycleViewListReadingTests.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = mListReadingTestItems?.let { ListReadingTestAdapter(it, this@ListAdvancedLevelFragment) }
+            adapter = listReadingTestItems?.let { ListReadingTestAdapter(it, this@ListAdvancedLevelFragment) }
         }
     }
 
     private fun setData() {
         //TODO
         val maxTestNumber = 10
-        mListReadingTestItems = ArrayList()
+        listReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {
-            (mListReadingTestItems as ArrayList<ListReadingTestItem>).add(
+            (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
                     getString(R.string.time),

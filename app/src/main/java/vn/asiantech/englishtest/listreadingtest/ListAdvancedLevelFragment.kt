@@ -50,77 +50,17 @@ class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClick
         }
     }
 
+    private fun sendIntent(position: Int) {
+        val intent = Intent(activity, TakingReadingTestActivity::class.java)
+        intent.putExtra("position", position)
+        intent.putExtra("level", level)
+        startActivity(intent)
+    }
+
     override fun onClick(position: Int) {
         when (position) {
-            0 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-
-            }
-            1 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-
-            }
-            2 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            3 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            4 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            5 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            6 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-
-            }
-            7 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-
-            }
-            8 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            9 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
-            }
-            10 -> {
-                val intent = Intent(activity, TakingReadingTestActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("level", level)
-                startActivity(intent)
+            in 0..9 -> {
+                sendIntent(position)
             }
         }
     }

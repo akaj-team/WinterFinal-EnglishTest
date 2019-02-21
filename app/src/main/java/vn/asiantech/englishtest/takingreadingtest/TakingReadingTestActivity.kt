@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +8,8 @@ import android.view.View
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.TestResultFragment
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
 import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
@@ -174,7 +177,11 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
             super.onBackPressed()
-        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
+        }
+        else if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
+            startActivity(Intent(this, ListReadingTestActivity::class.java))
+        }
+        else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
             showAlertDialog()
         }
     }

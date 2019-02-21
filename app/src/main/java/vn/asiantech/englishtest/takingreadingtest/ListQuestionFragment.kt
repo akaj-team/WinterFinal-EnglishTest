@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment() {
@@ -44,6 +45,12 @@ class ListQuestionFragment : Fragment() {
     }
 
     private fun onClickSubmit() {
-        //TODO Stop Chronometer
+        btnSubmit.setOnClickListener {
+            //TODO Stop Chronometer
+            fragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.frListQuestions, TestResultFragment())
+                ?.commit()
+        }
     }
 }

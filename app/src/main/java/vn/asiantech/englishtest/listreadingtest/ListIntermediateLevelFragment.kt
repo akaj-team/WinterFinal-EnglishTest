@@ -14,7 +14,7 @@ import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListIntermediateLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
 
-    private var mListReadingTestItems: List<ListReadingTestItem>? = null
+    private var listReadingTestItems: List<ListReadingTestItem>? = null
     private val level = 2
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,16 +31,16 @@ class ListIntermediateLevelFragment : Fragment(), ListReadingTestAdapter.OnItemC
         recycleViewListReadingTests.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = mListReadingTestItems?.let { ListReadingTestAdapter(it, this@ListIntermediateLevelFragment) }
+            adapter = listReadingTestItems?.let { ListReadingTestAdapter(it, this@ListIntermediateLevelFragment) }
         }
     }
 
     private fun setData() {
         //TODO
         val maxTestNumber = 10
-        mListReadingTestItems = ArrayList()
+        listReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {
-            (mListReadingTestItems as ArrayList<ListReadingTestItem>).add(
+            (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
                     getString(R.string.time),

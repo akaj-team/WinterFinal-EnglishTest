@@ -19,9 +19,9 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:elevation="4dp" tools:targetApi="lollipop"/>
         <FrameLayout
+                android:id="@+id/frListReadingTest"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/frListReadingTests"/>
+                android:layout_height="match_parent"/>
 
     </LinearLayout>
 

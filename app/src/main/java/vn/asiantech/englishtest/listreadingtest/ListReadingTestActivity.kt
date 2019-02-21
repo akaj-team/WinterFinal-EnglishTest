@@ -15,7 +15,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -26,15 +25,55 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         drawerLayout.addDrawerListener(toggle)
 
         toggle.syncState()
-        initFragment()
+        initBasicLevelFragment()
         navigationView.setNavigationItemSelectedListener(this)
     }
 
-    private fun initFragment() {
+    private fun initBasicLevelFragment() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
-            .replace(R.id.frListReadingTests, ListReadingTestFragment())
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListBasicLevelFragment()
+            )
+            .commit()
+    }
+
+    private fun initIntermediateLevelFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListIntermediateLevelFragment()
+            )
+            .commit()
+    }
+
+    private fun initAdvancedLevelFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left,
+                R.anim.slide_in_right,
+                R.anim.slide_out_right
+            )
+            .replace(
+                R.id.frListReadingTest,
+                ListAdvancedLevelFragment()
+            )
             .commit()
     }
 
@@ -50,17 +89,17 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         when (item.itemId) {
             R.id.itemReadingLevelBasic -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initBasicLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Basic)
             }
             R.id.itemReadingLevelIntermediate -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initIntermediateLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemReadingLevelAdvanced -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initFragment()
+                initAdvancedLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Advanced)
             }
         }

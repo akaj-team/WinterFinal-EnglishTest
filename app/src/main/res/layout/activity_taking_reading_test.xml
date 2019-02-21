@@ -32,17 +32,27 @@
                 android:id="@+id/tvLevel"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/textSize20dp" tools:ignore="RelativeOverlap"/>
+                android:textSize="@dimen/dimen20dp" tools:ignore="RelativeOverlap"/>
+
+        <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/colorWhite"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="80dp"/>
 
         <Button
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="70dp"
+                android:layout_marginEnd="40dp"
                 android:id="@+id/btnListQuestions"
                 android:background="@drawable/ic_view_comfy_white_18dp"
                 android:layout_marginTop="10dp"/>
-
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
@@ -50,4 +60,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/rlDoTestToolbar"/>
+
+    <FrameLayout
+            android:id="@+id/frListQuestions"
+            android:layout_below="@+id/rlDoTestToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 </RelativeLayout>

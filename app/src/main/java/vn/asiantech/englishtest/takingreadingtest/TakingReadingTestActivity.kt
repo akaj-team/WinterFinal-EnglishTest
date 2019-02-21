@@ -21,6 +21,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
+        chronometer.start()
     }
 
     private fun initData() {
@@ -154,14 +155,16 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(
-                        R.id.questionDetailPager,
-                        ListQuestionFragment()
-                    )
-                    .addToBackStack(null)
-                    .commit()
+                if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
+                    super.onBackPressed()
+                } else {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_top)
+                        .replace(R.id.frListQuestions, ListQuestionFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
             R.id.btnBackToListTest -> {
                 onBackPressed()
@@ -170,10 +173,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
-            showAlertDialog()
-        } else {
+        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
             super.onBackPressed()
+        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
+            showAlertDialog()
         }
     }
 

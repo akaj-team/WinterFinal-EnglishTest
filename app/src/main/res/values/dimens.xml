@@ -1,11 +1,15 @@
 <resources>
-    <dimen name="textSize16dp">16dp</dimen>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="textSize30dp">30dp</dimen>
-    <dimen name="textSize20dp">20dp</dimen>
-    <dimen name="textSize24dp">24dp</dimen>
+    <dimen name="dimen16dp">16dp</dimen>
+    <dimen name="activityHorizontalMargin">16dp</dimen>
+    <dimen name="activityVerticalMargin">16dp</dimen>
+    <dimen name="navHeaderVerticalSpacing">8dp</dimen>
+    <dimen name="navHeaderHeight">176dp</dimen>
+    <dimen name="fabMargin">16dp</dimen>
+    <dimen name="dimen30dp">30dp</dimen>
+    <dimen name="dimen20dp">20dp</dimen>
+    <dimen name="dimen24dp">24dp</dimen>
+    <dimen name="dimen18dp">18dp</dimen>
+    <dimen name="dimen10dp">10dp</dimen>
+    <dimen name="dimen15dp">15dp</dimen>
+    <dimen name="dimen5dp">5dp</dimen>
 </resources>

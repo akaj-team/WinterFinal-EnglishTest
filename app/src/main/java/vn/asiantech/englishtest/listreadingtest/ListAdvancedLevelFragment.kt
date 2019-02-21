@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_list_basic_level.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ListReadingTestItems
+import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
 
-    private var mListReadingTestItems: List<ListReadingTestItems>? = null
+    private var mListReadingTestItems: List<ListReadingTestItem>? = null
     private val level = 3
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,8 +40,8 @@ class ListAdvancedLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClick
         val maxTestNumber = 10
         mListReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {
-            (mListReadingTestItems as ArrayList<ListReadingTestItems>).add(
-                ListReadingTestItems(
+            (mListReadingTestItems as ArrayList<ListReadingTestItem>).add(
+                ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
                     getString(R.string.time),
                     40

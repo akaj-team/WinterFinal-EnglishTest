@@ -6,12 +6,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_taking_reading_test.view.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment() {
-    private var mListQuestionItems: List<ListQuestionItem>? = null
+
+    private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -22,6 +24,7 @@ class ListQuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        onClickSubmit()
     }
 
     private fun initRecycleView() {
@@ -29,18 +32,19 @@ class ListQuestionFragment : Fragment() {
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
-            mListQuestionItems?.let {
-                ListQuestionAdapter(it)
-            }
+            adapter = ListQuestionAdapter(listQuestionItems)
         }
     }
 
     private fun setData() {
         //TODO
         val maxQuestionNumber = 40
-        mListQuestionItems = ArrayList()
         for (i in 0 until maxQuestionNumber) {
-            (mListQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
+            (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
         }
+    }
+
+    private fun onClickSubmit(){
+        //TODO Stop Chronometer
     }
 }

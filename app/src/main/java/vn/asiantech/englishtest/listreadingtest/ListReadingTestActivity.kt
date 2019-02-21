@@ -8,16 +8,18 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
-import vn.asiantech.englishtest.model.ListReadingTestItems
+import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var listPractice = arrayListOf<ListReadingTestItems>()
+    private var listPractice = arrayListOf<ListReadingTestItem>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+
         setSupportActionBar(toolBar as Toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolBar as Toolbar,
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolBar as Toolbar,
             R.string.navigationDrawerOpen,
             R.string.navigationDrawerClose
         )
@@ -79,7 +81,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         val maxTestNumber = 10
         for (i in 0 until maxTestNumber) {
             listPractice.add(
-                ListReadingTestItems(
+                ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
                     getString(R.string.time),
                     40

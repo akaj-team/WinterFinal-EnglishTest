@@ -8,15 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
-import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var listPractice = arrayListOf<ListReadingTestItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -25,9 +23,9 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         )
         supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
+
         toggle.syncState()
         initBasicLevelFragment()
-        setData()
         navigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -46,6 +44,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             )
             .commit()
     }
+
     private fun initIntermediateLevelFragment() {
         supportFragmentManager
             .beginTransaction()
@@ -61,6 +60,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             )
             .commit()
     }
+
     private fun initAdvancedLevelFragment() {
         supportFragmentManager
             .beginTransaction()
@@ -75,19 +75,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 ListAdvancedLevelFragment()
             )
             .commit()
-    }
-    private fun setData() {
-        //TODO
-        val maxTestNumber = 10
-        for (i in 0 until maxTestNumber) {
-            listPractice.add(
-                ListReadingTestItem(
-                    getString(R.string.practice) + " ${i + 1}",
-                    getString(R.string.time),
-                    40
-                )
-            )
-        }
     }
 
     override fun onBackPressed() {

@@ -8,7 +8,10 @@ import kotlinx.android.synthetic.main.reading_test_list_items.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 
-class ListReadingTestAdapter(private val listTests: List<ListReadingTestItem>, private val  listener : OnItemClickListener) :
+class ListReadingTestAdapter(
+    private val listTests: List<ListReadingTestItem>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
@@ -42,6 +45,7 @@ class ListReadingTestAdapter(private val listTests: List<ListReadingTestItem>, p
             itemView.clPractice.setOnClickListener(this)
         }
     }
+
     interface OnItemClickListener {
         fun onClick(position: Int)
     }

@@ -28,7 +28,7 @@ class ListBasicLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickLis
 
     private fun initRecycleView() {
         setData()
-        recycleViewListReadingTests.apply{
+        recycleViewListReadingTests.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = mListReadingTestItems?.let { ListReadingTestAdapter(it, this@ListBasicLevelFragment) }

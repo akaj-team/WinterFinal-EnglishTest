@@ -1,14 +1,17 @@
 package vn.asiantech.englishtest.listreadingtest
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
+
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -80,8 +83,11 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+        } else if (supportFragmentManager.findFragmentById(R.id.frListReadingTest) is ListBasicLevelFragment
+            || supportFragmentManager.findFragmentById(R.id.frListReadingTest) is ListIntermediateLevelFragment
+            || supportFragmentManager.findFragmentById(R.id.frListReadingTest) is ListAdvancedLevelFragment
+        ) {
+            showAlertDialog()
         }
     }
 
@@ -104,5 +110,23 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             }
         }
         return true
+    }
+
+    private fun showAlertDialog() {
+        AlertDialog.Builder(this).create().apply {
+            setTitle(getString(R.string.confirmExit))
+            setMessage(getString(R.string.doYouWantToExit))
+            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+            { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+            { _, _ ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        }.show()
     }
 }

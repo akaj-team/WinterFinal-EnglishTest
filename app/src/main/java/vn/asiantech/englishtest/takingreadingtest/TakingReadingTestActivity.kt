@@ -177,11 +177,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
             super.onBackPressed()
-        }
-        else if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
+        } else if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
             startActivity(Intent(this, ListReadingTestActivity::class.java))
-        }
-        else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
+        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
             showAlertDialog()
         }
     }

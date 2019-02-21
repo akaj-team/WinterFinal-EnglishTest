@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_list_level.*
+import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
@@ -18,7 +18,7 @@ class ListIntermediateLevelFragment : Fragment(), ListReadingTestAdapter.OnItemC
     private val level = 2
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_level, container, false)
+        return inflater.inflate(R.layout.fragment_list_test, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

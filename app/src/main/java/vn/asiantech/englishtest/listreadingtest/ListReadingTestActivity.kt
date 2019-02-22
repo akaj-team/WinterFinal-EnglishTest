@@ -1,9 +1,11 @@
 package vn.asiantech.englishtest.listreadingtest
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -40,39 +42,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             )
             .replace(
                 R.id.frListReadingTest,
-                ListBasicLevelFragment()
-            )
-            .commit()
-    }
-
-    private fun initIntermediateLevelFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left,
-                R.anim.slide_in_right,
-                R.anim.slide_out_right
-            )
-            .replace(
-                R.id.frListReadingTest,
-                ListIntermediateLevelFragment()
-            )
-            .commit()
-    }
-
-    private fun initAdvancedLevelFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left,
-                R.anim.slide_in_right,
-                R.anim.slide_out_right
-            )
-            .replace(
-                R.id.frListReadingTest,
-                ListAdvancedLevelFragment()
+                ListReadingTestFragment()
             )
             .commit()
     }
@@ -81,7 +51,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            showAlertDialog()
         }
     }
 
@@ -94,15 +64,33 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             }
             R.id.itemReadingLevelIntermediate -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initIntermediateLevelFragment()
+                initBasicLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemReadingLevelAdvanced -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
-                initAdvancedLevelFragment()
+                initBasicLevelFragment()
                 supportActionBar?.title = getString(R.string.part5Advanced)
             }
         }
         return true
+    }
+
+    private fun showAlertDialog() {
+        AlertDialog.Builder(this).create().apply {
+            setTitle(getString(R.string.confirmExit))
+            setMessage(getString(R.string.doYouWantToExit))
+            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+            { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+            { _, _ ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        }.show()
     }
 }

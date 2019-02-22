@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
-class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
+class ListQuestionFragment : Fragment() , ListQuestionAdapter.OnItemClickQuestionNumber{
 
     private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
 
@@ -47,7 +47,6 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     private fun onClickSubmit() {
         //TODO Stop Chronometer
     }
-
     override fun onClickQuestionNumber(position: Int) {
         activity?.frListQuestions?.visibility = View.GONE
         (activity as? TakingReadingTestActivity)?.questionDetailPager?.currentItem = position

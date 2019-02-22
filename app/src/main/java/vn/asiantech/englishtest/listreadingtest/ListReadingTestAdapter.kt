@@ -49,4 +49,6 @@ class ListReadingTestAdapter(
     interface OnItemClickListener {
         fun onClick(position: Int)
     }
+
+
 }

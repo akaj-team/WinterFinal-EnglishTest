@@ -12,10 +12,21 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
-class ListBasicLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
+class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
 
     private var listReadingTestItems: List<ListReadingTestItem>? = null
-    private val level = 1
+    private var level = 0
+
+    companion object {
+        private const val ARG_LEVEL = "arg_level"
+        fun getInstance(level: Int): ListReadingTestFragment =
+            ListReadingTestFragment().apply {
+                val bundle = Bundle().apply {
+                    putInt(ARG_LEVEL, level)
+                }
+                arguments = bundle
+            }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_level, container, false)
@@ -31,7 +42,7 @@ class ListBasicLevelFragment : Fragment(), ListReadingTestAdapter.OnItemClickLis
         recycleViewListReadingTests.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = listReadingTestItems?.let { ListReadingTestAdapter(it, this@ListBasicLevelFragment) }
+            adapter = listReadingTestItems?.let { ListReadingTestAdapter(it, this@ListReadingTestFragment) }
         }
     }
 

@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
-import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
@@ -26,114 +26,22 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         chronometer.start()
     }
 
+
     private fun initData() {
         val position: Int = intent.getIntExtra("position", 0)
-        val level: Int = intent.getIntExtra("level", 1)
+        val level: Int = intent.getIntExtra("level", 0)
         when (level) {
-            1 -> {
+            0 -> {
                 tvLevel.text = getString(R.string.part5Basic)
-                when (position) {
-                    0 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic01")
-                    }
-                    1 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic02")
-                    }
-                    2 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic03")
-                    }
-                    3 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic04")
-                    }
-                    4 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic05")
-                    }
-                    5 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic06")
-                    }
-                    6 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic07")
-                    }
-                    7 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic08")
-                    }
-                    8 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic09")
-                    }
-                    9 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic10")
-                    }
-                }
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
+            }
+            1 -> {
+                tvLevel.text = getString(R.string.part5Intermediate)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
             }
             2 -> {
-                tvLevel.text = getString(R.string.part5Intermediate)
-                when (position) {
-                    0 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate01")
-                    }
-                    1 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate02")
-                    }
-                    2 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate03")
-                    }
-                    3 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate04")
-                    }
-                    4 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate05")
-                    }
-                    5 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate06")
-                    }
-                    6 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate07")
-                    }
-                    7 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate08")
-                    }
-                    8 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate09")
-                    }
-                    9 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate10")
-                    }
-                }
-            }
-            3 -> {
                 tvLevel.text = getString(R.string.part5Advanced)
-                when (position) {
-                    0 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced01")
-                    }
-                    1 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced02")
-                    }
-                    2 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced03")
-                    }
-                    3 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced04")
-                    }
-                    4 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced05")
-                    }
-                    5 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced06")
-                    }
-                    6 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced07")
-                    }
-                    7 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced08")
-                    }
-                    8 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced09")
-                    }
-                    9 -> {
-                        dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced10")
-                    }
-                }
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
@@ -153,36 +61,38 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 questionDetailPager.currentItem = positionQuestion
             }
         })
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frListQuestions, ListQuestionFragment())
+            addToBackStack(null)
+            commit()
+        }
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
-                    super.onBackPressed()
+                if (frListQuestions.visibility == View.VISIBLE) {
+                    with(frListQuestions){
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_top)
+                        visibility = View.GONE
+                    }
                 } else {
-                    frListQuestions?.visibility = View.VISIBLE
-                    supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_top)
-                        .replace(R.id.frListQuestions, ListQuestionFragment())
-                        .addToBackStack(null)
-                        .commit()
+                    with(frListQuestions){
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_top)
+                        visibility = View.VISIBLE
+                    }
                 }
             }
             R.id.btnBackToListTest -> {
                 onBackPressed()
             }
-
         }
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
-            super.onBackPressed()
-        } else if (supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment) {
-            showAlertDialog()
-        }
+        if (frListQuestions.visibility == View.GONE) showAlertDialog()
+        else frListQuestions.visibility = View.GONE
     }
 
     private fun showAlertDialog() {

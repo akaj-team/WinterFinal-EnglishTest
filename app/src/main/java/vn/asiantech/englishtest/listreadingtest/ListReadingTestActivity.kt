@@ -12,12 +12,12 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
 
-
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+        
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -26,7 +26,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         )
         supportActionBar?.title = getString(R.string.part5Basic)
         drawerLayout.addDrawerListener(toggle)
-
         toggle.syncState()
         initBasicLevelFragment()
         navigationView.setNavigationItemSelectedListener(this)

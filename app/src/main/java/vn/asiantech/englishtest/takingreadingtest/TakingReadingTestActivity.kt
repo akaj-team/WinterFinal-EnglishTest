@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +8,7 @@ import android.view.View
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
 import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
@@ -146,7 +148,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                         questionList.add(it)
                     }
                 }
+                val positionQuestion: Int = intent.getIntExtra("positionQuestion", 0)
                 questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                questionDetailPager.currentItem = positionQuestion
             }
         })
     }
@@ -157,6 +161,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
                     super.onBackPressed()
                 } else {
+                    frListQuestions?.visibility = View.VISIBLE
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_top)
@@ -168,6 +173,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnBackToListTest -> {
                 onBackPressed()
             }
+
         }
     }
 
@@ -189,7 +195,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                super.onBackPressed()
+                startActivity(Intent(applicationContext, ListReadingTestActivity::class.java))
             }
         }.show()
     }

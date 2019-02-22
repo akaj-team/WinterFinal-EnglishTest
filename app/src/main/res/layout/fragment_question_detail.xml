@@ -14,7 +14,7 @@
             android:layout_marginTop="20dp">
         <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/tvQuestion"
                 android:textColor="@color/colorBlack"
@@ -39,7 +39,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvAnswerA"
                     android:paddingBottom="15dp"
@@ -55,7 +55,7 @@
                     android:background="?android:attr/listDivider"/>
 
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvAnswerB"
                     android:paddingBottom="15dp"
@@ -70,7 +70,7 @@
                     android:background="?android:attr/listDivider"/>
 
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvAnswerC"
                     android:paddingBottom="15dp"
@@ -86,7 +86,7 @@
                     android:background="?android:attr/listDivider"/>
 
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvAnswerD"
                     android:paddingBottom="15dp"

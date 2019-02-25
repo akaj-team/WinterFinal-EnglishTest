@@ -6,19 +6,19 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
-import vn.asiantech.englishtest.showquestionviewpager.QuestionDetailFragment
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, ListQuestionFragment.OnClick {
 
     private lateinit var dataQuestion: DatabaseReference
     private var questionList = arrayListOf<ListQuestionDetailItem>()
+    private var level = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +30,20 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
     }
 
     private fun initData() {
-        val position: Int = intent.getIntExtra("position", 0)
-        val level: Int = intent.getIntExtra("level", 1)
+        val position: Int = intent.getIntExtra(getString(R.string.position), 0)
+        level = intent.getIntExtra(getString(R.string.level), 0)
         when (level) {
-            1 -> {
+            0 -> {
                 tvLevel.text = getString(R.string.part5Basic)
-                when (position) {
-                    in 0..9 -> dataQuestion =
-                        FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
-                }
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
+            }
+            1 -> {
+                tvLevel.text = getString(R.string.part5Intermediate)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
             }
             2 -> {
-                tvLevel.text = getString(R.string.part5Intermediate)
-                when (position) {
-                    in 0..9 -> dataQuestion =
-                        FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
-                }
-            }
-            3 -> {
                 tvLevel.text = getString(R.string.part5Advanced)
-                when (position) {
-                    in 0..9 -> dataQuestion =
-                        FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
-                }
+                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
@@ -70,20 +61,27 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
                 questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
         })
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frListQuestions, ListQuestionFragment())
+            addToBackStack(null)
+            commit()
+        }
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment) {
-                    super.onBackPressed()
+                if (frListQuestions.visibility == View.VISIBLE) {
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                        visibility = View.GONE
+                    }
                 } else {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_top, R.anim.slide_out_top)
-                        .replace(R.id.frListQuestions, ListQuestionFragment())
-                        .addToBackStack(null)
-                        .commit()
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
+                        visibility = View.VISIBLE
+                    }
                 }
             }
             R.id.btnBackToListTest -> {
@@ -93,16 +91,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
     }
 
     override fun onBackPressed() {
-        when {
-            supportFragmentManager.findFragmentById(R.id.frListQuestions) is ListQuestionFragment -> super.onBackPressed()
-            supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> startActivity(
-                Intent(
-                    this,
-                    ListReadingTestActivity::class.java
-                )
-            )
-            supportFragmentManager.findFragmentById(R.id.questionDetailPager) is QuestionDetailFragment -> showAlertDialog()
-        }
+        if (frListQuestions.visibility == View.GONE) {
+            showAlertDialog()
+        } else frListQuestions.visibility = View.GONE
     }
 
     private fun showAlertDialog() {
@@ -115,7 +106,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                super.onBackPressed()
+                startActivity(
+                    Intent(applicationContext, ListReadingTestActivity::class.java)
+                        .putExtra(getString(R.string.level), level)
+                )
             }
         }.show()
     }

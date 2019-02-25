@@ -15,7 +15,6 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen20dp"
                 android:id="@+id/tvQuestion"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/dimen16dp"
@@ -64,6 +63,7 @@
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen16dp"
                     android:text="@string/questionDetailHere"/>
+
             <View
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"

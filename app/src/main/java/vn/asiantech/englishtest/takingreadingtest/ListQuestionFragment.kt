@@ -11,20 +11,19 @@ import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
-class ListQuestionFragment : Fragment() , ListQuestionAdapter.OnItemClickQuestionNumber{
-
+class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
     private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
-
+    private val listener: OnClick? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_list_questions, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_list_questions, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
-        onClickSubmit()
     }
 
     private fun initRecycleView() {
@@ -44,12 +43,18 @@ class ListQuestionFragment : Fragment() , ListQuestionAdapter.OnItemClickQuestio
         }
     }
 
-    private fun onClickSubmit() {
-        //TODO Stop Chronometer
+    private fun onClickListener() {
+        btnSubmit.setOnClickListener {
+            listener?.onClickSubmit()
+        }
     }
+
+    interface OnClick {
+        fun onClickSubmit()
+    }
+
     override fun onClickQuestionNumber(position: Int) {
         activity?.frListQuestions?.visibility = View.GONE
         (activity as? TakingReadingTestActivity)?.questionDetailPager?.currentItem = position
-
     }
 }

@@ -53,15 +53,19 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     }
 
     private fun setNavigationItem() {
-        if (level == 0) {
-            supportActionBar?.title = getString(R.string.part5Basic)
-            navigationView.setCheckedItem(R.id.itemReadingLevelBasic)
-        } else if (level == 1) {
-            supportActionBar?.title = getString(R.string.part5Intermediate)
-            navigationView.setCheckedItem(R.id.itemReadingLevelIntermediate)
-        } else if (level == 2) {
-            supportActionBar?.title = getString(R.string.part5Advanced)
-            navigationView.setCheckedItem(R.id.itemReadingLevelAdvanced)
+        when (level) {
+            0 -> {
+                supportActionBar?.title = getString(R.string.part5Basic)
+                navigationView.setCheckedItem(R.id.itemReadingLevelBasic)
+            }
+            1 -> {
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+                navigationView.setCheckedItem(R.id.itemReadingLevelIntermediate)
+            }
+            2 -> {
+                supportActionBar?.title = getString(R.string.part5Advanced)
+                navigationView.setCheckedItem(R.id.itemReadingLevelAdvanced)
+            }
         }
     }
 

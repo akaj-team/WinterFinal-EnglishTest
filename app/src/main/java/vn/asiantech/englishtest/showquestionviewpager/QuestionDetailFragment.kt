@@ -31,7 +31,6 @@ class QuestionDetailFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             data = it.getParcelable(ARG_DATA) as ListQuestionDetailItem
         }
-
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 

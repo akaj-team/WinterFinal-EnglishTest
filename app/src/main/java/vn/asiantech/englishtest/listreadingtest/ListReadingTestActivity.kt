@@ -37,19 +37,19 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     }
 
     private fun initListReadingTestFragment(level: Int) {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
                 R.anim.slide_in_left,
                 R.anim.slide_out_left,
                 R.anim.slide_in_right,
                 R.anim.slide_out_right
             )
-            .replace(
+            replace(
                 R.id.frListReadingTest,
                 ListReadingTestFragment.getInstance(level)
             )
-            .commit()
+            commit()
+        }
     }
 
     private fun setNavigationItem() {

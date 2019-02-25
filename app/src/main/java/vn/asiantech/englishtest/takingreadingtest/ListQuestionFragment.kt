@@ -47,18 +47,19 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     private fun onClickListener() {
+        //TODO
         btnSubmit.setOnClickListener {
             listener?.onClickSubmit()
         }
     }
 
     interface OnClick {
+        //TODO
         fun onClickSubmit()
     }
 
     override fun onClickQuestionNumber(position: Int) {
         activity?.frListQuestions?.visibility = View.GONE
         (activity as? TakingReadingTestActivity)?.questionDetailPager?.currentItem = position
-
     }
 }

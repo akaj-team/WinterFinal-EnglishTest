@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.google.firebase.database.*
@@ -115,7 +114,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
     }
 
     override fun onClickSubmit() {
-        Log.i("xxxx", "xxx")
+        //TODO
         chronometer.stop()
     }
 }

@@ -119,7 +119,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
         val message = dialogView.findViewById<TextView>(R.id.progressDialogMessage)
-        message.text = getString(R.string.downloadingData)
+        message.text = getString(R.string.loadingData)
         builder.setView(dialogView)
         builder.setCancelable(false)
         progressDialog = builder.create()

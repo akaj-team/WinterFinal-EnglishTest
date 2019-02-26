@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
+import kotlinx.android.synthetic.main.list_question_items.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.model.ListQuestionItem

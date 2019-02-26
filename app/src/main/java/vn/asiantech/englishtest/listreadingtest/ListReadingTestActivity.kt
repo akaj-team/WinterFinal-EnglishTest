@@ -1,6 +1,5 @@
 package vn.asiantech.englishtest.listreadingtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -79,10 +78,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                finish()
             }
         }.show()
     }

@@ -11,9 +11,11 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+import kotlin.math.max
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
     private var listReadingTestItems: List<ListReadingTestItem>? = null
+    val maxTestNumber = 10
 
     companion object {
         private const val ARG_LEVEL = "arg_level"
@@ -47,7 +49,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
 
     private fun setData() {
         //TODO
-        val maxTestNumber = 10
+
         listReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
@@ -62,7 +64,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
 
     override fun onClick(position: Int) {
         when (position) {
-            in 0..9 -> {
+            in 0..maxTestNumber-> {
                 startActivity(
                     Intent(activity, TakingReadingTestActivity::class.java)
                         .putExtra(getString(R.string.position), position)

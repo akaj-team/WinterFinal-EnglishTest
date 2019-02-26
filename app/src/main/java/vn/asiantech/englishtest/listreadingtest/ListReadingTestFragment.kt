@@ -47,8 +47,9 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
 
     private fun setData() {
         //TODO
+        val maxTestNumber = 10
         listReadingTestItems = ArrayList()
-        for (i in 0 until (listReadingTestItems as ArrayList<ListReadingTestItem>).size) {
+        for (i in 0 until maxTestNumber) {
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",

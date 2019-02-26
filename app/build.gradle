@@ -20,10 +20,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         abortOnError false
         lintConfig file('lint.xml')
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 

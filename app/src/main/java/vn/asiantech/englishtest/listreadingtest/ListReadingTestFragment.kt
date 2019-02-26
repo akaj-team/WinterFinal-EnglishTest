@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
-import kotlin.math.max
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
     private var listReadingTestItems: List<ListReadingTestItem>? = null
@@ -64,7 +63,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
 
     override fun onClick(position: Int) {
         when (position) {
-            in 0..maxTestNumber-> {
+            in 0..maxTestNumber -> {
                 startActivity(
                     Intent(activity, TakingReadingTestActivity::class.java)
                         .putExtra(getString(R.string.position), position)

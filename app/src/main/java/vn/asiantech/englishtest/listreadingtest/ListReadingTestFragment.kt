@@ -13,8 +13,7 @@ import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
-    private var listReadingTestItems: List<ListReadingTestItem>? = null
-    val maxTestNumber = 10
+    private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
 
     companion object {
         private const val ARG_LEVEL = "arg_level"
@@ -48,9 +47,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
 
     private fun setData() {
         //TODO
-
         listReadingTestItems = ArrayList()
-        for (i in 0 until maxTestNumber) {
+        for (i in 0 until (listReadingTestItems as ArrayList<ListReadingTestItem>).size) {
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
@@ -62,14 +60,10 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     override fun onClick(position: Int) {
-        when (position) {
-            in 0..maxTestNumber -> {
-                startActivity(
-                    Intent(activity, TakingReadingTestActivity::class.java)
-                        .putExtra(getString(R.string.position), position)
-                        .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
-                )
-            }
-        }
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(getString(R.string.position), position)
+                .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
+        )
     }
 }

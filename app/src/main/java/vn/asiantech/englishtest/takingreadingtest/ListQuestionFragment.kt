@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
 
-    private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
+    private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
     private val listener: OnClick? = null
 
     override fun onCreateView(

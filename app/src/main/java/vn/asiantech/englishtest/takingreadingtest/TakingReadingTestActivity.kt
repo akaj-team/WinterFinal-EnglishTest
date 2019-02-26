@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
@@ -92,7 +93,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (frListQuestions.visibility == View.GONE) {
+        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
+            finish()
+        } else if (frListQuestions.visibility == View.GONE) {
             showAlertDialog()
         } else frListQuestions.visibility = View.GONE
     }
@@ -118,10 +121,11 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private fun showProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
-        val message = dialogView.findViewById<TextView>(R.id.progressDialogMessage)
-        message.text = getString(R.string.loadingData)
-        builder.setView(dialogView)
-        builder.setCancelable(false)
+        dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
+        builder.apply {
+            setView(dialogView)
+            setCancelable(false)
+        }
         progressDialog = builder.create()
     }
 }

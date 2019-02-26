@@ -29,13 +29,14 @@ class QuestionDetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         arguments?.let {
             position = it.getInt(ARG_POSITION)
             data = it.getParcelable(ARG_DATA) as ListQuestionDetailItem
         }
-        (activity as TakingReadingTestActivity).progressDialog?.dismiss()
-        (activity as TakingReadingTestActivity).chronometer.start()
+        (activity as TakingReadingTestActivity).apply {
+            progressDialog?.dismiss()
+            chronometer.start()
+        }
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
@@ -51,5 +52,4 @@ class QuestionDetailFragment : Fragment() {
             }
         }
     }
-
 }

@@ -9,28 +9,28 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
 
     private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
-    private val listener: OnClick? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val view: View = inflater.inflate(R.layout.fragment_list_questions, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        onClickSubmit()
     }
 
     private fun initRecycleView() {
-        setData()
+        setListQuestionNumber()
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
@@ -38,24 +38,21 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         }
     }
 
-    private fun setData() {
-        //TODO
+    private fun setListQuestionNumber() {
         val maxQuestionNumber = 40
         for (i in 0 until maxQuestionNumber) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
         }
     }
 
-    private fun onClickListener() {
-        //TODO
+    private fun onClickSubmit() {
         btnSubmit.setOnClickListener {
-            listener?.onClickSubmit()
+            activity?.chronometer?.stop()
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.frListQuestions, TestResultFragment())
+                commit()
+            }
         }
-    }
-
-    interface OnClick {
-        //TODO
-        fun onClickSubmit()
     }
 
     override fun onClickQuestionNumber(position: Int) {

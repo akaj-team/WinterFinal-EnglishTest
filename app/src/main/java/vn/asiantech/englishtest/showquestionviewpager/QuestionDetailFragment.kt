@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class QuestionDetailFragment : Fragment() {
     private var data: ListQuestionDetailItem? = null
@@ -27,10 +29,13 @@ class QuestionDetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         arguments?.let {
             position = it.getInt(ARG_POSITION)
             data = it.getParcelable(ARG_DATA) as ListQuestionDetailItem
         }
+        (activity as TakingReadingTestActivity).progressDialog?.dismiss()
+        (activity as TakingReadingTestActivity).chronometer.start()
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
@@ -46,4 +51,5 @@ class QuestionDetailFragment : Fragment() {
             }
         }
     }
+
 }

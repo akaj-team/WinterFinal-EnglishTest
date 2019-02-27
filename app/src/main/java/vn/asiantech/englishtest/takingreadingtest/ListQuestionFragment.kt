@@ -54,7 +54,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 commit()
             }
             activity?.apply {
-                chronometer?.visibility = View.GONE
+                //chronometer?.visibility = View.GONE
                 btnListQuestions?.visibility = View.GONE
             }
         }

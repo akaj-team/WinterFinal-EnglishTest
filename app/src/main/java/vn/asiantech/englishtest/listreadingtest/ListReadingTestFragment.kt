@@ -53,7 +53,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
-                    getString(R.string.time),
+                    getString(R.string.timeDisplay),
                     40
                 )
             )

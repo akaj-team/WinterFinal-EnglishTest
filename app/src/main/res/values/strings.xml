@@ -19,7 +19,7 @@
     <string name="practice">Practice</string>
     <string name="time">Time</string>
     <string name="score">Score</string>
-    <string name="timeDisplay">02:00</string>
+    <string name="timeDisplay">00:00</string>
     <string name="score40">40</string>
     <string name="level">level</string>
     <string name="submit">SUBMIT</string>
@@ -33,4 +33,6 @@
     <string name="congratulations">Congratulations!</string>
     <string name="position">position</string>
     <string name="loadingData">Loading data...</string>
+    <string name="review">review</string>
+    <string name="exit">exit</string>
 </resources>

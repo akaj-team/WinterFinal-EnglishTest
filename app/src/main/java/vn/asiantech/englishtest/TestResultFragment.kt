@@ -21,10 +21,20 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
-        (activity as TakingReadingTestActivity).tvDurationTime.text = chronometer.text.toString()
+        tvDurationTime.text = (activity as TakingReadingTestActivity).chronometer.text.toString()
     }
 
     override fun onClick(view: View?) {
-        TODO("not implemented")
+        when (view?.id) {
+            R.id.btnReview -> {
+                activity?.apply {
+                    frListQuestions?.visibility = View.GONE
+                    questionDetailPager?.currentItem = 0
+                }
+            }
+            R.id.btnExit -> {
+                activity?.finish()
+            }
+        }
     }
 }

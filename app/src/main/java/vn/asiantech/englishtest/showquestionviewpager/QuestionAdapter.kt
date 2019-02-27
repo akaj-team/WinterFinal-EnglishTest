@@ -13,8 +13,7 @@ class QuestionAdapter(fm: FragmentManager, private var questionList: ArrayList<L
     }
 
     override fun getItem(position: Int): Fragment {
-        val question = questionList[position]
-        return QuestionDetailFragment.getInstance(position, question)
+        return QuestionDetailFragment.getInstance(position, questionList[position])
     }
 
     override fun getCount(): Int = TOTALQUESTION

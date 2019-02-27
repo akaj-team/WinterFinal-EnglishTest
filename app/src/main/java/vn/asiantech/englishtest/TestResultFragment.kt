@@ -21,11 +21,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
-        tvDurationTime.text = (activity as TakingReadingTestActivity).chronometer.text.toString()
+        (activity as TakingReadingTestActivity).tvDurationTime.text = chronometer.text.toString()
     }
 
     override fun onClick(view: View?) {
         TODO("not implemented")
     }
-
 }

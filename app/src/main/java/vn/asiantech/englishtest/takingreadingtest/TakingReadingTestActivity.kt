@@ -95,9 +95,14 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
             finish()
-        } else if (frListQuestions.visibility == View.GONE) {
+        } else if (frListQuestions.visibility == View.VISIBLE) {
+            with(frListQuestions) {
+                animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                visibility = View.GONE
+            }
+        } else {
             showAlertDialog()
-        } else frListQuestions.visibility = View.GONE
+        }
     }
 
     private fun showAlertDialog() {

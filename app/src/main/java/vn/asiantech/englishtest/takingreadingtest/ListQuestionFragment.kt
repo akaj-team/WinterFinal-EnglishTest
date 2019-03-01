@@ -9,17 +9,15 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.TestResultFragment
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
 
-    private var listQuestionItems: List<ListQuestionItem> = arrayListOf()
+    private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
@@ -27,6 +25,13 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
         onClickSubmit()
+    }
+
+    override fun onClickQuestionNumber(position: Int) {
+        activity?.apply {
+            frListQuestions?.visibility = View.GONE
+            questionDetailPager?.currentItem = position
+        }
     }
 
     private fun initRecycleView() {
@@ -57,13 +62,6 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 chronometer?.visibility = View.GONE
                 btnListQuestions?.visibility = View.GONE
             }
-        }
-    }
-
-    override fun onClickQuestionNumber(position: Int) {
-        activity?.apply {
-            frListQuestions?.visibility = View.GONE
-            questionDetailPager?.currentItem = position
         }
     }
 }

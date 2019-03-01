@@ -9,7 +9,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionAdapter(
-    private val listQuestions: List<ListQuestionItem>,
+    private val listQuestions: MutableList<ListQuestionItem>,
     private val listener: OnItemClickQuestionNumber
 ) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
@@ -26,6 +26,10 @@ class ListQuestionAdapter(
         holder.bindView(listQuestions[position])
     }
 
+    interface OnItemClickQuestionNumber {
+        fun onClickQuestionNumber(position: Int)
+    }
+
     inner class ListQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
             listener.onClickQuestionNumber(layoutPosition)
@@ -35,9 +39,5 @@ class ListQuestionAdapter(
             with(itemView) { with(listItem) { tvQuestionNumber.text = testNumber.toString() } }
             itemView.tvQuestionNumber.setOnClickListener(this)
         }
-    }
-
-    interface OnItemClickQuestionNumber {
-        fun onClickQuestionNumber(position: Int)
     }
 }

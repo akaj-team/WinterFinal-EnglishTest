@@ -1,6 +1,5 @@
 package vn.asiantech.englishtest.takingreadingtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -10,10 +9,8 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.TestResultFragment
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
-import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
+import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -24,11 +21,25 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_taking_reading_test)
         showProgressDialog()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
+            finish()
+        } else if (frListQuestions.visibility == View.VISIBLE) {
+            with(frListQuestions) {
+                animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                visibility = View.GONE
+            }
+        } else {
+            showAlertDialog()
+        }
     }
 
     private fun initData() {
@@ -92,19 +103,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment) {
-            finish()
-        } else if (frListQuestions.visibility == View.VISIBLE) {
-            with(frListQuestions) {
-                animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
-                visibility = View.GONE
-            }
-        } else {
-            showAlertDialog()
-        }
-    }
-
     private fun showAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
@@ -115,10 +113,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                startActivity(
-                    Intent(applicationContext, ListReadingTestActivity::class.java)
-                        .putExtra(getString(R.string.level), level)
-                )
+                finish()
+                intent.putExtra(getString(R.string.level), level)
+
             }
         }.show()
     }

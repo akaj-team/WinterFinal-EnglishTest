@@ -4,14 +4,14 @@
   - Trần Văn Hưng
 ## Mô tả chức năng ứng dụng
 ### Ứng dụng
-  - Đăng nhập, đăng kí
-  - Cập nhật thông tin người dùng
-  - Test kĩ năng Listening
-  - Test kĩ năng Reading
-  - Xem kết quả sau khi làm test
-  - Xem giải thích chi tiết từng câu
-  - Lưu kết quả test
-  - Đếm thời gian trong khi làm test
+  - [ ] Đăng nhập, đăng kí
+  - [ ] Cập nhật thông tin người dùng
+  - [ ] Test kĩ năng Listening
+  - [ ] Test kĩ năng Reading
+  - [ ] Xem kết quả sau khi làm test
+  - [ ] Xem giải thích chi tiết từng câu
+  - [ ] Lưu thời gian và kết quả test
+  - [ ] Đếm thời gian trong khi làm test
 ### Cơ sở dữ liệu
-  - File mp3 và các phương án lựa chọn tương ứng
-  - Các câu hỏi và các phương án lựa chọn tương ứng
+  - [ ] File mp3 và các phương án lựa chọn tương ứng
+  - [ ] Các câu hỏi điền vào chỗ trống và các phương án lựa chọn tương ứng

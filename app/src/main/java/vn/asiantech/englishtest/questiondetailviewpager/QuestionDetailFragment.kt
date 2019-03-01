@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.showquestionviewpager
+package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.takingreadingtest
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.R
+
 
 class TestResultFragment : Fragment(), View.OnClickListener {
 

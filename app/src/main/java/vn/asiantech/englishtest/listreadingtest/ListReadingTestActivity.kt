@@ -1,6 +1,5 @@
 package vn.asiantech.englishtest.listreadingtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -34,6 +33,37 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         toggle.syncState()
         initListReadingTestFragment(level)
         navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            showAlertDialog()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.itemReadingLevelBasic -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Basic)
+            }
+            R.id.itemReadingLevelIntermediate -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 1
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+            }
+            R.id.itemReadingLevelAdvanced -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 2
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Advanced)
+            }
+        }
+        return true
     }
 
     private fun initListReadingTestFragment(level: Int) {
@@ -79,42 +109,8 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                finish()
             }
         }.show()
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            showAlertDialog()
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.itemReadingLevelBasic -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Basic)
-            }
-            R.id.itemReadingLevelIntermediate -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 1
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Intermediate)
-            }
-            R.id.itemReadingLevelAdvanced -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 2
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Advanced)
-            }
-        }
-        return true
     }
 }

@@ -10,7 +10,8 @@ import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionAdapter(
     private val listQuestions: List<ListQuestionItem>,
-    private val listener: OnItemClickQuestionNumber) :
+    private val listener: OnItemClickQuestionNumber
+) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListQuestionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_question_items, parent, false)

@@ -8,6 +8,7 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 
 class QuestionAdapter(fm: FragmentManager, private var questionList: ArrayList<ListQuestionDetailItem>) :
     FragmentStatePagerAdapter(fm) {
+
     companion object {
         const val TOTALQUESTION = 40
     }

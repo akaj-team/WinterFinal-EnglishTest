@@ -14,8 +14,10 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
+
     private lateinit var dataQuestion: DatabaseReference
-    private var questionList = arrayListOf<ListQuestionDetailItem>()
+    var questionList = arrayListOf<ListQuestionDetailItem>()
+    private var level = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +28,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         chronometer.start()
     }
 
-
     private fun initData() {
-        val position: Int = intent.getIntExtra("position", 0)
-        val level: Int = intent.getIntExtra("level", 0)
+        val position: Int = intent.getIntExtra(getString(R.string.position), 0)
+        level = intent.getIntExtra(getString(R.string.level), 0)
         when (level) {
             0 -> {
                 tvLevel.text = getString(R.string.part5Basic)
@@ -56,12 +57,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                         questionList.add(it)
                     }
                 }
-                val positionQuestion: Int = intent.getIntExtra("positionQuestion", 0)
-                questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
-                questionDetailPager.currentItem = positionQuestion
+                questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
         })
-
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frListQuestions, ListQuestionFragment())
             addToBackStack(null)
@@ -73,13 +71,13 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.btnListQuestions -> {
                 if (frListQuestions.visibility == View.VISIBLE) {
-                    with(frListQuestions){
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_top)
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                         visibility = View.GONE
                     }
                 } else {
-                    with(frListQuestions){
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_top)
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
                         visibility = View.VISIBLE
                     }
                 }
@@ -91,8 +89,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (frListQuestions.visibility == View.GONE) showAlertDialog()
-        else frListQuestions.visibility = View.GONE
+        if (frListQuestions.visibility == View.GONE) {
+            showAlertDialog()
+        } else frListQuestions.visibility = View.GONE
     }
 
     private fun showAlertDialog() {
@@ -105,7 +104,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                startActivity(Intent(applicationContext, ListReadingTestActivity::class.java))
+                startActivity(
+                    Intent(applicationContext, ListReadingTestActivity::class.java)
+                        .putExtra(getString(R.string.level), level)
+                )
             }
         }.show()
     }

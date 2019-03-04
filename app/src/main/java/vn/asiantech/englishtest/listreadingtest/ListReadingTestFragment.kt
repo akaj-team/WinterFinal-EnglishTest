@@ -7,15 +7,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_list_level.*
+import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
-
     private var listReadingTestItems: List<ListReadingTestItem>? = null
-    private var level = 0
 
     companion object {
         private const val ARG_LEVEL = "arg_level"
@@ -29,7 +27,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_level, container, false)
+
+        return inflater.inflate(R.layout.fragment_list_test, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,17 +60,14 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         }
     }
 
-    private fun sendIntent(position: Int) {
-        val intent = Intent(activity, TakingReadingTestActivity::class.java)
-        intent.putExtra("position", position)
-        intent.putExtra("level", level)
-        startActivity(intent)
-    }
-
     override fun onClick(position: Int) {
         when (position) {
             in 0..9 -> {
-                sendIntent(position)
+                startActivity(
+                    Intent(activity, TakingReadingTestActivity::class.java)
+                        .putExtra(getString(R.string.position), position)
+                        .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
+                )
             }
         }
     }

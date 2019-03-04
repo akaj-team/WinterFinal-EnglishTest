@@ -13,12 +13,16 @@ import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private var navItemSelectedPosition = 0
     private var level = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+
         level = intent.getIntExtra(getString(R.string.level), 0)
+
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -33,31 +37,35 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     }
 
     private fun initListReadingTestFragment(level: Int) {
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
                 R.anim.slide_in_left,
                 R.anim.slide_out_left,
                 R.anim.slide_in_right,
                 R.anim.slide_out_right
             )
-            .replace(
+            replace(
                 R.id.frListReadingTest,
                 ListReadingTestFragment.getInstance(level)
             )
-            .commit()
+            commit()
+        }
     }
 
     private fun setNavigationItem() {
-        if (level == 0) {
-            supportActionBar?.title = getString(R.string.part5Basic)
-            navigationView.setCheckedItem(R.id.itemReadingLevelBasic)
-        } else if (level == 1) {
-            supportActionBar?.title = getString(R.string.part5Intermediate)
-            navigationView.setCheckedItem(R.id.itemReadingLevelIntermediate)
-        } else if (level == 2) {
-            supportActionBar?.title = getString(R.string.part5Advanced)
-            navigationView.setCheckedItem(R.id.itemReadingLevelAdvanced)
+        when (level) {
+            0 -> {
+                supportActionBar?.title = getString(R.string.part5Basic)
+                navigationView.setCheckedItem(R.id.itemReadingLevelBasic)
+            }
+            1 -> {
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+                navigationView.setCheckedItem(R.id.itemReadingLevelIntermediate)
+            }
+            2 -> {
+                supportActionBar?.title = getString(R.string.part5Advanced)
+                navigationView.setCheckedItem(R.id.itemReadingLevelAdvanced)
+            }
         }
     }
 

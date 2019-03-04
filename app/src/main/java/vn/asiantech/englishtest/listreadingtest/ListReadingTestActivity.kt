@@ -47,6 +47,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         when (item.itemId) {
             R.id.itemReadingLevelBasic -> {
                 drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 0
                 initListReadingTestFragment(navItemSelectedPosition)
                 supportActionBar?.title = getString(R.string.part5Basic)
             }

@@ -9,13 +9,12 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 
 class ListReadingTestAdapter(
-    private val listTests: List<ListReadingTestItem>,
+    private val listTests: MutableList<ListReadingTestItem>,
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = layoutInflater.inflate(R.layout.list_test_items, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_test_items, parent, false)
         return ListReadingTestViewHolder(view)
     }
 

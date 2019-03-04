@@ -9,7 +9,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionAdapter(
-    private val listQuestions: List<ListQuestionItem>,
+    private val listQuestions: MutableList<ListQuestionItem>,
     private val listener: OnItemClickQuestionNumber
 ) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {

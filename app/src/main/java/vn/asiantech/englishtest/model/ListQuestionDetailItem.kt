@@ -5,11 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ListQuestionDetailItem(
-    val question: String ?= null,
-    val answerA: String ?= null,
-    val answerB: String ?= null,
-    val answerC: String ?= null,
-    val answerD: String ?= null,
-    val correctanswer : String ?= null,
-    var myAnswer : String ?= null
+    val question: String = "",
+    val answerA: String = "",
+    val answerB: String = "",
+    val answerC: String = "",
+    val answerD: String = "",
+    val correctanswer: String = "",
+    var myAnswer: String = ""
 ) : Parcelable

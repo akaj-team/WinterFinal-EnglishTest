@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
-    private var listReadingTestItems: List<ListReadingTestItem>? = null
+    private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
 
     companion object {
         private const val ARG_LEVEL = "arg_level"
@@ -61,14 +61,10 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     override fun onClick(position: Int) {
-        when (position) {
-            in 0..9 -> {
-                startActivity(
-                    Intent(activity, TakingReadingTestActivity::class.java)
-                        .putExtra(getString(R.string.position), position)
-                        .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
-                )
-            }
-        }
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(getString(R.string.position), position)
+                .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
+        )
     }
 }

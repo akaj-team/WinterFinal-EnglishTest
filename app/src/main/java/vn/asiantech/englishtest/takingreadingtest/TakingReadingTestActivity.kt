@@ -1,6 +1,5 @@
 package vn.asiantech.englishtest.takingreadingtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -9,9 +8,8 @@ import android.view.animation.AnimationUtils
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
-import vn.asiantech.englishtest.showquestionviewpager.QuestionAdapter
+import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -104,10 +102,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
-                startActivity(
-                    Intent(applicationContext, ListReadingTestActivity::class.java)
-                        .putExtra(getString(R.string.level), level)
-                )
+                finish()
+                intent.putExtra(getString(R.string.level), level)
+
             }
         }.show()
     }

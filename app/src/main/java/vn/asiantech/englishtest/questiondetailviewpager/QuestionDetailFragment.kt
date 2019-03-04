@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.showquestionviewpager
+package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.graphics.Color
 import android.os.Bundle

@@ -35,6 +35,38 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         navigationView.setNavigationItemSelectedListener(this)
     }
 
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            showAlertDialog()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.itemReadingLevelBasic -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 0
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Basic)
+            }
+            R.id.itemReadingLevelIntermediate -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 1
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+            }
+            R.id.itemReadingLevelAdvanced -> {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                navItemSelectedPosition = 2
+                initListReadingTestFragment(navItemSelectedPosition)
+                supportActionBar?.title = getString(R.string.part5Advanced)
+            }
+        }
+        return true
+    }
+
     private fun initListReadingTestFragment(level: Int) {
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
@@ -81,36 +113,5 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 finish()
             }
         }.show()
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            showAlertDialog()
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.itemReadingLevelBasic -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Basic)
-            }
-            R.id.itemReadingLevelIntermediate -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 1
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Intermediate)
-            }
-            R.id.itemReadingLevelAdvanced -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 2
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Advanced)
-            }
-        }
-        return true
     }
 }

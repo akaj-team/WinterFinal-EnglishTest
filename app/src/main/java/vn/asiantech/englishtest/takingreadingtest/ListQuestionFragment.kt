@@ -27,8 +27,15 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         onClickSubmit()
     }
 
+    override fun onClickQuestionNumber(position: Int) {
+        activity?.apply {
+            frListQuestions?.visibility = View.GONE
+            questionDetailPager?.currentItem = position
+        }
+    }
+
     private fun initRecycleView() {
-        setData()
+        setListQuestionNumber()
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
@@ -36,8 +43,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         }
     }
 
-    private fun setData() {
-        //TODO
+    private fun setListQuestionNumber() {
         val maxQuestionNumber = 40
         for (i in 0 until maxQuestionNumber) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
@@ -57,10 +63,5 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 btnListQuestions?.visibility = View.GONE
             }
         }
-    }
-
-    override fun onClickQuestionNumber(position: Int) {
-        activity?.frListQuestions?.visibility = View.GONE
-        (activity as? TakingReadingTestActivity)?.questionDetailPager?.currentItem = position
     }
 }

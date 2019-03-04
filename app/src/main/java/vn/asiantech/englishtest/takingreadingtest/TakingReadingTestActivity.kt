@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
@@ -16,17 +17,36 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var level = 0
+    var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_taking_reading_test)
+        showProgressDialog()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
-        chronometer.start()
+    }
+
+    override fun onBackPressed() {
+        when {
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> finish()
+            frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
+                animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                visibility = View.GONE
+            }
+            else -> showAlertDialog()
+        }
     }
 
     private fun initData() {
+        progressDialog?.show()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frListQuestions, ListQuestionFragment())
+            addToBackStack(null)
+            commit()
+        }
         val position: Int = intent.getIntExtra(getString(R.string.position), 0)
         level = intent.getIntExtra(getString(R.string.level), 0)
         when (level) {
@@ -58,11 +78,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
         })
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frListQuestions, ListQuestionFragment())
-            addToBackStack(null)
-            commit()
-        }
     }
 
     override fun onClick(view: View?) {
@@ -86,12 +101,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onBackPressed() {
-        if (frListQuestions.visibility == View.GONE) {
-            showAlertDialog()
-        } else frListQuestions.visibility = View.GONE
-    }
-
     private fun showAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
@@ -107,5 +116,16 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         }.show()
+    }
+
+    private fun showProgressDialog() {
+        val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
+        builder.apply {
+            setView(dialogView)
+            setCancelable(false)
+        }
+        progressDialog = builder.create()
     }
 }

@@ -26,6 +26,10 @@ class ListReadingTestAdapter(
         holder.bindView(listTests[position])
     }
 
+    interface OnItemClickListener {
+        fun onClick(position: Int)
+    }
+
     inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
             listener.onClick(layoutPosition)
@@ -41,9 +45,5 @@ class ListReadingTestAdapter(
             }
             itemView.clPractice.setOnClickListener(this)
         }
-    }
-
-    interface OnItemClickListener {
-        fun onClick(position: Int)
     }
 }

@@ -18,6 +18,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var level = 0
     var progressDialog: AlertDialog? = null
+    var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,27 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 visibility = View.GONE
             }
             else -> showAlertDialog()
+        }
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.btnListQuestions -> {
+                if (frListQuestions.visibility == View.VISIBLE) {
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                        visibility = View.GONE
+                    }
+                } else {
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
+                        visibility = View.VISIBLE
+                    }
+                }
+            }
+            R.id.btnBackToListTest -> {
+                onBackPressed()
+            }
         }
     }
 
@@ -80,27 +102,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.btnListQuestions -> {
-                if (frListQuestions.visibility == View.VISIBLE) {
-                    with(frListQuestions) {
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
-                        visibility = View.GONE
-                    }
-                } else {
-                    with(frListQuestions) {
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
-                        visibility = View.VISIBLE
-                    }
-                }
-            }
-            R.id.btnBackToListTest -> {
-                onBackPressed()
-            }
-        }
-    }
-
     private fun showAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
@@ -113,7 +114,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
                 intent.putExtra(getString(R.string.level), level)
-
             }
         }.show()
     }
@@ -122,10 +122,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
-        builder.apply {
-            setView(dialogView)
-            setCancelable(false)
-        }
+        builder.setView(dialogView)
         progressDialog = builder.create()
     }
 }

@@ -17,8 +17,8 @@ class QuestionDetailFragment : Fragment() {
     private var position = 0
 
     companion object {
-        private const val ARG_POSITION = "arg_position"
-        private const val ARG_DATA = "arg_data"
+         const val ARG_POSITION = "arg_position"
+         const val ARG_DATA = "arg_data"
         fun getInstance(position: Int, question: ListQuestionDetailItem): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
@@ -44,8 +44,9 @@ class QuestionDetailFragment : Fragment() {
     private fun selectedAnswer() {
         tvAnswerA.setOnClickListener {
             data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerA
-            (activity as TakingReadingTestActivity).questionList[position].myAnswer =
-                (activity as TakingReadingTestActivity).questionList[position].answerA
+            with((activity as TakingReadingTestActivity).questionList[position]) {
+                myAnswer = answerA
+            }
             tvAnswerA.setBackgroundColor(Color.GREEN)
             tvAnswerB.setBackgroundColor(Color.WHITE)
             tvAnswerC.setBackgroundColor(Color.WHITE)
@@ -53,8 +54,9 @@ class QuestionDetailFragment : Fragment() {
         }
         tvAnswerB.setOnClickListener {
             data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerB
-            (activity as TakingReadingTestActivity).questionList[position].myAnswer =
-                (activity as TakingReadingTestActivity).questionList[position].answerB
+            with((activity as TakingReadingTestActivity).questionList[position]) {
+                myAnswer = answerB
+            }
             tvAnswerA.setBackgroundColor(Color.WHITE)
             tvAnswerB.setBackgroundColor(Color.GREEN)
             tvAnswerC.setBackgroundColor(Color.WHITE)
@@ -62,8 +64,9 @@ class QuestionDetailFragment : Fragment() {
         }
         tvAnswerC.setOnClickListener {
             data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerC
-            (activity as TakingReadingTestActivity).questionList[position].myAnswer =
-                (activity as TakingReadingTestActivity).questionList[position].answerC
+            with((activity as TakingReadingTestActivity).questionList[position]) {
+                myAnswer = answerC
+            }
             tvAnswerA.setBackgroundColor(Color.WHITE)
             tvAnswerB.setBackgroundColor(Color.WHITE)
             tvAnswerC.setBackgroundColor(Color.GREEN)
@@ -71,8 +74,9 @@ class QuestionDetailFragment : Fragment() {
         }
         tvAnswerD.setOnClickListener {
             data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerD
-            (activity as TakingReadingTestActivity).questionList[position].myAnswer =
-                (activity as TakingReadingTestActivity).questionList[position].answerD
+            with((activity as TakingReadingTestActivity).questionList[position]) {
+                myAnswer = answerD
+            }
             tvAnswerA.setBackgroundColor(Color.WHITE)
             tvAnswerB.setBackgroundColor(Color.WHITE)
             tvAnswerC.setBackgroundColor(Color.WHITE)
@@ -82,6 +86,7 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        selectedAnswer()
         data?.let {
             with(it) {
                 tvQuestion.text = question
@@ -92,31 +97,19 @@ class QuestionDetailFragment : Fragment() {
                 when {
                     it.myAnswer == answerA -> {
                         tvAnswerA.setBackgroundColor(Color.GREEN)
-                        tvAnswerB.setBackgroundColor(Color.WHITE)
-                        tvAnswerC.setBackgroundColor(Color.WHITE)
-                        tvAnswerD.setBackgroundColor(Color.WHITE)
                     }
                     it.myAnswer == answerB -> {
-                        tvAnswerA.setBackgroundColor(Color.WHITE)
                         tvAnswerB.setBackgroundColor(Color.GREEN)
-                        tvAnswerC.setBackgroundColor(Color.WHITE)
-                        tvAnswerD.setBackgroundColor(Color.WHITE)
                     }
                     it.myAnswer == answerC -> {
-                        tvAnswerA.setBackgroundColor(Color.WHITE)
-                        tvAnswerB.setBackgroundColor(Color.WHITE)
                         tvAnswerC.setBackgroundColor(Color.GREEN)
-                        tvAnswerD.setBackgroundColor(Color.WHITE)
                     }
                     it.myAnswer == answerD -> {
-                        tvAnswerA.setBackgroundColor(Color.WHITE)
-                        tvAnswerB.setBackgroundColor(Color.WHITE)
-                        tvAnswerC.setBackgroundColor(Color.WHITE)
                         tvAnswerD.setBackgroundColor(Color.GREEN)
                     }
                 }
             }
         }
-        selectedAnswer()
+
     }
 }

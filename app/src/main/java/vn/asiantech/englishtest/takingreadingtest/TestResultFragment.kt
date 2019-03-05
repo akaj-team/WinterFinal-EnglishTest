@@ -17,12 +17,12 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     ): View? {
         return inflater.inflate(R.layout.fragment_test_result, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
         tvDurationTime.text = (activity as TakingReadingTestActivity).chronometer.text.toString()
+        tvCorrectAnswer.text = (activity as TakingReadingTestActivity).score.toString()
     }
 
     override fun onClick(view: View?) {

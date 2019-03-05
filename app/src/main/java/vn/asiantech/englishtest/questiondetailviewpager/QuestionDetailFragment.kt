@@ -17,8 +17,8 @@ class QuestionDetailFragment : Fragment() {
     private var position = 0
 
     companion object {
-         const val ARG_POSITION = "arg_position"
-         const val ARG_DATA = "arg_data"
+        const val ARG_POSITION = "arg_position"
+        const val ARG_DATA = "arg_data"
         fun getInstance(position: Int, question: ListQuestionDetailItem): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
@@ -108,6 +108,36 @@ class QuestionDetailFragment : Fragment() {
                         tvAnswerD.setBackgroundColor(Color.CYAN)
                     }
                 }
+            }
+            if ((activity as TakingReadingTestActivity).review) {
+                with(it) {
+                    when (correctAnswer) {
+                        tvAnswerA.text -> tvAnswerA.setBackgroundColor(Color.CYAN)
+                        tvAnswerB.text -> tvAnswerB.setBackgroundColor(Color.CYAN)
+                        tvAnswerC.text -> tvAnswerC.setBackgroundColor(Color.CYAN)
+                        tvAnswerD.text -> tvAnswerD.setBackgroundColor(Color.CYAN)
+                    }
+                    if (myAnswer != correctAnswer) {
+                        when (myAnswer) {
+                            answerA -> tvAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> tvAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> tvAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> tvAnswerD.setBackgroundColor(Color.RED)
+                        }
+                    }
+                    if (myAnswer == "") {
+                        when (correctAnswer) {
+                            tvAnswerA.text -> tvAnswerA.setBackgroundColor(Color.YELLOW)
+                            tvAnswerB.text -> tvAnswerB.setBackgroundColor(Color.YELLOW)
+                            tvAnswerC.text -> tvAnswerC.setBackgroundColor(Color.YELLOW)
+                            tvAnswerD.text -> tvAnswerD.setBackgroundColor(Color.YELLOW)
+                        }
+                    }
+                }
+                tvAnswerA.isEnabled = false
+                tvAnswerB.isEnabled = false
+                tvAnswerC.isEnabled = false
+                tvAnswerD.isEnabled = false
             }
         }
 

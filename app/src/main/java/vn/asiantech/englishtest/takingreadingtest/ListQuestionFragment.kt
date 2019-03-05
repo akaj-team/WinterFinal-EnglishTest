@@ -62,7 +62,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 btnListQuestions?.visibility = View.GONE
             }
             (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
-                if (listQuestionDetailItem.correctanswer == listQuestionDetailItem.myAnswer) {
+                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
                     (activity as TakingReadingTestActivity).score += 1
                 }
             }

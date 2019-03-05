@@ -47,7 +47,7 @@ class QuestionDetailFragment : Fragment() {
             with((activity as TakingReadingTestActivity).questionList[position]) {
                 myAnswer = answerA
             }
-            tvAnswerA.setBackgroundColor(Color.GREEN)
+            tvAnswerA.setBackgroundColor(Color.CYAN)
             tvAnswerB.setBackgroundColor(Color.WHITE)
             tvAnswerC.setBackgroundColor(Color.WHITE)
             tvAnswerD.setBackgroundColor(Color.WHITE)
@@ -58,7 +58,7 @@ class QuestionDetailFragment : Fragment() {
                 myAnswer = answerB
             }
             tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.GREEN)
+            tvAnswerB.setBackgroundColor(Color.CYAN)
             tvAnswerC.setBackgroundColor(Color.WHITE)
             tvAnswerD.setBackgroundColor(Color.WHITE)
         }
@@ -69,7 +69,7 @@ class QuestionDetailFragment : Fragment() {
             }
             tvAnswerA.setBackgroundColor(Color.WHITE)
             tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.GREEN)
+            tvAnswerC.setBackgroundColor(Color.CYAN)
             tvAnswerD.setBackgroundColor(Color.WHITE)
         }
         tvAnswerD.setOnClickListener {
@@ -80,7 +80,7 @@ class QuestionDetailFragment : Fragment() {
             tvAnswerA.setBackgroundColor(Color.WHITE)
             tvAnswerB.setBackgroundColor(Color.WHITE)
             tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.GREEN)
+            tvAnswerD.setBackgroundColor(Color.CYAN)
         }
     }
 
@@ -96,16 +96,16 @@ class QuestionDetailFragment : Fragment() {
                 tvAnswerD.text = answerD
                 when {
                     it.myAnswer == answerA -> {
-                        tvAnswerA.setBackgroundColor(Color.GREEN)
+                        tvAnswerA.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerB -> {
-                        tvAnswerB.setBackgroundColor(Color.GREEN)
+                        tvAnswerB.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerC -> {
-                        tvAnswerC.setBackgroundColor(Color.GREEN)
+                        tvAnswerC.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerD -> {
-                        tvAnswerD.setBackgroundColor(Color.GREEN)
+                        tvAnswerD.setBackgroundColor(Color.CYAN)
                     }
                 }
             }

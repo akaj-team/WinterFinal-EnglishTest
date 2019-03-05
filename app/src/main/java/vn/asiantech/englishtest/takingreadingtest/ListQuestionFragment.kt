@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
-
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
 
     override fun onCreateView(
@@ -63,8 +61,8 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 chronometer?.visibility = View.GONE
                 btnListQuestions?.visibility = View.GONE
             }
-            (activity as TakingReadingTestActivity).questionList.forEachIndexed { index, listQuestionDetailItem ->
-                if(listQuestionDetailItem.correctanswer == (activity as TakingReadingTestActivity).questionList[index].myAnswer) {
+            (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
+                if (listQuestionDetailItem.correctanswer == listQuestionDetailItem.myAnswer) {
                     (activity as TakingReadingTestActivity).score += 1
                 }
             }

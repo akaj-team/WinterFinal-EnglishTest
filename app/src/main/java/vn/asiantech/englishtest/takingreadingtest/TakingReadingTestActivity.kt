@@ -23,7 +23,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_taking_reading_test)
-        showProgressDialog()
+        initProgressDialog()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -118,7 +118,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }.show()
     }
 
-    private fun showProgressDialog() {
+    private fun initProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)

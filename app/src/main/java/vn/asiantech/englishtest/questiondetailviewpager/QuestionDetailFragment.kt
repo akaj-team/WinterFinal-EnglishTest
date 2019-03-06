@@ -43,8 +43,7 @@ class QuestionDetailFragment : Fragment() {
 
     private fun selectedAnswer() {
         tvAnswerA.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerA
-            with((activity as TakingReadingTestActivity).questionList[position]) {
+            data?.apply {
                 myAnswer = answerA
             }
             tvAnswerA.setBackgroundColor(Color.CYAN)
@@ -53,8 +52,7 @@ class QuestionDetailFragment : Fragment() {
             tvAnswerD.setBackgroundColor(Color.WHITE)
         }
         tvAnswerB.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerB
-            with((activity as TakingReadingTestActivity).questionList[position]) {
+            data?.apply {
                 myAnswer = answerB
             }
             tvAnswerA.setBackgroundColor(Color.WHITE)
@@ -63,8 +61,7 @@ class QuestionDetailFragment : Fragment() {
             tvAnswerD.setBackgroundColor(Color.WHITE)
         }
         tvAnswerC.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerC
-            with((activity as TakingReadingTestActivity).questionList[position]) {
+            data?.apply {
                 myAnswer = answerC
             }
             tvAnswerA.setBackgroundColor(Color.WHITE)
@@ -73,8 +70,7 @@ class QuestionDetailFragment : Fragment() {
             tvAnswerD.setBackgroundColor(Color.WHITE)
         }
         tvAnswerD.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerD
-            with((activity as TakingReadingTestActivity).questionList[position]) {
+            data?.apply {
                 myAnswer = answerD
             }
             tvAnswerA.setBackgroundColor(Color.WHITE)
@@ -109,6 +105,7 @@ class QuestionDetailFragment : Fragment() {
                     }
                 }
             }
+
             if ((activity as TakingReadingTestActivity).review) {
                 with(it) {
                     when (correctAnswer) {

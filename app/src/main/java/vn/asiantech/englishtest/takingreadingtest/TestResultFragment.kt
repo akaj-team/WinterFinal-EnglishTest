@@ -33,6 +33,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                 (activity as TakingReadingTestActivity).review = true
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
+                    questionDetailPager.adapter?.notifyDataSetChanged()
                     questionDetailPager?.currentItem = 0
                 }
             }

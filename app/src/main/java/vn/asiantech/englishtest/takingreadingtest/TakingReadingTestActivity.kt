@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
@@ -25,7 +26,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_taking_reading_test)
-        showProgressDialog()
+        initProgressDialog()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -38,7 +39,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
             }
-            else -> showAlertDialog()
+            else -> initAlertDialog()
         }
     }
 
@@ -70,8 +71,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             addToBackStack(null)
             commit()
         }
-        val position: Int = intent.getIntExtra(getString(R.string.position), 0)
-        level = intent.getIntExtra(getString(R.string.level), 0)
+        val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         when (level) {
             0 -> {
                 tvLevel.text = getString(R.string.part5Basic)
@@ -103,7 +104,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun showAlertDialog() {
+    private fun initAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
@@ -114,12 +115,11 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
                 finish()
-                intent.putExtra(getString(R.string.level), level)
             }
         }.show()
     }
 
-    private fun showProgressDialog() {
+    private fun initProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
         val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)

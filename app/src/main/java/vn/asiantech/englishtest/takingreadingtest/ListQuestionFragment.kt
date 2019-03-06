@@ -43,6 +43,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     private fun setListQuestionNumber() {
+        //TODO("Not implemented")
         val maxQuestionNumber = 40
         for (i in 0 until maxQuestionNumber) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))

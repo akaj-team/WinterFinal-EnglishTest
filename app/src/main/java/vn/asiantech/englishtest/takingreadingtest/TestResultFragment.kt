@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 
-
 class TestResultFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
@@ -23,8 +22,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
         tvDurationTime.text = (activity as TakingReadingTestActivity).chronometer.text.toString()
-        tvCorrectAnswer.text =
-            StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40")
+        tvCorrectAnswer.text = StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40")
     }
 
     override fun onClick(view: View?) {

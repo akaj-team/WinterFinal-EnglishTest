@@ -16,7 +16,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
 
     companion object {
-        private const val ARG_LEVEL = "arg_level"
+        const val ARG_LEVEL = "arg_level"
+        const val ARG_POSITION = "position"
         fun getInstance(level: Int): ListReadingTestFragment =
             ListReadingTestFragment().apply {
                 val bundle = Bundle().apply {
@@ -39,8 +40,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     override fun onClick(position: Int) {
         startActivity(
             Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(getString(R.string.position), position)
-                .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
+                .putExtra(ARG_POSITION, position)
+                .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL))
         )
     }
 
@@ -54,7 +55,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     private fun setData() {
-        //TODO
+        //TODO("Not implemented")
         val maxTestNumber = 10
         listReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {

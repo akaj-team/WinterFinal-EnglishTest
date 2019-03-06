@@ -36,5 +36,75 @@
             android:layout_marginLeft="@dimen/dimen10dp"
             android:layout_marginRight="@dimen/dimen10dp">
 
+        <RadioGroup
+                android:id="@+id/rgAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <RadioButton
+                    android:id="@+id/rbAnswerA"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen50dp"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen16dp"
+                    android:button="@null"/>
+
+            <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"
+                    android:background="?android:attr/listDivider"/>
+
+            <RadioButton
+                    android:id="@+id/rbAnswerB"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen50dp"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:textColor="@color/colorBlack"
+                    android:background="@drawable/bg_answer"
+                    android:textSize="@dimen/dimen16dp"
+                    android:button="@null"/>
+
+            <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"
+                    android:background="?android:attr/listDivider"/>
+
+            <RadioButton
+                    android:id="@+id/rbAnswerC"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen50dp"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen16dp"
+                    android:button="@null"/>
+
+            <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"
+                    android:background="?android:attr/listDivider"/>
+
+            <RadioButton
+                    android:id="@+id/rbAnswerD"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen50dp"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen16dp"
+                    android:button="@null"/>
+
+        </RadioGroup>
     </android.support.v7.widget.CardView>
 </LinearLayout>

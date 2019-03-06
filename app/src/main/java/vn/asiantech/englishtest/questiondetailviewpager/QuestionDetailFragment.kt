@@ -13,6 +13,7 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class QuestionDetailFragment : Fragment() {
+
     private var data: ListQuestionDetailItem? = null
     private var position = 0
 
@@ -41,67 +42,29 @@ class QuestionDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
-    private fun selectedAnswer() {
-        tvAnswerA.setOnClickListener {
-            data?.apply {
-                myAnswer = answerA
-            }
-            tvAnswerA.setBackgroundColor(Color.CYAN)
-            tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerB.setOnClickListener {
-            data?.apply {
-                myAnswer = answerB
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.CYAN)
-            tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerC.setOnClickListener {
-            data?.apply {
-                myAnswer = answerC
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.CYAN)
-            tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerD.setOnClickListener {
-            data?.apply {
-                myAnswer = answerD
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.CYAN)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         selectedAnswer()
         data?.let {
             with(it) {
                 tvQuestion.text = question
-                tvAnswerA.text = answerA
-                tvAnswerB.text = answerB
-                tvAnswerC.text = answerC
-                tvAnswerD.text = answerD
+                rbAnswerA.text = answerA
+                rbAnswerB.text = answerB
+                rbAnswerC.text = answerC
+                rbAnswerD.text = answerD
+
                 when {
                     it.myAnswer == answerA -> {
-                        tvAnswerA.setBackgroundColor(Color.CYAN)
+                        rbAnswerA.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerB -> {
-                        tvAnswerB.setBackgroundColor(Color.CYAN)
+                        rbAnswerB.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerC -> {
-                        tvAnswerC.setBackgroundColor(Color.CYAN)
+                        rbAnswerC.setBackgroundColor(Color.CYAN)
                     }
                     it.myAnswer == answerD -> {
-                        tvAnswerD.setBackgroundColor(Color.CYAN)
+                        rbAnswerD.setBackgroundColor(Color.CYAN)
                     }
                 }
             }
@@ -109,34 +72,60 @@ class QuestionDetailFragment : Fragment() {
             if ((activity as TakingReadingTestActivity).review) {
                 with(it) {
                     when (correctAnswer) {
-                        tvAnswerA.text -> tvAnswerA.setBackgroundColor(Color.CYAN)
-                        tvAnswerB.text -> tvAnswerB.setBackgroundColor(Color.CYAN)
-                        tvAnswerC.text -> tvAnswerC.setBackgroundColor(Color.CYAN)
-                        tvAnswerD.text -> tvAnswerD.setBackgroundColor(Color.CYAN)
-                    }
-                    if (myAnswer != correctAnswer) {
-                        when (myAnswer) {
-                            answerA -> tvAnswerA.setBackgroundColor(Color.RED)
-                            answerB -> tvAnswerB.setBackgroundColor(Color.RED)
-                            answerC -> tvAnswerC.setBackgroundColor(Color.RED)
-                            answerD -> tvAnswerD.setBackgroundColor(Color.RED)
-                        }
+                        rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.CYAN)
+                        rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.CYAN)
+                        rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.CYAN)
+                        rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.CYAN)
                     }
                     if (myAnswer == "") {
                         when (correctAnswer) {
-                            tvAnswerA.text -> tvAnswerA.setBackgroundColor(Color.YELLOW)
-                            tvAnswerB.text -> tvAnswerB.setBackgroundColor(Color.YELLOW)
-                            tvAnswerC.text -> tvAnswerC.setBackgroundColor(Color.YELLOW)
-                            tvAnswerD.text -> tvAnswerD.setBackgroundColor(Color.YELLOW)
+                            rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.YELLOW)
+                            rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.YELLOW)
+                            rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.YELLOW)
+                            rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.YELLOW)
                         }
                     }
+                    if (myAnswer != correctAnswer) {
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                        }
+                    }
+                    rbAnswerA.isClickable = false
+                    rbAnswerB.isClickable = false
+                    rbAnswerC.isClickable = false
+                    rbAnswerD.isClickable = false
                 }
-                tvAnswerA.isEnabled = false
-                tvAnswerB.isEnabled = false
-                tvAnswerC.isEnabled = false
-                tvAnswerD.isEnabled = false
             }
         }
+    }
 
+    private fun selectedAnswer() {
+        rgAnswer.setOnCheckedChangeListener { _, _ ->
+            when {
+                rbAnswerA.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerA
+                    }
+                }
+                rbAnswerB.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerB
+                    }
+                }
+                rbAnswerC.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerC
+                    }
+                }
+                rbAnswerD.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerD
+                    }
+                }
+            }
+        }
     }
 }

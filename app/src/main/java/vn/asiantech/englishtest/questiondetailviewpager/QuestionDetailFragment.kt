@@ -53,6 +53,7 @@ class QuestionDetailFragment : Fragment() {
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
                 tvExplanation.text = explanation
+                tvTranslation.text = translation
 
                 when {
                     it.myAnswer == answerA -> {

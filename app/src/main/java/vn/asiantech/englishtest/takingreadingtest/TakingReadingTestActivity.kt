@@ -19,6 +19,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private var level = 0
     var progressDialog: AlertDialog? = null
     var score = 0
+    var review = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

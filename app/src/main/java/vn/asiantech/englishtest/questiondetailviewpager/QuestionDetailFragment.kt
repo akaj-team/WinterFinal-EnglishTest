@@ -52,6 +52,7 @@ class QuestionDetailFragment : Fragment() {
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
+                tvExplanation.text = explanation
 
                 when {
                     it.myAnswer == answerA -> {
@@ -70,6 +71,7 @@ class QuestionDetailFragment : Fragment() {
             }
 
             if ((activity as TakingReadingTestActivity).review) {
+                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     when (correctAnswer) {
                         rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.CYAN)

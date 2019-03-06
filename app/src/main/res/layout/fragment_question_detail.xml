@@ -10,10 +10,9 @@
             android:layout_height="140dp"
             android:textColor="@color/colorAccent"
             android:gravity="center"
-            android:text="@string/questionDetailHere"
             android:layout_marginLeft="@dimen/dimen10dp"
             android:layout_marginRight="@dimen/dimen10dp"
-            android:layout_marginTop="@dimen/dimen20dp">
+            android:layout_marginTop="@dimen/dimen10dp">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
                 android:id="@+id/tvQuestion"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/dimen16dp"
-                android:text="@string/questionDetailHere"
                 android:layout_marginStart="@dimen/dimen20dp"
                 android:layout_marginEnd="@dimen/dimen20dp"
                 android:layout_marginTop="@dimen/dimen10dp"
@@ -32,7 +30,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen20dp"
+            android:layout_marginTop="@dimen/dimen10dp"
             android:layout_marginLeft="@dimen/dimen10dp"
             android:layout_marginRight="@dimen/dimen10dp">
 
@@ -106,5 +104,30 @@
                     android:button="@null"/>
 
         </RadioGroup>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardViewExplanation"
+            android:visibility="invisible"
+            android:layout_margin="@dimen/dimen10dp">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dimen10dp"
+                android:layout_marginTop="@dimen/dimen10dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvExplanation"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/dimen16dp"
+                    android:layout_marginStart="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"/>
+
+        </ScrollView>
     </android.support.v7.widget.CardView>
 </LinearLayout>

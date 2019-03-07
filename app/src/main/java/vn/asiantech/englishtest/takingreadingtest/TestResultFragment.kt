@@ -16,7 +16,7 @@ import android.content.Context
 
 
 class TestResultFragment : Fragment(), View.OnClickListener {
-    var sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+    private var sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
     private var level : Int ? = null
     private var position : Int ? = null
     override fun onCreateView(
@@ -63,7 +63,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         )
         val json = Gson().toJson(objectTimeAndScore)
         val editor : SharedPreferences.Editor ?= sharedPref?.edit()
-            editor?.putString(json, "keyjson$level$position")
+            editor?.putString(json,"keyjson$level$position")
             editor?.apply()
     }
 }

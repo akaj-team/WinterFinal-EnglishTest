@@ -17,7 +17,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
-    private var level = 0
     var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
             }
-            else -> showAlertDialog()
+            else -> initAlertDialog()
         }
     }
 
@@ -49,17 +48,16 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             commit()
         }
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        when (level) {
-            0 -> {
+        when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
+            R.id.itemReadingLevelBasic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
             }
-            1 -> {
+            R.id.itemReadingLevelIntermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
             }
-            2 -> {
+            R.id.itemReadingLevelAdvanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
             }
@@ -102,7 +100,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun showAlertDialog() {
+    private fun initAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))

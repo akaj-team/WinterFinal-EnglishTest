@@ -36,20 +36,20 @@
             android:layout_marginLeft="@dimen/dimen10dp"
             android:layout_marginRight="@dimen/dimen10dp">
 
-        <LinearLayout
+        <RadioGroup
+                android:id="@+id/rgAnswer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-            <TextView
+            <RadioButton
+                    android:id="@+id/rbAnswerA"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen50dp"
-                    android:id="@+id/tvAnswerA"
-                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen16dp"
-                    android:text="@string/questionDetailHere"
-                    android:paddingStart="@dimen/dimen20dp"/>
+                    android:button="@null"/>
 
             <View
                     android:id="@+id/divider"
@@ -58,16 +58,16 @@
                     android:layout_marginStart="@dimen/dimen20dp"
                     android:layout_marginEnd="@dimen/dimen20dp"
                     android:background="?android:attr/listDivider"/>
-            <TextView
+
+            <RadioButton
+                    android:id="@+id/rbAnswerB"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen50dp"
-                    android:id="@+id/tvAnswerB"
-                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dimen20dp"
                     android:textColor="@color/colorBlack"
+                    android:background="@drawable/bg_answer"
                     android:textSize="@dimen/dimen16dp"
-                    android:text="@string/questionDetailHere"
-                    android:paddingStart="@dimen/dimen20dp"/>
-
+                    android:button="@null"/>
 
             <View
                     android:id="@+id/divider2"
@@ -77,15 +77,15 @@
                     android:layout_marginEnd="@dimen/dimen20dp"
                     android:background="?android:attr/listDivider"/>
 
-            <TextView
+            <RadioButton
+                    android:id="@+id/rbAnswerC"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen50dp"
-                    android:id="@+id/tvAnswerC"
-                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen16dp"
-                    android:text="@string/questionDetailHere"
-                    android:paddingStart="@dimen/dimen20dp"/>
+                    android:button="@null"/>
 
             <View
                     android:id="@+id/divider3"
@@ -95,16 +95,16 @@
                     android:layout_marginEnd="@dimen/dimen20dp"
                     android:background="?android:attr/listDivider"/>
 
-            <TextView
+            <RadioButton
+                    android:id="@+id/rbAnswerD"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen50dp"
-                    android:id="@+id/tvAnswerD"
-                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dimen20dp"
+                    android:background="@drawable/bg_answer"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/dimen16dp"
-                    android:text="@string/questionDetailHere"
-                    android:paddingStart="@dimen/dimen20dp"/>
+                    android:button="@null"/>
 
-        </LinearLayout>
+        </RadioGroup>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -16,9 +16,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
 
     companion object {
-        private const val ARG_LEVEL = "arg_level"
-        private const val POSITION = "position"
-        private const val LEVEL = "level"
+        const val ARG_LEVEL = "arg_level"
+        const val ARG_POSITION = "position"
         fun getInstance(level: Int): ListReadingTestFragment =
             ListReadingTestFragment().apply {
                 val bundle = Bundle().apply {
@@ -41,8 +40,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     override fun onClick(position: Int) {
         startActivity(
             Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(POSITION, position)
-                .putExtra(LEVEL, arguments?.getInt(ARG_LEVEL))
+                .putExtra(ARG_POSITION, position)
+                .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL))
         )
     }
 

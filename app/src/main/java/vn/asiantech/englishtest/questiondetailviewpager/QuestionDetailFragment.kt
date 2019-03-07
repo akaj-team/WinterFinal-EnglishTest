@@ -1,6 +1,5 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -41,74 +40,16 @@ class QuestionDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
-    private fun selectedAnswer() {
-        tvAnswerA.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerA
-            with((activity as TakingReadingTestActivity).questionList[position]) {
-                myAnswer = answerA
-            }
-                tvAnswerA.setBackgroundColor(Color.GREEN)
-                tvAnswerB.setBackgroundColor(Color.WHITE)
-                tvAnswerC.setBackgroundColor(Color.WHITE)
-                tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerB.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerB
-            with((activity as TakingReadingTestActivity).questionList[position]) {
-                myAnswer = answerB
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.GREEN)
-            tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerC.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerC
-            with((activity as TakingReadingTestActivity).questionList[position]) {
-                myAnswer = answerC
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.GREEN)
-            tvAnswerD.setBackgroundColor(Color.WHITE)
-        }
-        tvAnswerD.setOnClickListener {
-            data?.myAnswer = (activity as TakingReadingTestActivity).questionList[position].answerD
-            with((activity as TakingReadingTestActivity).questionList[position]) {
-                myAnswer = answerD
-            }
-            tvAnswerA.setBackgroundColor(Color.WHITE)
-            tvAnswerB.setBackgroundColor(Color.WHITE)
-            tvAnswerC.setBackgroundColor(Color.WHITE)
-            tvAnswerD.setBackgroundColor(Color.GREEN)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         data?.let {
             with(it) {
                 tvQuestion.text = question
-                tvAnswerA.text = answerA
-                tvAnswerB.text = answerB
-                tvAnswerC.text = answerC
-                tvAnswerD.text = answerD
-                when {
-                    it.myAnswer == answerA -> {
-                        tvAnswerA.setBackgroundColor(Color.GREEN)
-                    }
-                    it.myAnswer == answerB -> {
-                        tvAnswerB.setBackgroundColor(Color.GREEN)
-                    }
-                    it.myAnswer == answerC -> {
-                        tvAnswerC.setBackgroundColor(Color.GREEN)
-                    }
-                    it.myAnswer == answerD -> {
-                        tvAnswerD.setBackgroundColor(Color.GREEN)
-                    }
-                }
+                rbAnswerA.text = answerA
+                rbAnswerB.text = answerB
+                rbAnswerC.text = answerC
+                rbAnswerD.text = answerD
             }
         }
-        selectedAnswer()
     }
 }

@@ -20,7 +20,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
 
-        level = intent.getIntExtra(getString(R.string.level), 0)
+        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
 
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(

@@ -11,14 +11,14 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListTimeAndScore
 import com.google.gson.Gson
-import android.content.SharedPreferences
 import android.content.Context
-
+import android.util.Log
 
 class TestResultFragment : Fragment(), View.OnClickListener {
-    private var sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
     private var level : Int ? = null
     private var position : Int ? = null
+    val objectTimeAndScore = arrayListOf<ListTimeAndScore>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -52,7 +52,6 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addTimeAndScore() {
-        val objectTimeAndScore = arrayListOf<ListTimeAndScore>()
         level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         objectTimeAndScore.add(
@@ -62,8 +61,11 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             )
         )
         val json = Gson().toJson(objectTimeAndScore)
-        val editor : SharedPreferences.Editor ?= sharedPref?.edit()
-            editor?.putString(json,"keyjson$level$position")
-            editor?.apply()
+        val preferences = activity?.getSharedPreferences("dinh", Context.MODE_PRIVATE)
+        val editor = preferences?.edit()
+        editor?.putString("keyjson$level$position", json)
+        editor?.apply()
+        val sadsa = preferences?.getString("keyjson$level$position","")
+        Log.i("xxx", sadsa)
     }
 }

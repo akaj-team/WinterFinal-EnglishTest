@@ -52,40 +52,17 @@ class QuestionDetailFragment : Fragment() {
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
-
-                when {
-                    it.myAnswer == answerA -> {
-                        rbAnswerA.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerB -> {
-                        rbAnswerB.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerC -> {
-                        rbAnswerC.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerD -> {
-                        rbAnswerD.setBackgroundColor(Color.CYAN)
-                    }
-                }
             }
 
             if ((activity as TakingReadingTestActivity).review) {
                 with(it) {
-                    when (correctAnswer) {
-                        rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.CYAN)
-                        rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.CYAN)
-                        rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.CYAN)
-                        rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.CYAN)
-                    }
-                    if (myAnswer == "") {
-                        when (correctAnswer) {
-                            rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.YELLOW)
-                            rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.YELLOW)
-                            rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.YELLOW)
-                            rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.YELLOW)
-                        }
-                    }
                     if (myAnswer != correctAnswer) {
+                        when (correctAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.CYAN)
+                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.CYAN)
+                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.CYAN)
+                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.CYAN)
+                        }
                         when (myAnswer) {
                             answerA -> rbAnswerA.setBackgroundColor(Color.RED)
                             answerB -> rbAnswerB.setBackgroundColor(Color.RED)

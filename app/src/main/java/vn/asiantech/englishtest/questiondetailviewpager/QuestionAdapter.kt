@@ -9,15 +9,11 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 class QuestionAdapter(fm: FragmentManager, private var questionList: ArrayList<ListQuestionDetailItem>) :
     FragmentStatePagerAdapter(fm) {
 
-    companion object {
-        const val TOTALQUESTION = 40
-    }
-
     override fun getItem(position: Int): Fragment {
         return QuestionDetailFragment.getInstance(position, questionList[position])
     }
 
-    override fun getCount(): Int = TOTALQUESTION
+    override fun getCount(): Int = questionList.size
 
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE

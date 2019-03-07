@@ -55,51 +55,28 @@ class QuestionDetailFragment : Fragment() {
                 tvExplanation.text = explanation
                 tvTranslation.text = translation
 
-                when {
-                    it.myAnswer == answerA -> {
-                        rbAnswerA.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerB -> {
-                        rbAnswerB.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerC -> {
-                        rbAnswerC.setBackgroundColor(Color.CYAN)
-                    }
-                    it.myAnswer == answerD -> {
-                        rbAnswerD.setBackgroundColor(Color.CYAN)
-                    }
-                }
-            }
-
-            if ((activity as TakingReadingTestActivity).review) {
-                cardViewExplanation.visibility = View.VISIBLE
-                with(it) {
-                    when (correctAnswer) {
-                        rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.CYAN)
-                        rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.CYAN)
-                        rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.CYAN)
-                        rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.CYAN)
-                    }
-                    if (myAnswer == "") {
-                        when (correctAnswer) {
-                            rbAnswerA.text -> rbAnswerA.setBackgroundColor(Color.YELLOW)
-                            rbAnswerB.text -> rbAnswerB.setBackgroundColor(Color.YELLOW)
-                            rbAnswerC.text -> rbAnswerC.setBackgroundColor(Color.YELLOW)
-                            rbAnswerD.text -> rbAnswerD.setBackgroundColor(Color.YELLOW)
+                if ((activity as TakingReadingTestActivity).review) {
+                    cardViewExplanation.visibility = View.VISIBLE
+                    with(it) {
+                        if (myAnswer != correctAnswer) {
+                            when (correctAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                                answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                                answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                                answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            }
+                            when (myAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                                answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                                answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                                answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                            }
                         }
+                        rbAnswerA.isClickable = false
+                        rbAnswerB.isClickable = false
+                        rbAnswerC.isClickable = false
+                        rbAnswerD.isClickable = false
                     }
-                    if (myAnswer != correctAnswer) {
-                        when (myAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
-                        }
-                    }
-                    rbAnswerA.isClickable = false
-                    rbAnswerB.isClickable = false
-                    rbAnswerC.isClickable = false
-                    rbAnswerD.isClickable = false
                 }
             }
         }

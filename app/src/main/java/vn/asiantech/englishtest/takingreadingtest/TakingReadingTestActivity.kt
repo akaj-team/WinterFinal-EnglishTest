@@ -5,40 +5,59 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
-class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, ListQuestionFragment.OnClick {
+class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
-    private var questionList = arrayListOf<ListQuestionDetailItem>()
-    private var level = 0
+    var questionList = arrayListOf<ListQuestionDetailItem>()
+    var progressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_taking_reading_test)
+        initProgressDialog()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
-        chronometer.start()
+    }
+
+    override fun onBackPressed() {
+        when {
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> finish()
+            frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
+                animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                visibility = View.GONE
+            }
+            else -> initAlertDialog()
+        }
     }
 
     private fun initData() {
-        val position: Int = intent.getIntExtra(getString(R.string.position), 0)
-        level = intent.getIntExtra(getString(R.string.level), 0)
-        when (level) {
-            0 -> {
+        progressDialog?.show()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frListQuestions, ListQuestionFragment())
+            addToBackStack(null)
+            commit()
+        }
+        val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
+            R.id.itemReadingLevelBasic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
             }
-            1 -> {
+            R.id.itemReadingLevelIntermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
             }
-            2 -> {
+            R.id.itemReadingLevelAdvanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
             }
@@ -55,15 +74,9 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
                         questionList.add(it)
                     }
                 }
-                questionDetailPager.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
             }
         })
-
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frListQuestions, ListQuestionFragment())
-            addToBackStack(null)
-            commit()
-        }
     }
 
     override fun onClick(view: View?) {
@@ -87,13 +100,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
         }
     }
 
-    override fun onBackPressed() {
-        if (frListQuestions.visibility == View.GONE) {
-            showAlertDialog()
-        } else frListQuestions.visibility = View.GONE
-    }
-
-    private fun showAlertDialog() {
+    private fun initAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
@@ -104,14 +111,18 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener, Lis
             setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
             { _, _ ->
                 finish()
-                intent.putExtra(getString(R.string.level), level)
-
             }
         }.show()
     }
 
-    override fun onClickSubmit() {
-        //TODO
-        chronometer.stop()
+    private fun initProgressDialog() {
+        val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
+        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
+        builder.apply {
+            setView(dialogView)
+            setCancelable(false)
+        }
+        progressDialog = builder.create()
     }
 }

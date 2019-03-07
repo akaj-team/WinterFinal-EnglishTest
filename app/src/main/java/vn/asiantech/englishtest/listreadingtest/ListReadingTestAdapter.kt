@@ -13,7 +13,6 @@ class ListReadingTestAdapter(
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_test_items, parent, false)
         return ListReadingTestViewHolder(view)
@@ -27,8 +26,11 @@ class ListReadingTestAdapter(
         holder.bindView(listTests[position])
     }
 
-    inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    interface OnItemClickListener {
+        fun onClick(position: Int)
+    }
 
+    inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
             listener.onClick(layoutPosition)
         }
@@ -43,9 +45,5 @@ class ListReadingTestAdapter(
             }
             itemView.clPractice.setOnClickListener(this)
         }
-    }
-
-    interface OnItemClickListener {
-        fun onClick(position: Int)
     }
 }

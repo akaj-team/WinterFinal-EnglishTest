@@ -14,7 +14,6 @@ import vn.asiantech.englishtest.model.ListQuestionItem
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
 
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
-    private val listener: OnClick? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,10 +24,18 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        onClickSubmit()
+    }
+
+    override fun onClickQuestionNumber(position: Int) {
+        activity?.apply {
+            frListQuestions?.visibility = View.GONE
+            questionDetailPager?.currentItem = position
+        }
     }
 
     private fun initRecycleView() {
-        setData()
+        setListQuestionNumber()
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
@@ -36,28 +43,26 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         }
     }
 
-    private fun setData() {
-        //TODO
+    private fun setListQuestionNumber() {
+        //TODO("not implemented")
         val maxQuestionNumber = 40
         for (i in 0 until maxQuestionNumber) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
         }
     }
 
-    private fun onClickListener() {
-        //TODO
+    private fun onClickSubmit() {
         btnSubmit.setOnClickListener {
-            listener?.onClickSubmit()
+            activity?.chronometer?.stop()
+            fragmentManager?.beginTransaction()?.apply {
+                setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                replace(R.id.frListQuestions, TestResultFragment())
+                commit()
+            }
+            activity?.apply {
+                chronometer?.visibility = View.GONE
+                btnListQuestions?.visibility = View.GONE
+            }
         }
-    }
-
-    interface OnClick {
-        //TODO
-        fun onClickSubmit()
-    }
-
-    override fun onClickQuestionNumber(position: Int) {
-        activity?.frListQuestions?.visibility = View.GONE
-        (activity as? TakingReadingTestActivity)?.questionDetailPager?.currentItem = position
     }
 }

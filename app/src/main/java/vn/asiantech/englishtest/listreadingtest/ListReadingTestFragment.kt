@@ -16,7 +16,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
 
     companion object {
-        private const val ARG_LEVEL = "arg_level"
+        const val ARG_LEVEL = "arg_level"
+        const val ARG_POSITION = "position"
         fun getInstance(level: Int): ListReadingTestFragment =
             ListReadingTestFragment().apply {
                 val bundle = Bundle().apply {
@@ -36,6 +37,14 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         initRecycleView()
     }
 
+    override fun onClick(position: Int) {
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(ARG_POSITION, position)
+                .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL))
+        )
+    }
+
     private fun initRecycleView() {
         setData()
         recycleViewListReadingTests.apply {
@@ -53,18 +62,10 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
             (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
                 ListReadingTestItem(
                     getString(R.string.practice) + " ${i + 1}",
-                    getString(R.string.time),
+                    getString(R.string.timeDisplay),
                     40
                 )
             )
         }
-    }
-
-    override fun onClick(position: Int) {
-        startActivity(
-            Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(getString(R.string.position), position)
-                .putExtra(getString(R.string.level), arguments?.getInt(ARG_LEVEL))
-        )
     }
 }

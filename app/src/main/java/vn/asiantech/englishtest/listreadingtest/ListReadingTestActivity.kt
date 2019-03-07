@@ -13,14 +13,9 @@ import vn.asiantech.englishtest.R
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var navItemSelectedPosition = 0
-    private var level = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
-
-        level = intent.getIntExtra(getString(R.string.level), 0)
 
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -28,20 +23,48 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             R.string.navigationDrawerOpen,
             R.string.navigationDrawerClose
         )
-        setNavigationItem()
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        initListReadingTestFragment(level)
-        navigationView.setNavigationItemSelectedListener(this)
+        initListReadingTestFragment(R.id.itemReadingLevelBasic)
+        supportActionBar?.title = getString(R.string.part5Basic)
+        navigationView.apply {
+            setNavigationItemSelectedListener(this@ListReadingTestActivity)
+            setCheckedItem(R.id.itemReadingLevelBasic)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            initAlertDialog()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START)
+        when (item.itemId) {
+            R.id.itemReadingLevelBasic -> {
+                initListReadingTestFragment(R.id.itemReadingLevelBasic)
+                supportActionBar?.title = getString(R.string.part5Basic)
+            }
+            R.id.itemReadingLevelIntermediate -> {
+                initListReadingTestFragment(R.id.itemReadingLevelIntermediate)
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+            }
+            R.id.itemReadingLevelAdvanced -> {
+                initListReadingTestFragment(R.id.itemReadingLevelAdvanced)
+                supportActionBar?.title = getString(R.string.part5Advanced)
+            }
+        }
+        return true
     }
 
     private fun initListReadingTestFragment(level: Int) {
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in_left,
-                R.anim.slide_out_left,
-                R.anim.slide_in_right,
-                R.anim.slide_out_right
+                R.anim.slide_out_left
             )
             replace(
                 R.id.frListReadingTest,
@@ -51,24 +74,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         }
     }
 
-    private fun setNavigationItem() {
-        when (level) {
-            0 -> {
-                supportActionBar?.title = getString(R.string.part5Basic)
-                navigationView.setCheckedItem(R.id.itemReadingLevelBasic)
-            }
-            1 -> {
-                supportActionBar?.title = getString(R.string.part5Intermediate)
-                navigationView.setCheckedItem(R.id.itemReadingLevelIntermediate)
-            }
-            2 -> {
-                supportActionBar?.title = getString(R.string.part5Advanced)
-                navigationView.setCheckedItem(R.id.itemReadingLevelAdvanced)
-            }
-        }
-    }
-
-    private fun showAlertDialog() {
+    private fun initAlertDialog() {
         AlertDialog.Builder(this).create().apply {
             setTitle(getString(R.string.confirmExit))
             setMessage(getString(R.string.doYouWantToExit))
@@ -81,36 +87,5 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 finish()
             }
         }.show()
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            showAlertDialog()
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.itemReadingLevelBasic -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Basic)
-            }
-            R.id.itemReadingLevelIntermediate -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 1
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Intermediate)
-            }
-            R.id.itemReadingLevelAdvanced -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                navItemSelectedPosition = 2
-                initListReadingTestFragment(navItemSelectedPosition)
-                supportActionBar?.title = getString(R.string.part5Advanced)
-            }
-        }
-        return true
     }
 }

@@ -20,8 +20,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
 
-        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -44,21 +42,19 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
             R.id.itemReadingLevelBasic -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
                 navItemSelectedPosition = 0
                 initListReadingTestFragment(navItemSelectedPosition)
                 supportActionBar?.title = getString(R.string.part5Basic)
             }
             R.id.itemReadingLevelIntermediate -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
                 navItemSelectedPosition = 1
                 initListReadingTestFragment(navItemSelectedPosition)
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemReadingLevelAdvanced -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
                 navItemSelectedPosition = 2
                 initListReadingTestFragment(navItemSelectedPosition)
                 supportActionBar?.title = getString(R.string.part5Advanced)

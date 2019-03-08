@@ -1,23 +1,22 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
-import vn.asiantech.englishtest.model.ListTimeAndScore
-import com.google.gson.Gson
-import android.content.Context
-import android.util.Log
+import vn.asiantech.englishtest.model.ListReadingTestItem
 
 class TestResultFragment : Fragment(), View.OnClickListener {
-    private var level : Int ? = null
-    private var position : Int ? = null
-    val objectTimeAndScore = arrayListOf<ListTimeAndScore>()
+    private var level: Int? = null
+    private var position: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -52,20 +51,24 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addTimeAndScore() {
+        val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
         level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        objectTimeAndScore.add(
-            ListTimeAndScore(
+        val a = preferences?.getString("keyjson", "")
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val listTimeandScore =
+            gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
+
+        listTimeandScore.add(
+            ListReadingTestItem(
+                getString(R.string.practice).plus(position?.let { it + 1 }),
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
                 StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40").toString()
             )
         )
-        val json = Gson().toJson(objectTimeAndScore)
-        val preferences = activity?.getSharedPreferences("dinh", Context.MODE_PRIVATE)
+        val json = Gson().toJson(listTimeandScore)
         val editor = preferences?.edit()
-        editor?.putString("keyjson$level$position", json)
+        editor?.putString("keyjson", json)
         editor?.apply()
-        val sadsa = preferences?.getString("keyjson$level$position","")
-        Log.i("xxx", sadsa)
     }
 }

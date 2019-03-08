@@ -12,16 +12,14 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
-import vn.asiantech.englishtest.model.ListTimeAndScore
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
-    private var listReadingTestItems: MutableList<ListReadingTestItem>? = null
+    private var listReadingTestItems: ArrayList<ListReadingTestItem> = arrayListOf()
     private var level: Int? = null
     private var position: Int? = null
-    private var testAdapter: ListReadingTestAdapter? = null
-    //  private var listTimeandScore : List<ListTimeAndScore> ? = null
+    private val testAdapter: ListReadingTestAdapter? = null
 
     companion object {
         const val ARG_LEVEL = "arg_level"
@@ -58,29 +56,35 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         recycleViewListReadingTests.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = listReadingTestItems?.let { ListReadingTestAdapter(it, this@ListReadingTestFragment) }
+            adapter = ListReadingTestAdapter(listReadingTestItems, this@ListReadingTestFragment)
         }
     }
 
     private fun setData() {
-        //TODO("Not implemented")
-        val preferences = activity?.getSharedPreferences("dinh", Context.MODE_PRIVATE)
-        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        val json = preferences?.getString("keyjson$level$position", "")
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val listTimeandScore = gson.fromJson(json, Array<ListTimeAndScore>::class.java).toList()
         val maxTestNumber = 10
-        listReadingTestItems = ArrayList()
-        // (listReadingTestItems as ArrayList<ListReadingTestItem>).addAll(listTimeandScore)
         for (i in 0 until maxTestNumber) {
-            (listReadingTestItems as ArrayList<ListReadingTestItem>).add(
+            listReadingTestItems.add(
                 ListReadingTestItem(
-                    getString(vn.asiantech.englishtest.R.string.practice) + " ${i + 1}",
-                    listTimeandScore[position!!].time,
-                    listTimeandScore[position!!].score
+                    getString(vn.asiantech.englishtest.R.string.practice).plus(i+1),
+                    "00:00", "0/40"
                 )
             )
+        }
+        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+        position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
+        val json = preferences?.getString("keyjson", null)
+        if (json != null) {
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val listTimeandScore = gson.fromJson(json, Array<ListReadingTestItem>::class.java).toList()
+            for (i in 0..(listReadingTestItems.size-1)) {
+                for (a in 0..(listTimeandScore.size-1)) {
+                    if (listReadingTestItems[i].testNumber == listTimeandScore[a].testNumber) {
+                        listReadingTestItems[i].scoreDisplay = listTimeandScore[a].scoreDisplay
+                        listReadingTestItems[i].timeDisplay = listTimeandScore[a].timeDisplay
+                    }
+                }
+            }
         }
         testAdapter?.notifyDataSetChanged()
     }

@@ -51,10 +51,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     }
 
     private fun addTimeAndScore() {
-        val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
+        val preferences = activity?.getSharedPreferences(resources.getString(R.string.fileName), Context.MODE_PRIVATE)
         level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        val a = preferences?.getString("keyjson$level", "")
+        val a = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
             gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
@@ -63,12 +63,13 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             ListReadingTestItem(
                 getString(R.string.practice).plus(" ").plus(position?.let { it + 1 }),
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40").toString()
+                (activity as TakingReadingTestActivity).score.toString().plus(resources.getString(R.string.totalScore))
             )
         )
         val json = Gson().toJson(listTimeandScore)
-        val editor = preferences?.edit()
-        editor?.putString("keyjson$level", json)
-        editor?.apply()
+        preferences?.edit()?.apply {
+            putString("$level", json)
+            apply()
+        }
     }
 }

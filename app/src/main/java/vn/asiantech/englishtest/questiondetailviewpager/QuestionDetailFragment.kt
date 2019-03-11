@@ -72,6 +72,10 @@ class QuestionDetailFragment : Fragment() {
                         }
                     }
                 }
+                rbAnswerA.isClickable = false
+                rbAnswerB.isClickable = false
+                rbAnswerC.isClickable = false
+                rbAnswerD.isClickable = false
             }
         }
     }

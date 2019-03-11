@@ -54,21 +54,21 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
         level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        val a = preferences?.getString("keyjson", "")
+        val a = preferences?.getString("keyjson$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
             gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
 
         listTimeandScore.add(
             ListReadingTestItem(
-                getString(R.string.practice).plus(position?.let { it + 1 }),
+                getString(R.string.practice).plus(" ").plus(position?.let { it + 1 }),
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
                 StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40").toString()
             )
         )
         val json = Gson().toJson(listTimeandScore)
         val editor = preferences?.edit()
-        editor?.putString("keyjson", json)
+        editor?.putString("keyjson$level", json)
         editor?.apply()
     }
 }

@@ -19,7 +19,6 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     private var listReadingTestItems: ArrayList<ListReadingTestItem> = arrayListOf()
     private var level: Int? = null
     private var position: Int? = null
-    private val testAdapter: ListReadingTestAdapter? = null
 
     companion object {
         const val ARG_LEVEL = "arg_level"
@@ -34,7 +33,9 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        arguments?.let {
+            level = it.getInt(ARG_LEVEL)
+        }
         return inflater.inflate(R.layout.fragment_list_test, container, false)
     }
 
@@ -65,20 +66,19 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         for (i in 0 until maxTestNumber) {
             listReadingTestItems.add(
                 ListReadingTestItem(
-                    getString(vn.asiantech.englishtest.R.string.practice).plus(i+1),
+                    getString(vn.asiantech.englishtest.R.string.practice).plus(" ").plus(i + 1),
                     "00:00", "0/40"
                 )
             )
         }
-        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
-        val json = preferences?.getString("keyjson", null)
+        val json = preferences?.getString("keyjson$level", null)
         if (json != null) {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val listTimeandScore = gson.fromJson(json, Array<ListReadingTestItem>::class.java).toList()
-            for (i in 0..(listReadingTestItems.size-1)) {
-                for (a in 0..(listTimeandScore.size-1)) {
+            for (i in 0..(listReadingTestItems.size - 1)) {
+                for (a in 0..(listTimeandScore.size - 1)) {
                     if (listReadingTestItems[i].testNumber == listTimeandScore[a].testNumber) {
                         listReadingTestItems[i].scoreDisplay = listTimeandScore[a].scoreDisplay
                         listReadingTestItems[i].timeDisplay = listTimeandScore[a].timeDisplay
@@ -86,6 +86,5 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
                 }
             }
         }
-        testAdapter?.notifyDataSetChanged()
     }
 }

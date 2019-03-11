@@ -22,8 +22,8 @@
     <string name="practice">Practice</string>
     <string name="time">Time</string>
     <string name="score">Score</string>
-    <string name="timeDisplay">00:00</string>
-    <string name="scoreDisplay">0/40</string>
+    <string name="timeDefault">00:00</string>
+    <string name="scoreDefault">0/40</string>
     <string name="level">Level</string>
     <string name="submit">SUBMIT</string>
     <string name="questionDetailHere">Question Detail Here</string>

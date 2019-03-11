@@ -58,10 +58,17 @@ class QuestionDetailFragment : Fragment() {
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(if(myAnswer.isBlank()) Color.YELLOW else Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(if(myAnswer.isBlank()) Color.YELLOW else Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(if(myAnswer.isBlank()) Color.YELLOW else Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(if(myAnswer.isBlank()) Color.YELLOW else Color.RED)
+
+                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        }
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
                         }
                     }
                 }

@@ -13,9 +13,9 @@ class QuestionAdapter(fm: FragmentManager, private var questionList: ArrayList<L
         return QuestionDetailFragment.getInstance(position, questionList[position])
     }
 
+    override fun getCount(): Int = questionList.size
+
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE
     }
-
-    override fun getCount(): Int = questionList.size
 }

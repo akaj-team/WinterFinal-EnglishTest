@@ -1,8 +1,10 @@
 package vn.asiantech.englishtest.takingreadingtest
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,12 @@ import vn.asiantech.englishtest.model.ListReadingTestItem
 class TestResultFragment : Fragment(), View.OnClickListener {
     private var level: Int? = null
     private var position: Int? = null
+
+    companion object {
+        const val RESULT_OK = 0
+        const val KEY_TIME = "key_time"
+        const val KEY_SCORE = "key_score"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,12 +48,29 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                 (activity as TakingReadingTestActivity).review = true
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
-                    questionDetailPager.adapter?.notifyDataSetChanged()
-                    questionDetailPager?.currentItem = 0
+                    questionDetailPager?.apply {
+                        adapter?.notifyDataSetChanged()
+                        currentItem = 0
+                    }
                 }
             }
             R.id.btnExit -> {
-                activity?.finish()
+                activity?.apply {
+                    setResult(
+                        RESULT_OK, Intent()
+                            .putExtra(KEY_TIME, tvDurationTime.text.toString())
+                            .putExtra(KEY_SCORE, (activity as TakingReadingTestActivity).score.toString())
+                            .putExtra(
+                                ListReadingTestFragment.ARG_POSITION,
+                                activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+                            )
+                    )
+                    finish()
+                }
+                Log.i(
+                    "xxxx", tvDurationTime.text.toString().plus(" ")
+                        .plus((activity as TakingReadingTestActivity).score.toString())
+                )
             }
         }
     }
@@ -54,7 +79,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
         level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        val a = preferences?.getString("keyjson", "")
+        val a = preferences?.getString(level.toString(), "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
             gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
@@ -68,7 +93,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         )
         val json = Gson().toJson(listTimeandScore)
         val editor = preferences?.edit()
-        editor?.putString("keyjson", json)
+        editor?.putString(level.toString(), json)
         editor?.apply()
     }
 }

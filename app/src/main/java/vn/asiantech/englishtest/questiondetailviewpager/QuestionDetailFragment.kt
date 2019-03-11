@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,12 +13,13 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class QuestionDetailFragment : Fragment() {
+
     private var data: ListQuestionDetailItem? = null
     private var position = 0
 
     companion object {
-        private const val ARG_POSITION = "arg_position"
-        private const val ARG_DATA = "arg_data"
+        const val ARG_POSITION = "arg_position"
+        const val ARG_DATA = "arg_data"
         fun getInstance(position: Int, question: ListQuestionDetailItem): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
@@ -42,6 +44,7 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        selectedAnswer()
         data?.let {
             with(it) {
                 tvQuestion.text = question
@@ -49,6 +52,56 @@ class QuestionDetailFragment : Fragment() {
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
+            }
+
+            if ((activity as TakingReadingTestActivity).review) {
+                with(it) {
+                    if (myAnswer != correctAnswer) {
+                        when (correctAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        }
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                        }
+                    }
+                    rbAnswerA.isClickable = false
+                    rbAnswerB.isClickable = false
+                    rbAnswerC.isClickable = false
+                    rbAnswerD.isClickable = false
+                }
+            }
+        }
+    }
+
+    private fun selectedAnswer() {
+        rgAnswer.setOnCheckedChangeListener { _, _ ->
+            when {
+                rbAnswerA.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerA
+                    }
+                }
+                rbAnswerB.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerB
+                    }
+                }
+                rbAnswerC.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerC
+                    }
+                }
+                rbAnswerD.isChecked -> {
+                    data?.apply {
+                        myAnswer = answerD
+                    }
+                }
             }
         }
     }

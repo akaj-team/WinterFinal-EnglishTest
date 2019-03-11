@@ -12,7 +12,6 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
-
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
 
     override fun onCreateView(
@@ -62,6 +61,11 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
             activity?.apply {
                 chronometer?.visibility = View.GONE
                 btnListQuestions?.visibility = View.GONE
+            }
+            (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
+                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
+                    (activity as TakingReadingTestActivity).score += 1
+                }
             }
         }
     }

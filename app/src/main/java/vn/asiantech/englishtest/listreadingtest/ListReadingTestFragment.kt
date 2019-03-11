@@ -55,7 +55,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     private fun setData() {
-        //TODO
+        //TODO("Not implemented")
         val maxTestNumber = 10
         listReadingTestItems = ArrayList()
         for (i in 0 until maxTestNumber) {

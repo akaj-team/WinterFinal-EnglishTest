@@ -36,9 +36,11 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
-        tvDurationTime.text = (activity as TakingReadingTestActivity).chronometer.text.toString()
-        tvCorrectAnswer.text =
-            StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40")
+        (activity as TakingReadingTestActivity).apply {
+            tvDurationTime.text = chronometer.text.toString()
+            tvCorrectAnswer.text = score.toString().plus("/40")
+        }
+
         addTimeAndScore()
     }
 
@@ -67,33 +69,31 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                     )
                     finish()
                 }
-                Log.i(
-                    "xxxx", tvDurationTime.text.toString().plus(" ")
-                        .plus((activity as TakingReadingTestActivity).score.toString())
-                )
             }
         }
     }
 
     private fun addTimeAndScore() {
+        activity?.intent?.apply {
+            level = getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+            position = getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        }
         val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
-        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        val a = preferences?.getString(level.toString(), "")
+        val a = preferences?.getString("keyjson$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
             gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
-
         listTimeandScore.add(
             ListReadingTestItem(
-                getString(R.string.practice).plus(position?.let { it + 1 }),
+                getString(R.string.practice).plus(" ").plus(position?.let { it + 1 }),
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                StringBuilder().append((activity as TakingReadingTestActivity).score.toString()).append("/40").toString()
+                (activity as TakingReadingTestActivity).score.toString().plus("/40")
             )
         )
         val json = Gson().toJson(listTimeandScore)
-        val editor = preferences?.edit()
-        editor?.putString(level.toString(), json)
-        editor?.apply()
+        preferences?.edit()?.apply {
+            putString("keyjson$level", json)
+            apply()
+        }
     }
 }

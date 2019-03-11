@@ -38,7 +38,7 @@
                     android:id="@+id/guideline"/>
 
             <TextView
-                    android:text="@string/score40"
+                    android:text="@string/scoreDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvCorrectAnswer"
@@ -56,7 +56,7 @@
                     android:textSize="@dimen/dimen16dp"/>
 
             <TextView
-                    android:text="@string/timeDisplay"
+                    android:text="@string/timeDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvDurationTime"

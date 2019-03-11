@@ -5,13 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_list_test.*
-import kotlinx.android.synthetic.main.list_test_items.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
@@ -19,7 +17,8 @@ import vn.asiantech.englishtest.takingreadingtest.TestResultFragment
 
 class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
     private var listReadingTestItems: ArrayList<ListReadingTestItem> = arrayListOf()
-    private val testAdapter: ListReadingTestAdapter? = null
+    private var testAdapter: ListReadingTestAdapter? = null
+    private var level: Int? = null
 
     companion object {
         const val ARG_LEVEL = "arg_level"
@@ -36,13 +35,16 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        arguments?.let {
+            level = it.getInt(ARG_LEVEL)
+        }
         return inflater.inflate(R.layout.fragment_list_test, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        setData()
     }
 
     override fun onClick(position: Int) {
@@ -57,32 +59,23 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE) {
-            if (requestCode == TestResultFragment.RESULT_OK) {
+            if (resultCode == TestResultFragment.RESULT_OK) {
                 data?.apply {
-                    testAdapter?.notifyItemChanged(getIntExtra(ListReadingTestFragment.ARG_POSITION, 0))
-                    tvTimeDisplay.text = getStringExtra(TestResultFragment.KEY_TIME)
-                    tvScoreDisplay.text = getStringExtra(TestResultFragment.KEY_SCORE)
+                    listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].timeDisplay =
+                        getStringExtra(TestResultFragment.KEY_TIME)
+                    listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].scoreDisplay =
+                        getStringExtra(TestResultFragment.KEY_SCORE).plus("/40")
+                    testAdapter?.notifyDataSetChanged()
                 }
             }
         }
-
-        Log.i(
-            "zzzz", data?.getStringExtra(TestResultFragment.KEY_TIME).plus(" ")
-                .plus(
-                    data?.getStringExtra(TestResultFragment.KEY_SCORE).plus(" ")
-                        .plus(
-                            data?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-                        )
-                )
-        )
     }
 
     private fun initRecycleView() {
-        setData()
         recycleViewListReadingTests.apply {
-            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            adapter = ListReadingTestAdapter(listReadingTestItems, this@ListReadingTestFragment)
+            testAdapter = ListReadingTestAdapter(listReadingTestItems, this@ListReadingTestFragment)
+            adapter = testAdapter
         }
     }
 
@@ -91,22 +84,21 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         for (i in 0 until maxTestNumber) {
             listReadingTestItems.add(
                 ListReadingTestItem(
-                    getString(vn.asiantech.englishtest.R.string.practice).plus(i + 1),
-                    "00:00", "0/40"
+                    getString(vn.asiantech.englishtest.R.string.practice).plus(" ").plus(i + 1),
+                    getString(R.string.timeDefault), getString(R.string.scoreDefault)
                 )
             )
         }
-        val level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         val preferences = activity?.getSharedPreferences("timescore", Context.MODE_PRIVATE)
-        val json = preferences?.getString(level.toString(), null)
+        val json = preferences?.getString("keyjson$level", null)
         if (json != null) {
             val gson = GsonBuilder().setPrettyPrinting().create()
             val listTimeandScore = gson.fromJson(json, Array<ListReadingTestItem>::class.java).toList()
-            for (i in 0..(listReadingTestItems.size - 1)) {
-                for (a in 0..(listTimeandScore.size - 1)) {
-                    if (listReadingTestItems[i].testNumber == listTimeandScore[a].testNumber) {
-                        listReadingTestItems[i].scoreDisplay = listTimeandScore[a].scoreDisplay
-                        listReadingTestItems[i].timeDisplay = listTimeandScore[a].timeDisplay
+            for (testPosition in listReadingTestItems) {
+                for (timeAndScorePosition in listTimeandScore) {
+                    if (testPosition.testNumber == timeAndScorePosition.testNumber) {
+                        testPosition.scoreDisplay = timeAndScorePosition.scoreDisplay
+                        testPosition.timeDisplay = timeAndScorePosition.timeDisplay
                     }
                 }
             }

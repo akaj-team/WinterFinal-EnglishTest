@@ -74,14 +74,14 @@ class TestResultFragment : Fragment(), View.OnClickListener {
 
     private fun addTimeAndScore() {
         val preferences = activity?.getSharedPreferences(getString(R.string.fileName), Context.MODE_PRIVATE)
-        val a = preferences?.getString("$level", "")
         activity?.intent?.apply {
             level = getIntExtra(ListReadingTestFragment.ARG_LEVEL, -1)
             position = getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)
         }
+        val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(a, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
+            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
         listTimeandScore.add(
             ListReadingTestItem(
                 getString(R.string.practice).plus(" ").plus(position?.let { it + 1 }),

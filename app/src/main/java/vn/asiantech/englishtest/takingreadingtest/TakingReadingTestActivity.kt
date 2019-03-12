@@ -89,15 +89,15 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
             R.id.itemReadingLevelBasic -> {
                 tvLevel.text = getString(R.string.part5Basic)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
             }
             R.id.itemReadingLevelIntermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5intermediate0${position + 1}")
             }
             R.id.itemReadingLevelAdvanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5advanced0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {

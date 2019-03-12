@@ -56,6 +56,7 @@ class QuestionDetailFragment : Fragment() {
                 tvTranslation.text = translation
             }
             if ((activity as TakingReadingTestActivity).review) {
+                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {

@@ -25,11 +25,11 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        initListReadingTestFragment(R.id.itemReadingLevelBasic)
+        initListReadingTestFragment(R.id.itemPart5Basic)
         supportActionBar?.title = getString(R.string.part5Basic)
         navigationView.apply {
             setNavigationItemSelectedListener(this@ListReadingTestActivity)
-            setCheckedItem(R.id.itemReadingLevelBasic)
+            setCheckedItem(R.id.itemPart5Basic)
         }
     }
 
@@ -44,17 +44,25 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
-            R.id.itemReadingLevelBasic -> {
-                initListReadingTestFragment(R.id.itemReadingLevelBasic)
+            R.id.itemPart5Basic -> {
+                initListReadingTestFragment(R.id.itemPart5Basic)
                 supportActionBar?.title = getString(R.string.part5Basic)
             }
-            R.id.itemReadingLevelIntermediate -> {
-                initListReadingTestFragment(R.id.itemReadingLevelIntermediate)
+            R.id.itemPart5Intermediate -> {
+                initListReadingTestFragment(R.id.itemPart5Intermediate)
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
-            R.id.itemReadingLevelAdvanced -> {
-                initListReadingTestFragment(R.id.itemReadingLevelAdvanced)
+            R.id.itemPart5Advanced -> {
+                initListReadingTestFragment(R.id.itemPart5Advanced)
                 supportActionBar?.title = getString(R.string.part5Advanced)
+            }
+            R.id.itemPart6 -> {
+                initListReadingTestFragment(R.id.itemPart6)
+                supportActionBar?.title = getString(R.string.part6)
+            }
+            R.id.itemPart7 -> {
+                initListReadingTestFragment(R.id.itemPart7)
+                supportActionBar?.title = getString(R.string.part7)
             }
         }
         return true

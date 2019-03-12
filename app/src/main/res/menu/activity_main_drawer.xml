@@ -5,15 +5,15 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                        android:id="@+id/itemReadingLevelBasic"
+                        android:id="@+id/itemPart5Basic"
                         android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Basic"/>
                 <item
-                        android:id="@+id/itemReadingLevelIntermediate"
+                        android:id="@+id/itemPart5Intermediate"
                         android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Intermediate"/>
                 <item
-                        android:id="@+id/itemReadingLevelAdvanced"
+                        android:id="@+id/itemPart5Advanced"
                         android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Advanced"/>
                 <item

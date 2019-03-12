@@ -72,17 +72,25 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-            R.id.itemReadingLevelBasic -> {
+            R.id.itemPart5Basic -> {
                 tvLevel.text = getString(R.string.part5Basic)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practicebasic0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
             }
-            R.id.itemReadingLevelIntermediate -> {
+            R.id.itemPart5Intermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceintermediate0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5intermediate0${position + 1}")
             }
-            R.id.itemReadingLevelAdvanced -> {
+            R.id.itemPart5Advanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("practiceadvanced0${position + 1}")
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part5advanced0${position + 1}")
+            }
+            R.id.itemPart6 -> {
+                tvLevel.text = getString(R.string.part6)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part6-0${position + 1}")
+            }
+            R.id.itemPart7 -> {
+                tvLevel.text = getString(R.string.part7)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
@@ -98,6 +106,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
                 questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                questionDetailPager.offscreenPageLimit = 40
             }
         })
     }

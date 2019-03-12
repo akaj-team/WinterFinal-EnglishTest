@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
@@ -20,6 +21,7 @@ class QuestionDetailFragment : Fragment() {
     companion object {
         const val ARG_POSITION = "arg_position"
         const val ARG_DATA = "arg_data"
+
         fun getInstance(position: Int, question: ListQuestionDetailItem): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
@@ -44,14 +46,22 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        when (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
+            R.id.itemPart6, R.id.itemPart7 -> {
+                tvQuestionContent.visibility = View.VISIBLE
+                tvQuestion.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+        }
         selectedAnswer()
         data?.let {
             with(it) {
-                tvQuestion.text = question
+                tvQuestion.text = questionTitle
                 rbAnswerA.text = answerA
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
+                tvQuestionContent.text = questionContent
             }
 
             if ((activity as TakingReadingTestActivity).review) {

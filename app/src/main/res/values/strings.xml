@@ -38,6 +38,6 @@
     <string name="loadingData">Loading data...</string>
     <string name="review">review</string>
     <string name="exit">exit</string>
-    <string name="fileName">Time and Score</string>
+    <string name="fileName">timescore</string>
     <string name="totalScore">"/40"</string>
 </resources>

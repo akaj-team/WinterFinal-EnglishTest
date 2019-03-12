@@ -38,4 +38,6 @@
     <string name="loadingData">Loading data...</string>
     <string name="review">review</string>
     <string name="exit">exit</string>
+    <string name="part6">Part 6</string>
+    <string name="part7">Part 7</string>
 </resources>

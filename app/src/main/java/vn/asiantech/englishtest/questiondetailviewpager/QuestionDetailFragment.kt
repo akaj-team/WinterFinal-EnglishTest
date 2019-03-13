@@ -50,13 +50,13 @@ class QuestionDetailFragment : Fragment() {
         when (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
-                tvQuestion.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             }
         }
         selectedAnswer()
         data?.let {
             with(it) {
-                tvQuestion.text = questionTitle
+                tvQuestionTitle.text = questionTitle
                 rbAnswerA.text = answerA
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC

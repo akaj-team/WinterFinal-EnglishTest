@@ -87,7 +87,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                "${(activity as TakingReadingTestActivity).score}${getString(R.string.totalScore)}"
+                (activity as TakingReadingTestActivity).score.toString()
             )
         )
         val json = Gson().toJson(listTimeandScore)

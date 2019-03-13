@@ -65,8 +65,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
                     listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].timeDisplay =
                         getStringExtra(TestResultFragment.KEY_TIME)
                     listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].scoreDisplay =
-                        StringBuilder().append(getStringExtra(TestResultFragment.KEY_SCORE))
-                            .append(getString(R.string.totalScore)).toString()
+                        getStringExtra(TestResultFragment.KEY_SCORE)
                     testAdapter?.notifyDataSetChanged()
                 }
             }
@@ -87,7 +86,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
             listReadingTestItems.add(
                 ListReadingTestItem(
                     "${getString(R.string.practice)} ${i + 1}",
-                    getString(R.string.timeDefault), getString(R.string.scoreDefault)
+                    getString(R.string.timeDefault), "0"
                 )
             )
         }

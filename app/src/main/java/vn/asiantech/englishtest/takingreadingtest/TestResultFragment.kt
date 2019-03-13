@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -20,7 +21,6 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     private var position: Int? = null
 
     companion object {
-        const val RESULT_OK = 0
         const val KEY_TIME = "key_time"
         const val KEY_SCORE = "key_score"
     }
@@ -37,7 +37,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         btnExit.setOnClickListener(this)
         (activity as TakingReadingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
-            tvCorrectAnswer.text = score.toString().plus(getString(R.string.totalScore))
+            tvCorrectAnswer.text = StringBuilder().append(score).append(getString(R.string.totalScore))
         }
 
         addTimeAndScore()
@@ -58,7 +58,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             R.id.btnExit -> {
                 activity?.apply {
                     setResult(
-                        RESULT_OK, Intent()
+                        Activity.RESULT_OK, Intent()
                             .putExtra(KEY_TIME, tvDurationTime.text.toString())
                             .putExtra(KEY_SCORE, (activity as TakingReadingTestActivity).score.toString())
                             .putExtra(
@@ -81,12 +81,13 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
+            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList()
+                ?: arrayListOf()
         listTimeandScore.add(
             ListReadingTestItem(
-                getString(R.string.practice).plus(" ").plus(position?.let { it + 1 }),
+                "${getString(R.string.practice)} ${position?.let { it + 1 }}",
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                (activity as TakingReadingTestActivity).score.toString().plus(resources.getString(R.string.totalScore))
+                "${(activity as TakingReadingTestActivity).score}${getString(R.string.totalScore)}"
             )
         )
         val json = Gson().toJson(listTimeandScore)

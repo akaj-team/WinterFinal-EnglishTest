@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -67,7 +68,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setResult() {
         setResult(
-            TestResultFragment.RESULT_OK, Intent()
+            Activity.RESULT_OK, Intent()
                 .putExtra(TestResultFragment.KEY_TIME, tvDurationTime.text.toString())
                 .putExtra(TestResultFragment.KEY_SCORE, score.toString())
                 .putExtra(

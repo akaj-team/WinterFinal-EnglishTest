@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.listreadingtest
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -23,7 +24,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     companion object {
         const val ARG_LEVEL = "arg_level"
         const val ARG_POSITION = "position"
-        const val REQUEST_CODE = 1001
+        const val REQUEST_CODE_TIME_AND_SCORE = 1001
 
         fun getInstance(level: Int): ListReadingTestFragment =
             ListReadingTestFragment().apply {
@@ -51,20 +52,21 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         startActivityForResult(
             Intent(activity, TakingReadingTestActivity::class.java)
                 .putExtra(ARG_POSITION, position)
-                .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL)), REQUEST_CODE
+                .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL)), REQUEST_CODE_TIME_AND_SCORE
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == TestResultFragment.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_TIME_AND_SCORE) {
+            if (resultCode == Activity.RESULT_OK) {
                 data?.apply {
                     listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].timeDisplay =
                         getStringExtra(TestResultFragment.KEY_TIME)
                     listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].scoreDisplay =
-                        getStringExtra(TestResultFragment.KEY_SCORE).plus(getString(R.string.totalScore))
+                        StringBuilder().append(getStringExtra(TestResultFragment.KEY_SCORE))
+                            .append(getString(R.string.totalScore)).toString()
                     testAdapter?.notifyDataSetChanged()
                 }
             }
@@ -84,11 +86,15 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         for (i in 0 until maxTestNumber) {
             listReadingTestItems.add(
                 ListReadingTestItem(
-                    getString(R.string.practice).plus(" ").plus(i + 1),
+                    "${getString(R.string.practice)} ${i + 1}",
                     getString(R.string.timeDefault), getString(R.string.scoreDefault)
                 )
             )
         }
+        handleDataSharedPreferences()
+    }
+
+    private fun handleDataSharedPreferences() {
         val preferences = activity?.getSharedPreferences(getString(R.string.fileName), Context.MODE_PRIVATE)
         val json = preferences?.getString("$level", null)
         if (json != null) {

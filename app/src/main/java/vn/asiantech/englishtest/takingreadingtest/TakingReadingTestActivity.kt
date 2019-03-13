@@ -45,15 +45,20 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                if (frListQuestions.visibility == View.VISIBLE) {
-                    with(frListQuestions) {
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
-                        visibility = View.GONE
+                if (frListQuestions.visibility == View.GONE) {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frListQuestions, ListQuestionFragment())
+                        addToBackStack(null)
+                        commit()
                     }
-                } else {
                     with(frListQuestions) {
                         animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
                         visibility = View.VISIBLE
+                    }
+                } else {
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                        visibility = View.GONE
                     }
                 }
             }
@@ -65,11 +70,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initData() {
         progressDialog?.show()
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frListQuestions, ListQuestionFragment())
-            addToBackStack(null)
-            commit()
-        }
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
             R.id.itemPart5Basic -> {

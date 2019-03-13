@@ -47,7 +47,7 @@ class QuestionDetailFragment : Fragment() {
         selectedAnswer()
         data?.let {
             with(it) {
-                tvQuestion.text = question
+                tvQuestion.text = questionTitle
                 rbAnswerA.text = answerA
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC

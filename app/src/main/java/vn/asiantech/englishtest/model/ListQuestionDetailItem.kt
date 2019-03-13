@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ListQuestionDetailItem(
-    val question: String = "",
+    val questionTitle: String = "",
     val answerA: String = "",
     val answerB: String = "",
     val answerC: String = "",

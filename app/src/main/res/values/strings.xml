@@ -40,4 +40,8 @@
     <string name="exit">exit</string>
     <string name="fileName">timescore</string>
     <string name="totalScore">"/40"</string>
+    <string name="part1">Part 1</string>
+    <string name="part2">Part 2</string>
+    <string name="part3">Part 3</string>
+    <string name="part4">Part 4</string>
 </resources>

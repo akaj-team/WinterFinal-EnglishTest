@@ -55,6 +55,22 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 initListReadingTestFragment(R.id.itemReadingLevelAdvanced)
                 supportActionBar?.title = getString(R.string.part5Advanced)
             }
+            R.id.itemPart1 -> {
+                initListReadingTestFragment(R.id.itemPart1)
+                supportActionBar?.title = getString(R.string.part1)
+            }
+            R.id.itemPart2 -> {
+                initListReadingTestFragment(R.id.itemPart2)
+                supportActionBar?.title = getString(R.string.part2)
+            }
+            R.id.itemPart3 -> {
+                initListReadingTestFragment(R.id.itemPart3)
+                supportActionBar?.title = getString(R.string.part3)
+            }
+            R.id.itemPart4 -> {
+                initListReadingTestFragment(R.id.itemPart4)
+                supportActionBar?.title = getString(R.string.part4)
+            }
         }
         return true
     }

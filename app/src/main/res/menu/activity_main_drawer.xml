@@ -6,16 +6,39 @@
             <group android:checkableBehavior="single">
                 <item
                         android:id="@+id/itemReadingLevelBasic"
-                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Basic"/>
                 <item
                         android:id="@+id/itemReadingLevelIntermediate"
-                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Intermediate"/>
                 <item
                         android:id="@+id/itemReadingLevelAdvanced"
-                        android:icon="@drawable/ic_looks_5_black_24dp"
+                        android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Advanced"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/listening">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/itemPart1"
+                        android:icon="@drawable/ic_filter_1_black_18dp"
+                        android:title="@string/part1"/>
+                <item
+                        android:id="@+id/itemPart2"
+                        android:icon="@drawable/ic_filter_2_black_18dp"
+                        android:title="@string/part2"/>
+                <item
+                        android:id="@+id/itemPart3"
+                        android:icon="@drawable/ic_filter_3_black_18dp"
+                        android:title="@string/part3"/>
+                <item
+                        android:id="@+id/itemPart4"
+                        android:icon="@drawable/ic_filter_4_black_18dp"
+                        android:title="@string/part4"/>
             </group>
         </menu>
     </item>

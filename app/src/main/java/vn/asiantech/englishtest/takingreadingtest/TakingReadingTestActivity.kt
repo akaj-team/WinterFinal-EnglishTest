@@ -61,7 +61,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btnBackToListTest -> {
-                setResult()
+                onBackPressed()
             }
         }
     }

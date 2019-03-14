@@ -106,7 +106,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
                 questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
-                questionDetailPager.offscreenPageLimit = 40
             }
         })
     }

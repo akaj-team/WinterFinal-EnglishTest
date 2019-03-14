@@ -51,6 +51,14 @@ class QuestionDetailFragment : Fragment() {
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                if (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0) == R.id.itemPart7) {
+                    ViewGroup.LayoutParams.WRAP_CONTENT.let {
+                        rbAnswerA.layoutParams.height = it
+                        rbAnswerB.layoutParams.height = it
+                        rbAnswerC.layoutParams.height = it
+                        rbAnswerD.layoutParams.height = it
+                    }
+                }
             }
         }
         selectedAnswer()

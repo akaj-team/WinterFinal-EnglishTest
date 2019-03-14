@@ -65,7 +65,7 @@
                     <RadioButton
                             android:id="@+id/rbAnswerA"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
@@ -86,7 +86,7 @@
                     <RadioButton
                             android:id="@+id/rbAnswerB"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
@@ -107,7 +107,7 @@
                     <RadioButton
                             android:id="@+id/rbAnswerC"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
@@ -128,7 +128,7 @@
                     <RadioButton
                             android:id="@+id/rbAnswerD"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"

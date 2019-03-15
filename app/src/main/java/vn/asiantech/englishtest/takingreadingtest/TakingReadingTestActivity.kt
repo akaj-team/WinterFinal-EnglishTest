@@ -48,15 +48,20 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnListQuestions -> {
-                if (frListQuestions.visibility == View.VISIBLE) {
-                    with(frListQuestions) {
-                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
-                        visibility = View.GONE
+                if (frListQuestions.visibility == View.GONE) {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frListQuestions, ListQuestionFragment())
+                        addToBackStack(null)
+                        commit()
                     }
-                } else {
                     with(frListQuestions) {
                         animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in_bottom)
                         visibility = View.VISIBLE
+                    }
+                } else {
+                    with(frListQuestions) {
+                        animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
+                        visibility = View.GONE
                     }
                 }
             }
@@ -81,24 +86,31 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initData() {
         progressDialog?.show()
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frListQuestions, ListQuestionFragment())
-            addToBackStack(null)
-            commit()
-        }
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-            R.id.itemReadingLevelBasic -> {
+            R.id.itemPart5Basic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
             }
-            R.id.itemReadingLevelIntermediate -> {
+            R.id.itemPart5Intermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5intermediate0${position + 1}")
             }
-            R.id.itemReadingLevelAdvanced -> {
+            R.id.itemPart5Advanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5advanced0${position + 1}")
+            }
+            R.id.itemPart6 -> {
+                tvLevel.text = getString(R.string.part6)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part6-0${position + 1}")
+            }
+            R.id.itemPart7 -> {
+                tvLevel.text = getString(R.string.part7)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
+            }
+            R.id.itemPart1 -> {
+                tvLevel.text = getString(R.string.part1)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
@@ -107,6 +119,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onDataChange(dataPractice: DataSnapshot) {
+                progressDialog?.dismiss()
                 for (i in dataPractice.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
                     question?.let {
@@ -114,6 +127,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
                 questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                questionDetailPager?.adapter?.notifyDataSetChanged()
             }
         })
     }

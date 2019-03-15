@@ -11,5 +11,6 @@ data class ListQuestionDetailItem(
     val answerC: String = "",
     val answerD: String = "",
     val correctAnswer: String = "",
-    var myAnswer: String = ""
+    var myAnswer: String = "",
+    val questionContent: String = ""
 ) : Parcelable

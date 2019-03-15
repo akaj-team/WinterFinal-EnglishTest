@@ -1,6 +1,8 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.graphics.Color
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -14,10 +16,13 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
+@Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
     private var data: ListQuestionDetailItem? = null
     private var position = 0
+    private var mediaPlay: MediaPlayer? = null
+    private var level: Int? = null
 
     companion object {
         const val ARG_POSITION = "arg_position"
@@ -42,39 +47,84 @@ class QuestionDetailFragment : Fragment() {
             progressDialog?.dismiss()
             chronometer.start()
         }
+        level = (activity as TakingReadingTestActivity).intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-            R.id.itemPart6, R.id.itemPart7 -> {
+        when (level) {
+            R.id.itemPart6 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+            R.id.itemPart7 -> {
+                tvQuestionContent.visibility = View.VISIBLE
+                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT.let {
+                    rbAnswerA.layoutParams.height = it
+                    rbAnswerB.layoutParams.height = it
+                    rbAnswerC.layoutParams.height = it
+                    rbAnswerD.layoutParams.height = it
+                }
             }
             R.id.itemPart1 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 imgQuestionTitle.visibility = View.VISIBLE
                 tvQuestionTitle.visibility = View.GONE
+                cardViewAudio.visibility = View.VISIBLE
+                ViewGroup.LayoutParams.WRAP_CONTENT.let {
+                    rbAnswerA.layoutParams.height = it
+                    rbAnswerB.layoutParams.height = it
+                    rbAnswerC.layoutParams.height = it
+                    rbAnswerD.layoutParams.height = it
+                }
             }
         }
         selectedAnswer()
         data?.let {
             with(it) {
-                when ((activity as TakingReadingTestActivity).intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-                    R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(imgQuestionTitle)
+                when ((activity as TakingReadingTestActivity).intent.getIntExtra(
+                    ListReadingTestFragment.ARG_LEVEL,
+                    0
+                )) {
+                    R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
+                        imgQuestionTitle
+                    )
                 }
+                btnPlay.setOnClickListener {
+                    try {
+                        mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+                        mediaPlay?.setDataSource(audio)
+                        mediaPlay?.setOnPreparedListener { mp -> mp.start() }
+                        mediaPlay?.prepare()
+                    } catch (e: Exception) {
 
-                tvQuestionTitle.text = questionTitle
-                rbAnswerA.text = answerA
-                rbAnswerB.text = answerB
-                rbAnswerC.text = answerC
-                rbAnswerD.text = answerD
+                    }
+                }
                 tvQuestionContent.text = questionContent
+                if (level != R.id.itemPart1) {
+                    tvQuestionTitle.text = questionTitle
+                    rbAnswerA.text = answerA
+                    rbAnswerB.text = answerB
+                    rbAnswerC.text = answerC
+                    rbAnswerD.text = answerD
+                    tvQuestionContent.text = questionContent
+                }
             }
 
             if ((activity as TakingReadingTestActivity).review) {
+                if (level == R.id.itemPart1) {
+                    data?.let { it1 ->
+                        with(it1) {
+                            rbAnswerA.text = answerA
+                            rbAnswerB.text = answerB
+                            rbAnswerC.text = answerC
+                            rbAnswerD.text = answerD
+                        }
+                    }
+                }
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {

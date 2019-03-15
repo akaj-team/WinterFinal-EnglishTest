@@ -49,6 +49,7 @@
         <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/cardViewAnswer"
                 android:layout_below="@+id/cardViewQuestionTitle"
                 android:layout_margin="@dimen/dimen10dp">
 
@@ -78,12 +79,13 @@
                     <RadioButton
                             android:id="@+id/rbAnswerA"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
+                            android:text="A."
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
@@ -99,13 +101,14 @@
                     <RadioButton
                             android:id="@+id/rbAnswerB"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:textColor="@color/colorBlack"
                             android:background="@drawable/bg_answer"
+                            android:text="B."
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
 
@@ -120,13 +123,14 @@
                     <RadioButton
                             android:id="@+id/rbAnswerC"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
                             android:textColor="@color/colorBlack"
+                            android:text="C."
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
 
@@ -141,12 +145,13 @@
                     <RadioButton
                             android:id="@+id/rbAnswerD"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/dimen50dp"
                             android:paddingStart="@dimen/dimen20dp"
                             android:paddingEnd="@dimen/dimen20dp"
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
+                            android:text="D."
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
@@ -158,16 +163,20 @@
         <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/cardViewAudio"
+                android:layout_below="@+id/cardViewAnswer"
                 android:layout_marginBottom="@dimen/dimen10dp"
+                android:layout_marginLeft="@dimen/dimen10dp"
+                android:layout_marginRight="@dimen/dimen10dp"
                 android:visibility="gone">
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent">
 
                 <Button
-                        android:id="@+id/tvState"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:id="@+id/btnPlay"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
                         android:background="@drawable/ic_play_arrow_blue_300_18dp"

@@ -43,13 +43,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         (activity as TakingReadingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score.toString())
-                .append(
-                    when (level) {
-                        R.id.itemPart6 -> "/$questionNumber"
-                        R.id.itemPart7 -> "/$questionNumber"
-                        else -> "/$questionNumber"
-                    }
-                )
+                .append("/$questionNumber")
         }
         addTimeAndScore()
     }

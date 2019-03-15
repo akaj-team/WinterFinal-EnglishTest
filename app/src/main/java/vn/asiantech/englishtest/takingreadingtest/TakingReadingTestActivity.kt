@@ -2,6 +2,8 @@ package vn.asiantech.englishtest.takingreadingtest
 
 import android.app.Activity
 import android.content.Intent
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -16,6 +18,7 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
+@Suppress("DEPRECATION")
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
@@ -23,6 +26,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var progressDialog: AlertDialog? = null
     var score = 0
     var review = false
+    private var mediaPlay : MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,7 +131,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
                 questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
-                questionDetailPager?.adapter?.notifyDataSetChanged()
             }
         })
     }

@@ -49,9 +49,12 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         for (i in 0 until (activity as TakingReadingTestActivity).questionList.size) {
             (listQuestionItems as ArrayList<ListQuestionItem>).add(
                 ListQuestionItem(
-                    if (level == R.id.itemPart6) 141 + i
-                    else if (level == R.id.itemPart7) 153 + i
-                    else 101 + i
+                    when (level) {
+                        R.id.itemPart1 -> 1 + i
+                        R.id.itemPart6 -> 141 + i
+                        R.id.itemPart7 -> 153 + i
+                        else -> 101 + i
+                    }
                 )
             )
         }

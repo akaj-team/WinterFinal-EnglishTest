@@ -2,8 +2,6 @@ package vn.asiantech.englishtest.takingreadingtest
 
 import android.app.Activity
 import android.content.Intent
-import android.media.AudioManager
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -26,7 +24,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var progressDialog: AlertDialog? = null
     var score = 0
     var review = false
-    private var mediaPlay : MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,12 +144,13 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
+
         }.show()
     }
 
     private fun initProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
-        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        val dialogView = View.inflate(this, R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
         builder.setView(dialogView)
         progressDialog = builder.create()

@@ -46,4 +46,8 @@
     <string name="part4">Part 4</string>
     <string name="part6">Part 6</string>
     <string name="part7">Part 7</string>
+    <string name="optionD">D.</string>
+    <string name="optionC">C.</string>
+    <string name="optionB">B.</string>
+    <string name="optionA">A.</string>
 </resources>

@@ -85,7 +85,7 @@
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
-                            android:text="A."
+                            android:text="@string/optionA"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
@@ -108,7 +108,7 @@
                             android:paddingBottom="@dimen/dimen10dp"
                             android:textColor="@color/colorBlack"
                             android:background="@drawable/bg_answer"
-                            android:text="B."
+                            android:text="@string/optionB"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
 
@@ -130,7 +130,7 @@
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
                             android:textColor="@color/colorBlack"
-                            android:text="C."
+                            android:text="@string/optionC"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
 
@@ -151,7 +151,7 @@
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
-                            android:text="D."
+                            android:text="@string/optionD"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
@@ -173,13 +173,13 @@
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent">
 
-                <Button
-                        android:id="@+id/btnPlay"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                <ImageView
+                        android:id="@+id/imgState"
+                        android:layout_width="@dimen/dimen30dp"
+                        android:layout_height="@dimen/dimen30dp"
                         android:gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
-                        android:background="@drawable/ic_play_arrow_blue_300_18dp"
+                        android:src="@drawable/ic_play_circle_outline_black_24dp"
                         android:textStyle="bold"/>
 
                 <SeekBar android:layout_width="match_parent"

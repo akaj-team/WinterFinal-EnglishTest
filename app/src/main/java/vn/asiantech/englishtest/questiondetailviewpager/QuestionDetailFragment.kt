@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
@@ -15,6 +16,8 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+
+
 
 @Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
@@ -53,7 +56,16 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mediaPlay= MediaPlayer()
+        mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
 
+        showView()
+        selectedAnswer()
+        onClickPlayAudio()
+        setDataFirebase()
+    }
+
+    private fun showView() {
         when (level) {
             R.id.itemPart6 -> {
                 tvQuestionContent.visibility = View.VISIBLE
@@ -82,7 +94,9 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
         }
-        selectedAnswer()
+    }
+
+    private fun setDataFirebase() {
         data?.let {
             with(it) {
                 when ((activity as TakingReadingTestActivity).intent.getIntExtra(
@@ -92,16 +106,6 @@ class QuestionDetailFragment : Fragment() {
                     R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
                         imgQuestionTitle
                     )
-                }
-                btnPlay.setOnClickListener {
-                    try {
-                        mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
-                        mediaPlay?.setDataSource(audio)
-                        mediaPlay?.setOnPreparedListener { mp -> mp.start() }
-                        mediaPlay?.prepare()
-                    } catch (e: Exception) {
-
-                    }
                 }
                 tvQuestionContent.text = questionContent
                 if (level != R.id.itemPart1) {
@@ -150,6 +154,32 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
+    private fun onClickPlayAudio() {
+        imgState.setOnClickListener {
+            try {
+                mediaPlay?.setDataSource(data?.audio)
+                mediaPlay?.setOnPreparedListener { mp -> mp.start() }
+                mediaPlay?.prepare()
+            } catch (e: Exception) { }
+            seekBarPlay.max = mediaPlay?.duration ?: 0
+            /*val timer = Timer()
+            timer.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    seekBarPlay.progress = mediaPlay?.currentPosition!!
+                }
+            }, 0, 1000)*/
+
+            seekBarChangeListener()
+            if(mediaPlay?.isPlaying == true) {
+                mediaPlay?.pause()
+                imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            } else {
+                mediaPlay?.start()
+                imgState.setImageResource(R.drawable.ic_pause_black_24dp)
+            }
+        }
+    }
+
     private fun selectedAnswer() {
         rgAnswer.setOnCheckedChangeListener { _, _ ->
             when {
@@ -175,5 +205,38 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(!isVisibleToUser && isResumed) {
+            mediaPlay?.stop()
+            mediaPlay?.release()
+            mediaPlay = null
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mediaPlay?.stop()
+        mediaPlay?.release()
+        mediaPlay = null
+    }
+
+    private fun seekBarChangeListener () {
+        seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (mediaPlay != null && fromUser) {
+                    mediaPlay?.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+        })
     }
 }

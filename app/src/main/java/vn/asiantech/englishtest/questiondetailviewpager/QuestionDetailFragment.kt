@@ -16,7 +16,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
-
+import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -26,6 +26,7 @@ class QuestionDetailFragment : Fragment() {
     private var position = 0
     private var mediaPlay: MediaPlayer? = null
     private var level: Int? = null
+    private var isDestroy  = false
 
     companion object {
         const val ARG_POSITION = "arg_position"
@@ -162,12 +163,15 @@ class QuestionDetailFragment : Fragment() {
                 mediaPlay?.prepare()
             } catch (e: Exception) { }
             seekBarPlay.max = mediaPlay?.duration ?: 0
-            /*val timer = Timer()
+            val timer = Timer()
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
-                    seekBarPlay.progress = mediaPlay?.currentPosition!!
+                    if(isDestroy) {
+                        return
+                    }
+                    seekBarPlay.progress = mediaPlay?.currentPosition ?:0
                 }
-            }, 0, 1000)*/
+            }, 0, 1000)
 
             seekBarChangeListener()
             if(mediaPlay?.isPlaying == true) {
@@ -210,9 +214,8 @@ class QuestionDetailFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if(!isVisibleToUser && isResumed) {
-            mediaPlay?.stop()
-            mediaPlay?.release()
-            mediaPlay = null
+            mediaPlay?.pause()
+            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
@@ -221,6 +224,7 @@ class QuestionDetailFragment : Fragment() {
         mediaPlay?.stop()
         mediaPlay?.release()
         mediaPlay = null
+        isDestroy = true
     }
 
     private fun seekBarChangeListener () {

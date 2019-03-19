@@ -26,7 +26,7 @@ class QuestionDetailFragment : Fragment() {
     private var position = 0
     private var mediaPlay: MediaPlayer? = null
     private var level: Int? = null
-    private var isDestroy  = false
+    private var isDestroy = false
 
     companion object {
         const val ARG_POSITION = "arg_position"
@@ -57,7 +57,7 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaPlay= MediaPlayer()
+        mediaPlay = MediaPlayer()
         mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
 
         showView()
@@ -83,15 +83,28 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
             R.id.itemPart1 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                imgQuestionTitle.visibility = View.VISIBLE
+                View.VISIBLE.let {
+                    tvQuestionContent.visibility = it
+                    imgQuestionTitle.visibility = it
+                    cardViewAudio.visibility = it
+                }
                 tvQuestionTitle.visibility = View.GONE
-                cardViewAudio.visibility = View.VISIBLE
                 ViewGroup.LayoutParams.WRAP_CONTENT.let {
                     rbAnswerA.layoutParams.height = it
                     rbAnswerB.layoutParams.height = it
                     rbAnswerC.layoutParams.height = it
                     rbAnswerD.layoutParams.height = it
+                }
+            }
+            R.id.itemPart2 -> {
+                View.VISIBLE.let {
+                    tvQuestionContent.visibility = it
+                    cardViewAudio.visibility = it
+                }
+                View.GONE.let {
+                    tvQuestionTitle.visibility = it
+                    rbAnswerD.visibility = it
+                    divider4.visibility = it
                 }
             }
         }
@@ -109,7 +122,7 @@ class QuestionDetailFragment : Fragment() {
                     )
                 }
                 tvQuestionContent.text = questionContent
-                if (level != R.id.itemPart1) {
+                if (level != R.id.itemPart1 && level != R.id.itemPart2) {
                     tvQuestionTitle.text = questionTitle
                     rbAnswerA.text = answerA
                     rbAnswerB.text = answerB
@@ -120,7 +133,7 @@ class QuestionDetailFragment : Fragment() {
             }
 
             if ((activity as TakingReadingTestActivity).review) {
-                if (level == R.id.itemPart1) {
+                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
                     data?.let { it1 ->
                         with(it1) {
                             rbAnswerA.text = answerA
@@ -161,20 +174,21 @@ class QuestionDetailFragment : Fragment() {
                 mediaPlay?.setDataSource(data?.audio)
                 mediaPlay?.setOnPreparedListener { mp -> mp.start() }
                 mediaPlay?.prepare()
-            } catch (e: Exception) { }
+            } catch (e: Exception) {
+            }
             seekBarPlay.max = mediaPlay?.duration ?: 0
             val timer = Timer()
             timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
-                    if(isDestroy) {
+                    if (isDestroy) {
                         return
                     }
-                    seekBarPlay.progress = mediaPlay?.currentPosition ?:0
+                    seekBarPlay.progress = mediaPlay?.currentPosition ?: 0
                 }
             }, 0, 1000)
 
             seekBarChangeListener()
-            if(mediaPlay?.isPlaying == true) {
+            if (mediaPlay?.isPlaying == true) {
                 mediaPlay?.pause()
                 imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
             } else {
@@ -213,7 +227,7 @@ class QuestionDetailFragment : Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if(!isVisibleToUser && isResumed) {
+        if (!isVisibleToUser && isResumed) {
             mediaPlay?.pause()
             imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
@@ -227,8 +241,8 @@ class QuestionDetailFragment : Fragment() {
         isDestroy = true
     }
 
-    private fun seekBarChangeListener () {
-        seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+    private fun seekBarChangeListener() {
+        seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (mediaPlay != null && fromUser) {
                     mediaPlay?.seekTo(progress)

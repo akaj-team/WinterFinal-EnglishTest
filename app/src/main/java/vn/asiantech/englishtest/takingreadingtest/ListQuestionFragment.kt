@@ -51,6 +51,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 ListQuestionItem(
                     when (level) {
                         R.id.itemPart1 -> 1 + i
+                        R.id.itemPart2 -> 11 + i
                         R.id.itemPart6 -> 141 + i
                         R.id.itemPart7 -> 147 + i
                         else -> 101 + i

@@ -89,6 +89,14 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         progressDialog?.show()
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
+            R.id.itemPart1 -> {
+                tvLevel.text = getString(R.string.part1)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
+            }
+            R.id.itemPart2 -> {
+                tvLevel.text = getString(R.string.part2)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part2-0${position + 1}")
+            }
             R.id.itemPart5Basic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
@@ -108,10 +116,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             R.id.itemPart7 -> {
                 tvLevel.text = getString(R.string.part7)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
-            }
-            R.id.itemPart1 -> {
-                tvLevel.text = getString(R.string.part1)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {

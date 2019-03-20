@@ -75,36 +75,26 @@ class QuestionDetailFragment : Fragment() {
             R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                ViewGroup.LayoutParams.WRAP_CONTENT.let {
-                    rbAnswerA.layoutParams.height = it
-                    rbAnswerB.layoutParams.height = it
-                    rbAnswerC.layoutParams.height = it
-                    rbAnswerD.layoutParams.height = it
-                }
+                setLayoutHeight()
             }
             R.id.itemPart1 -> {
-                View.VISIBLE.let {
-                    tvQuestionContent.visibility = it
-                    imgQuestionTitle.visibility = it
-                    cardViewAudio.visibility = it
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    imgQuestionTitle.visibility = this
+                    cardViewAudio.visibility = this
                 }
                 tvQuestionTitle.visibility = View.GONE
-                ViewGroup.LayoutParams.WRAP_CONTENT.let {
-                    rbAnswerA.layoutParams.height = it
-                    rbAnswerB.layoutParams.height = it
-                    rbAnswerC.layoutParams.height = it
-                    rbAnswerD.layoutParams.height = it
-                }
+                setLayoutHeight()
             }
             R.id.itemPart2 -> {
-                View.VISIBLE.let {
-                    tvQuestionContent.visibility = it
-                    cardViewAudio.visibility = it
+                with(View.VISIBLE)  {
+                    tvQuestionContent.visibility = this
+                    cardViewAudio.visibility = this
                 }
-                View.GONE.let {
-                    tvQuestionTitle.visibility = it
-                    rbAnswerD.visibility = it
-                    divider4.visibility = it
+                with(View.GONE) {
+                    tvQuestionTitle.visibility = this
+                    rbAnswerD.visibility = this
+                    divider4.visibility = this
                 }
             }
         }
@@ -256,5 +246,14 @@ class QuestionDetailFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun setLayoutHeight(){
+        ViewGroup.LayoutParams.WRAP_CONTENT.let {
+            rbAnswerA.layoutParams.height = it
+            rbAnswerB.layoutParams.height = it
+            rbAnswerC.layoutParams.height = it
+            rbAnswerD.layoutParams.height = it
+        }
     }
 }

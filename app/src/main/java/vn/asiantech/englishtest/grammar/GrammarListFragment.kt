@@ -1,9 +1,11 @@
 package vn.asiantech.englishtest.grammar
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,9 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarItem
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
 
@@ -20,6 +23,17 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
     private var grammarItems = arrayListOf<GrammarItem>()
     private lateinit var reference: DatabaseReference
     var progressDialog: AlertDialog? = null
+
+    companion object {
+
+        fun getInstance(level: Int): GrammarListFragment =
+            GrammarListFragment().apply {
+                val bundle = Bundle().apply {
+                    putInt(ListReadingTestFragment.ARG_LEVEL, level)
+                }
+                arguments = bundle
+            }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         initProgressDialog()
@@ -33,18 +47,9 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
     }
 
     override fun onClickGrammarItem(position: Int) {
-        fragmentManager?.beginTransaction()?.apply {
-            setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left
-            )
-            replace(
-                R.id.frListReadingTest,
-                GrammarDetailFragment()
-            )
-            commit()
-        }
-        (activity as ListReadingTestActivity).supportActionBar?.title = grammarItems[position].grammarTitle
+        startActivity(Intent(activity, TakingReadingTestActivity::class.java)
+            .putExtra(ListReadingTestFragment.ARG_POSITION, position)
+            .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL)))
     }
 
     private fun initRecyclerView() {

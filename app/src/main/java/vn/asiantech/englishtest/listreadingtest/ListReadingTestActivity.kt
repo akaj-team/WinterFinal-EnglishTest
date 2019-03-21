@@ -88,7 +88,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                     )
                     replace(
                         R.id.frListReadingTest,
-                        GrammarListFragment()
+                        GrammarListFragment.getInstance(R.id.itemGrammar)
                     )
                     commit()
                 }

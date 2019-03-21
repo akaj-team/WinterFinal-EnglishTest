@@ -1,17 +1,20 @@
+@file:Suppress("DEPRECATION")
+
 package vn.asiantech.englishtest.takingreadingtest
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
@@ -21,7 +24,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
-    var progressDialog: AlertDialog? = null
+    var progressDialog: ProgressDialog? = null
     var score = 0
     var review = false
 
@@ -29,7 +32,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_taking_reading_test)
-        initProgressDialog()
+        progressDialog = ProgressDialog(this)
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -86,10 +89,11 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initData() {
-        progressDialog?.show()
+        initProgressDialog()
+        val level: Int = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         FirebaseDatabase.getInstance().apply {
-            when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
+            when (level) {
                 R.id.itemPart1 -> {
                     tvLevel.text = getString(R.string.part1)
                     dataQuestion = getReference("part1-0${position + 1}")
@@ -118,24 +122,42 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     tvLevel.text = getString(R.string.part7)
                     dataQuestion = getReference("part7-0${position + 1}")
                 }
+                R.id.itemGrammar -> {
+                    tvLevel.text = getString(R.string.grammar)
+                    initGrammarDetailFragment()
+                }
             }
         }
-        dataQuestion.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(dataPractice: DatabaseError) {
-                TODO("not implemented")
-            }
 
-            override fun onDataChange(dataPractice: DataSnapshot) {
-                progressDialog?.dismiss()
-                for (i in dataPractice.children) {
-                    val question = i.getValue(ListQuestionDetailItem::class.java)
-                    question?.let {
-                        questionList.add(it)
-                    }
+        if (level != R.id.itemGrammar) {
+            dataQuestion.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(dataPractice: DatabaseError) {
+                    TODO("not implemented")
                 }
-                questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
-            }
-        })
+
+                override fun onDataChange(dataPractice: DataSnapshot) {
+                    dismissProgressDialog()
+                    for (i in dataPractice.children) {
+                        val question = i.getValue(ListQuestionDetailItem::class.java)
+                        question?.let {
+                            questionList.add(it)
+                        }
+                    }
+                    questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                }
+            })
+        }
+    }
+
+    private fun initGrammarDetailFragment() {
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+            replace(R.id.frListQuestions, GrammarDetailFragment())
+            commit()
+        }
+        frListQuestions.visibility = View.VISIBLE
+        chronometer.visibility = View.GONE
+        btnListQuestions.visibility = View.GONE
     }
 
     private fun initAlertDialog() {
@@ -154,11 +176,15 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }.show()
     }
 
-    private fun initProgressDialog() {
-        val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
-        val dialogView = View.inflate(this, R.layout.progress_dialog, null)
-        dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
-        builder.setView(dialogView)
-        progressDialog = builder.create()
+    fun initProgressDialog() {
+        progressDialog?.apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage(getString(R.string.loadingData))
+            show()
+        }
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

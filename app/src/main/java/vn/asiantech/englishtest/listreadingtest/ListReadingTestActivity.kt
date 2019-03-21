@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package vn.asiantech.englishtest.listreadingtest
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -14,9 +17,12 @@ import vn.asiantech.englishtest.grammar.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    var progressDialog: ProgressDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+        progressDialog = ProgressDialog(this)
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -125,5 +131,17 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 finish()
             }
         }.show()
+    }
+
+    fun initProgressDialog() {
+        progressDialog?.apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage(getString(R.string.loadingData))
+            show()
+        }
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

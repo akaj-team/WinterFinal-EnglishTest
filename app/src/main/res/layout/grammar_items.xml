@@ -18,7 +18,9 @@
                 android:id="@+id/tvGrammarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen10dp"
+                android:paddingStart="@dimen/dimen20dp"
+                android:paddingTop="@dimen/dimen10dp"
+                android:paddingEnd="@dimen/dimen10dp"
                 android:textSize="@dimen/dimen16dp"
                 android:textColor="@color/colorBlack"/>
 
@@ -26,7 +28,9 @@
                 android:id="@+id/tvGrammarExample"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen10dp"
+                android:paddingStart="@dimen/dimen20dp"
+                android:paddingEnd="@dimen/dimen10dp"
+                android:paddingBottom="@dimen/dimen10dp"
                 android:textSize="@dimen/dimen14dp"/>
 
     </LinearLayout>

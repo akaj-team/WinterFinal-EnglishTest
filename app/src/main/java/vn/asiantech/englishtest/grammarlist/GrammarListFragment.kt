@@ -1,9 +1,8 @@
-package vn.asiantech.englishtest.grammar
+package vn.asiantech.englishtest.grammarlist
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +15,15 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
-class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
+class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
 
-    private var grammarAdapter: GrammarAdapter? = null
-    private var grammarItems = arrayListOf<GrammarItem>()
+    private var grammarListAdapter: GrammarListAdapter? = null
+    private var grammarListItems: ArrayList<GrammarItem> = arrayListOf()
     private lateinit var reference: DatabaseReference
 
     companion object {
+
+        const val ARG_GRAMMAR_LIST = "arg_grammar_list"
 
         fun getInstance(level: Int): GrammarListFragment =
             GrammarListFragment().apply {
@@ -48,19 +49,20 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
             Intent(activity, TakingReadingTestActivity::class.java)
                 .putExtra(ListReadingTestFragment.ARG_POSITION, position)
                 .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+                .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
         )
     }
 
     private fun initRecyclerView() {
         recycleViewListReadingTests.apply {
             layoutManager = LinearLayoutManager(activity)
-            grammarAdapter = GrammarAdapter(grammarItems, this@GrammarListFragment)
-            adapter = grammarAdapter
+            grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
+            adapter = grammarListAdapter
         }
     }
 
     private fun initData() {
-        (activity as? ListReadingTestActivity)?.initProgressDialog()
+        (activity as ListReadingTestActivity).initProgressDialog()
         reference = FirebaseDatabase.getInstance().getReference("grammar")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -68,16 +70,15 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
             }
 
             override fun onDataChange(grammarData: DataSnapshot) {
-                (activity as? ListReadingTestActivity)?.dismissProgressDialog()
+                (activity as ListReadingTestActivity).dismissProgressDialog()
                 for (i in grammarData.children) {
                     val grammar = i.getValue(GrammarItem::class.java)
                     grammar?.let {
-                        grammarItems.add(it)
+                        grammarListItems.add(it)
                     }
                 }
-                grammarAdapter?.notifyDataSetChanged()
+                grammarListAdapter?.notifyDataSetChanged()
             }
-
         })
     }
 }

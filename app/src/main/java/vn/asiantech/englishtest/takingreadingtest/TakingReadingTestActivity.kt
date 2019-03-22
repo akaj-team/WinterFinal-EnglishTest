@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
+import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
@@ -24,6 +26,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
+    private var grammarList = arrayListOf<GrammarItem>()
     var progressDialog: ProgressDialog? = null
     var score = 0
     var review = false
@@ -41,6 +44,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         when {
             supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is GrammarDetailFragment -> finish()
             frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
@@ -123,7 +127,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     dataQuestion = getReference("part7-0${position + 1}")
                 }
                 R.id.itemGrammar -> {
-                    tvLevel.text = getString(R.string.grammar)
+                    grammarList = intent.getParcelableArrayListExtra(GrammarListFragment.ARG_GRAMMAR_LIST)
+                    tvLevel.text = grammarList[position].grammarTitle
                     initGrammarDetailFragment()
                 }
             }
@@ -132,7 +137,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         if (level != R.id.itemGrammar) {
             dataQuestion.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(dataPractice: DatabaseError) {
-                    TODO("not implemented")
+                    dismissProgressDialog()
                 }
 
                 override fun onDataChange(dataPractice: DataSnapshot) {
@@ -176,10 +181,11 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         }.show()
     }
 
-    fun initProgressDialog() {
+    private fun initProgressDialog() {
         progressDialog?.apply {
             setProgressStyle(ProgressDialog.STYLE_SPINNER)
             setMessage(getString(R.string.loadingData))
+            setCancelable(false)
             show()
         }
     }

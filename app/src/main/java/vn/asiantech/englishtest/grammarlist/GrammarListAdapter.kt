@@ -1,20 +1,20 @@
-package vn.asiantech.englishtest.grammar
+package vn.asiantech.englishtest.grammarlist
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.grammar_items.view.*
+import kotlinx.android.synthetic.main.item_list_grammar.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.GrammarItem
 
-class GrammarAdapter(
+class GrammarListAdapter(
     private val grammarItem: List<GrammarItem>,
     private val grammarListener: OnClickGrammarListener
-) : RecyclerView.Adapter<GrammarAdapter.GrammarViewHolder>() {
+) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.grammar_items, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_grammar, parent, false)
         return GrammarViewHolder(view)
     }
 

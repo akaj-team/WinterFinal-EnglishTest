@@ -13,11 +13,11 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.grammar.GrammarListFragment
+import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    var progressDialog: ProgressDialog? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

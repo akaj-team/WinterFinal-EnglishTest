@@ -16,13 +16,20 @@
                 android:id="@+id/tvGrammarDetailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorCyan"
+                android:paddingStart="@dimen/dimen10dp"
+                android:paddingTop="@dimen/dimen10dp"
+                android:paddingBottom="@dimen/dimen10dp"
+                android:textColor="@color/colorBlue"
                 android:textSize="@dimen/dimen16dp"/>
 
         <TextView
                 android:id="@+id/tvGrammarDetailDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen20dp"
+                android:paddingEnd="@dimen/dimen20dp"
+                android:paddingTop="@dimen/dimen10dp"
+                android:paddingBottom="@dimen/dimen10dp"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/dimen16dp"/>
     </LinearLayout>

@@ -244,7 +244,6 @@ class QuestionDetailFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
-
         })
     }
 

@@ -5,7 +5,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen10dp"
         android:layout_marginEnd="@dimen/dimen10dp"
-        android:layout_marginTop="@dimen/dimen10dp">
+        android:layout_marginTop="@dimen/dimen5dp"
+        android:layout_marginBottom="@dimen/dimen5dp">
 
     <LinearLayout
             android:layout_width="wrap_content"

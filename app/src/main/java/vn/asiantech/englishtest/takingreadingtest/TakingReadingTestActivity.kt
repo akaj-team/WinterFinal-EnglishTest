@@ -5,7 +5,9 @@ package vn.asiantech.englishtest.takingreadingtest
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -31,10 +33,12 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var score = 0
     var review = false
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_taking_reading_test)
+        window.statusBarColor = resources.getColor(R.color.colorBlue)
         progressDialog = ProgressDialog(this)
         initData()
         btnBackToListTest.setOnClickListener(this)

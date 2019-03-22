@@ -1,9 +1,11 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +18,15 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
-import java.util.*
+import java.text.SimpleDateFormat
 
 
-@Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
     private var data: ListQuestionDetailItem? = null
     private var position = 0
-    private var mediaPlay: MediaPlayer? = null
     private var level: Int? = null
-    private var isDestroy  = false
+    private var isDestroy = false
 
     companion object {
         const val ARG_POSITION = "arg_position"
@@ -57,9 +57,10 @@ class QuestionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaPlay= MediaPlayer()
-        mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
-
+        (activity as TakingReadingTestActivity).apply {
+            mediaPlayer = MediaPlayer()
+            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        }
         showView()
         selectedAnswer()
         onClickPlayAudio()
@@ -156,30 +157,43 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun onClickPlayAudio() {
+        @SuppressLint("SimpleDateFormat")
+        val timeFormat = SimpleDateFormat("mm:ss")
         imgState.setOnClickListener {
-            try {
-                mediaPlay?.setDataSource(data?.audio)
-                mediaPlay?.setOnPreparedListener { mp -> mp.start() }
-                mediaPlay?.prepare()
-            } catch (e: Exception) { }
-            seekBarPlay.max = mediaPlay?.duration ?: 0
-            val timer = Timer()
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    if(isDestroy) {
-                        return
-                    }
-                    seekBarPlay.progress = mediaPlay?.currentPosition ?:0
+            (activity as TakingReadingTestActivity).mediaPlayer?.apply {
+                try {
+                    setDataSource(data?.audio)
+                    setOnPreparedListener { mp -> mp.start() }
+                    prepare()
+                } catch (e: Exception) {
                 }
-            }, 0, 1000)
+                seekBarPlay.max = duration
+                tvTotalTime.text = timeFormat.format(duration)
 
-            seekBarChangeListener()
-            if(mediaPlay?.isPlaying == true) {
-                mediaPlay?.pause()
-                imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-            } else {
-                mediaPlay?.start()
-                imgState.setImageResource(R.drawable.ic_pause_black_24dp)
+
+                val handler = Handler()
+                (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
+                    override fun run() {
+                        if (isDestroy) {
+                            return
+                        }
+                        try {
+                            seekBarPlay.progress = currentPosition
+                            tvCurrentTime.text = timeFormat.format(currentPosition)
+                            handler.postDelayed(this, 1000)
+                        } catch (e: Exception) {
+                        }
+
+                    }
+                })
+                seekBarChangeListener()
+                if (isPlaying) {
+                    pause()
+                    imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+                } else {
+                    start()
+                    imgState.setImageResource(R.drawable.ic_pause_black_24dp)
+                }
             }
         }
     }
@@ -213,25 +227,23 @@ class QuestionDetailFragment : Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if(!isVisibleToUser && isResumed) {
-            mediaPlay?.pause()
+        if (!isVisibleToUser && isResumed) {
+            (activity as TakingReadingTestActivity).mediaPlayer?.stop()
             imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlay?.stop()
-        mediaPlay?.release()
-        mediaPlay = null
+        (activity as TakingReadingTestActivity).mediaPlayer?.pause()
         isDestroy = true
     }
 
-    private fun seekBarChangeListener () {
-        seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+    private fun seekBarChangeListener() {
+        seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (mediaPlay != null && fromUser) {
-                    mediaPlay?.seekTo(progress)
+                if ((activity as TakingReadingTestActivity).mediaPlayer != null && fromUser) {
+                    (activity as TakingReadingTestActivity).mediaPlayer?.seekTo(progress)
                 }
             }
 
@@ -240,7 +252,6 @@ class QuestionDetailFragment : Fragment() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
-
         })
     }
 }

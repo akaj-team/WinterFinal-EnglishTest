@@ -69,13 +69,22 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 commit()
             }
             activity?.apply {
-                chronometer?.visibility = View.GONE
-                btnListQuestions?.visibility = View.GONE
+                with(View.GONE) {
+                    chronometer?.visibility = this
+                    btnListQuestions?.visibility = this
+                }
             }
             (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
                 if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
                     (activity as TakingReadingTestActivity).score += 1
                 }
+            }
+            (activity as TakingReadingTestActivity).apply {
+                mediaPlayer?.apply {
+                    stop()
+                    release()
+                }
+                mediaPlayer = null
             }
         }
     }

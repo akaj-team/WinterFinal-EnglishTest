@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -103,6 +104,13 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                     commit()
                 }
                 supportActionBar?.title = getString(R.string.grammar)
+            }
+            R.id.itemToeicIntroduction -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                    replace(R.id.frListReadingTest, GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
+                    commit()
+                }
             }
         }
         return true

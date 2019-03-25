@@ -1,10 +1,11 @@
-package vn.asiantech.englishtest
+package vn.asiantech.englishtest.grammardetail
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_grammar_detail.view.*
+import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ToeicIntroItem
 
 class ToeicIntroAdapter(private val toeicIntroItem: List<ToeicIntroItem>) :

@@ -6,7 +6,7 @@
             <group android:checkableBehavior="single">
                 <item
                         android:id="@+id/itemToeicIntroduction"
-                        android:icon="@drawable/ic_short_text_black_18dp"
+                        android:icon="@drawable/ic_subject_black_18dp"
                         android:title="@string/toeicIntroduction"/>
             </group>
         </menu>

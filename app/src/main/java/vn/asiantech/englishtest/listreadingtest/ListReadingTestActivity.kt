@@ -111,6 +111,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                     replace(R.id.frListReadingTest, GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
                     commit()
                 }
+                supportActionBar?.title = getString(R.string.toeicIntroduction)
             }
         }
         return true

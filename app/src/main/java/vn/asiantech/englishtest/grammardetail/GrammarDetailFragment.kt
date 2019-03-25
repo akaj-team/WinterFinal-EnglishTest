@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.ToeicIntroAdapter
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarDetailItem

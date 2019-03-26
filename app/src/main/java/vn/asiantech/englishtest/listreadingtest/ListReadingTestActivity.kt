@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
+import vn.asiantech.englishtest.wordlist.WordListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -112,6 +113,14 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                     commit()
                 }
                 supportActionBar?.title = getString(R.string.toeicIntroduction)
+            }
+            R.id.itemWordStudy -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                    replace(R.id.frListReadingTest, WordListFragment.getInstance(R.id.itemWordStudy))
+                    commit()
+                }
+                supportActionBar?.title = getString(R.string.word)
             }
         }
         return true

@@ -62,13 +62,18 @@
         </menu>
     </item>
 
-    <item android:title="@string/grammar">
+    <item android:title="@string/study">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                         android:id="@+id/itemGrammar"
                         android:icon="@drawable/ic_import_contacts_black_18dp"
                         android:title="@string/grammar"/>
+
+                <item
+                        android:id="@+id/itemWordStudy"
+                        android:icon="@drawable/ic_library_books_black_18dp"
+                        android:title="@string/word"/>
             </group>
         </menu>
     </item>

@@ -117,6 +117,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 tvLevel.text = getString(R.string.part7)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
             }
+            R.id.itemPart3 -> {
+                tvLevel.text = getString(R.string.part3)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part3-0${position + 1}")
+            }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(dataPractice: DatabaseError) {

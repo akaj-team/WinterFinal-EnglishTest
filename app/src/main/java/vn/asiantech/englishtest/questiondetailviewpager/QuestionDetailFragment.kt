@@ -139,8 +139,14 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerD.text = answerD
                     tvQuestionContent.text = questionContent
                 }
+                tvQuestionTitle.text = questionTitle
+                rbAnswerA.text = answerA
+                rbAnswerB.text = answerB
+                rbAnswerC.text = answerC
+                rbAnswerD.text = answerD
+                tvExplanation.text = explanation
+                tvTranslation.text = translation
             }
-
             if ((activity as TakingReadingTestActivity).review) {
                 if (level == R.id.itemPart1 || level == R.id.itemPart2) {
                     data?.let { it1 ->
@@ -152,10 +158,10 @@ class QuestionDetailFragment : Fragment() {
                         }
                     }
                 }
+                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-
                             answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)

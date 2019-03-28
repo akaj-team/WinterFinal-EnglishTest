@@ -50,4 +50,6 @@
     <string name="optionC">C.</string>
     <string name="optionB">B.</string>
     <string name="optionA">A.</string>
+    <string name="explanation">Giải thích:</string>
+    <string name="translation">Dịch:</string>
 </resources>

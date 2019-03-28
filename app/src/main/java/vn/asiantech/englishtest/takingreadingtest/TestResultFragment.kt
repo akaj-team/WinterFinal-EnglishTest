@@ -39,7 +39,6 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score).append(getString(R.string.totalScore))
         }
-
         addTimeAndScore()
     }
 

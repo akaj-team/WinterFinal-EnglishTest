@@ -40,7 +40,7 @@ class ListReadingTestAdapter(
                 with(listItems) {
                     tvTestName.text = testNumber
                     tvTimeDisplay.text = timeDisplay
-                    tvScoreDisplay.text = scoreDisplay.toString()
+                    tvScoreDisplay.text = scoreDisplay
                 }
             }
             itemView.clPractice.setOnClickListener(this)

@@ -47,7 +47,7 @@ class QuestionDetailFragment : Fragment() {
         selectedAnswer()
         data?.let {
             with(it) {
-                tvQuestion.text = question
+                tvQuestion.text = questionTitle
                 rbAnswerA.text = answerA
                 rbAnswerB.text = answerB
                 rbAnswerC.text = answerC
@@ -58,6 +58,7 @@ class QuestionDetailFragment : Fragment() {
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
+
                             answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
@@ -70,11 +71,11 @@ class QuestionDetailFragment : Fragment() {
                             answerD -> rbAnswerD.setBackgroundColor(Color.RED)
                         }
                     }
-                    rbAnswerA.isClickable = false
-                    rbAnswerB.isClickable = false
-                    rbAnswerC.isClickable = false
-                    rbAnswerD.isClickable = false
                 }
+                rbAnswerA.isClickable = false
+                rbAnswerB.isClickable = false
+                rbAnswerC.isClickable = false
+                rbAnswerD.isClickable = false
             }
         }
     }

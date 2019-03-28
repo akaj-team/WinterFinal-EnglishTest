@@ -40,6 +40,8 @@
     <string name="exit">exit</string>
     <string name="fileName">timescore</string>
     <string name="totalScore">"/40"</string>
+    <string name="part6">Part 6</string>
+    <string name="part7">Part 7</string>
     <string name="explanation">Giải thích:</string>
     <string name="translation">Dịch:</string>
 </resources>

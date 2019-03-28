@@ -5,14 +5,18 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import com.bumptech.glide.Glide
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import kotlinx.android.synthetic.main.fragment_listening_part34.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.RecyclerAdapter
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
@@ -27,6 +31,9 @@ class QuestionDetailFragment : Fragment() {
     private var mediaPlay: MediaPlayer? = null
     private var level: Int? = null
     private var isDestroy = false
+    private var listeningAdapter: RecyclerAdapter? = null
+    private var listQuestionDetailItem = arrayListOf<ListQuestionDetailItem>()
+    private lateinit var reference: DatabaseReference
 
     companion object {
         const val ARG_POSITION = "arg_position"
@@ -52,18 +59,26 @@ class QuestionDetailFragment : Fragment() {
             chronometer.start()
         }
         level = (activity as TakingReadingTestActivity).intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        return inflater.inflate(R.layout.fragment_question_detail, container, false)
+        return if (level == R.id.itemPart3 || level == R.id.itemPart4) {
+            inflater.inflate(R.layout.fragment_listening_part34, container, false)
+        } else
+            inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mediaPlay = MediaPlayer()
         mediaPlay?.setAudioStreamType(AudioManager.STREAM_MUSIC)
-
-        showView()
-        selectedAnswer()
-        onClickPlayAudio()
-        setDataFirebase()
+        if (level == R.id.itemPart3 || level == R.id.itemPart4) {
+            initRecyclerView()
+            initData()
+            onClickPlayAudioPart34()
+        } else {
+            showView()
+            selectedAnswer()
+            onClickPlayAudio()
+            setDataFirebase()
+        }
     }
 
     private fun showView() {
@@ -213,6 +228,36 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
+    private fun onClickPlayAudioPart34() {
+        imgStatePart34.setOnClickListener {
+            try {
+                mediaPlay?.setDataSource(data?.audio)
+                mediaPlay?.setOnPreparedListener { mp -> mp.start() }
+                mediaPlay?.prepare()
+            } catch (e: Exception) {
+            }
+            seekBarPlayPart34.max = mediaPlay?.duration ?: 0
+            val timer = Timer()
+            timer.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    if (isDestroy) {
+                        return
+                    }
+                    seekBarPlayPart34.progress = mediaPlay?.currentPosition ?: 0
+                }
+            }, 0, 1000)
+
+            seekBarChangeListenerPart34()
+            if (mediaPlay?.isPlaying == true) {
+                mediaPlay?.pause()
+                imgStatePart34.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            } else {
+                mediaPlay?.start()
+                imgStatePart34.setImageResource(R.drawable.ic_pause_black_24dp)
+            }
+        }
+    }
+
     private fun selectedAnswer() {
         rgAnswer.setOnCheckedChangeListener { _, _ ->
             when {
@@ -244,7 +289,10 @@ class QuestionDetailFragment : Fragment() {
         super.setUserVisibleHint(isVisibleToUser)
         if (!isVisibleToUser && isResumed) {
             mediaPlay?.pause()
-            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            if (level == R.id.itemPart3 || level == R.id.itemPart4) {
+                imgStatePart34.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+            } else
+                imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
@@ -270,6 +318,50 @@ class QuestionDetailFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
 
+        })
+    }
+
+    private fun seekBarChangeListenerPart34() {
+        seekBarPlayPart34.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (mediaPlay != null && fromUser) {
+                    mediaPlay?.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+        })
+    }
+
+    private fun initRecyclerView() {
+        recycleViewQuestionListening.apply {
+            layoutManager = LinearLayoutManager(activity)
+            listeningAdapter = RecyclerAdapter(listQuestionDetailItem)
+            adapter = listeningAdapter
+        }
+    }
+
+    private fun initData() {
+        reference = FirebaseDatabase.getInstance().getReference("questionDetail0${position+1}")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented")
+            }
+
+            override fun onDataChange(dataQuestion: DataSnapshot) {
+                for (i in dataQuestion.children) {
+                    val question = i.getValue(ListQuestionDetailItem::class.java)
+                    question?.let {
+                        listQuestionDetailItem.add(it)
+                    }
+                }
+                listeningAdapter?.notifyDataSetChanged()
+            }
         })
     }
 }

@@ -16,6 +16,14 @@
                         android:id="@+id/itemReadingLevelAdvanced"
                         android:icon="@drawable/ic_filter_5_black_18dp"
                         android:title="@string/part5Advanced"/>
+                <item
+                        android:id="@+id/itemPart6"
+                        android:icon="@drawable/ic_filter_6_black_18dp"
+                        android:title="@string/part6"/>
+                <item
+                        android:id="@+id/itemPart7"
+                        android:icon="@drawable/ic_filter_7_black_18dp"
+                        android:title="@string/part7"/>
             </group>
         </menu>
     </item>

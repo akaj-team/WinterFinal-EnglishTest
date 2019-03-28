@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class WordStudyItem(
-    val imageWordStudy: String = "",
+    val imageWord: String = "",
     val word: String = "",
     val spelling: String = "",
     val definition: String = "",

@@ -22,7 +22,7 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
-import vn.asiantech.wordstudy.WordStudyFragment
+import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
 @Suppress("DEPRECATION")
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
@@ -104,7 +104,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initData() {
-        //initProgressDialog()
+        initProgressDialog()
         FirebaseDatabase.getInstance().apply {
             when (level) {
                 R.id.itemPart1 -> {

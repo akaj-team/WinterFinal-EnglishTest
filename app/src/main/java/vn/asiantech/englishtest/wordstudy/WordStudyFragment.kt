@@ -1,4 +1,4 @@
-package vn.asiantech.wordstudy
+package vn.asiantech.englishtest.wordstudy
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,14 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.WordStudyItem
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class WordStudyFragment : Fragment() {
 
     private var wordStudyItem = arrayListOf<WordStudyItem>()
     private var wordStudyAdapter: WordStudyAdapter? = null
+    private lateinit var reference: DatabaseReference
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
@@ -35,18 +39,23 @@ class WordStudyFragment : Fragment() {
     }
 
     private fun initData() {
-        for (i in 0 until 10) {
-            wordStudyItem.add(
-                WordStudyItem(
-                    "BAO DEP TRAI",
-                    "Locate",
-                    "/ləʊˈkeɪt/",
-                    "to find or discover the exact position of something",
-                    "Xác định vị trí",
-                    "Police are still trying to locate the suspect.",
-                    "Cảnh sát vẫn đang cố gắng xác định ví trí của nghi phạm."
-                )
-            )
-        }
+        val position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        reference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented")
+            }
+
+            override fun onDataChange(wordStudyData: DataSnapshot) {
+                (activity as TakingReadingTestActivity).dismissProgressDialog()
+                for (i in wordStudyData.children) {
+                    val wordDetail = i.getValue(WordStudyItem::class.java)
+                    wordDetail?.let {
+                        wordStudyItem.add(it)
+                    }
+                }
+                wordStudyAdapter?.notifyDataSetChanged()
+            }
+        })
     }
 }

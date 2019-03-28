@@ -1,4 +1,4 @@
-package vn.asiantech.wordstudy
+package vn.asiantech.englishtest.wordstudy
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -29,7 +29,7 @@ class WordStudyAdapter(private val wordStudy: MutableList<WordStudyItem>) :
         fun bindView(wordStudy: WordStudyItem) {
             with(itemView) {
                 with(wordStudy) {
-                    //Glide.with(context).load(imageWordStudy).into(imgWordStudy)
+                    Glide.with(context).load(imageWord).into(imgWordStudy)
                     tvWord.text = word
                     tvSpelling.text = spelling
                     tvDefinition.text = definition

@@ -6,21 +6,22 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.WordListItem
 
-class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener{
+class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
 
     private var wordListItem = arrayListOf<WordListItem>()
     private var wordListAdapter: WordListAdapter? = null
-    private var level: Int? = null
+    private lateinit var reference: DatabaseReference
 
     companion object {
 
-        const val ARG_WORD_LIST = "arg_word_list"
 
         fun getInstance(level: Int): WordListFragment =
             WordListFragment().apply {
@@ -45,7 +46,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener{
 
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         recycleViewListReadingTests.apply {
             layoutManager = GridLayoutManager(activity, 2)
             wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
@@ -53,9 +54,24 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener{
         }
     }
 
-    private fun initData(){
-        for (i in 0 until 10){
-            wordListItem.add(WordListItem("Test ${i + 1}"))
-        }
+    private fun initData() {
+        (activity as ListReadingTestActivity).initProgressDialog()
+        reference = FirebaseDatabase.getInstance().getReference("testTitle")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented")
+            }
+
+            override fun onDataChange(wordListData: DataSnapshot) {
+                (activity as ListReadingTestActivity).dismissProgressDialog()
+                for (i in wordListData.children) {
+                    val wordList = i.getValue(WordListItem::class.java)
+                    wordList?.let {
+                        wordListItem.add(it)
+                    }
+                }
+                wordListAdapter?.notifyDataSetChanged()
+            }
+        })
     }
 }

@@ -1,5 +1,7 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.text.TextUtils.replace
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -66,7 +68,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btnBackToListTest -> {
-                onBackPressed()
+                setResult()
             }
         }
     }

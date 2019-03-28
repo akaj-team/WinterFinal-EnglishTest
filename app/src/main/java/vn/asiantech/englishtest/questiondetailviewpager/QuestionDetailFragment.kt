@@ -70,13 +70,14 @@ class QuestionDetailFragment : Fragment() {
                 rbAnswerC.text = answerC
                 rbAnswerD.text = answerD
                 tvQuestionContent.text = questionContent
+                tvExplanation.text = explanation
+                tvTranslation.text = translation
             }
-
             if ((activity as TakingReadingTestActivity).review) {
+                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-
                             answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)

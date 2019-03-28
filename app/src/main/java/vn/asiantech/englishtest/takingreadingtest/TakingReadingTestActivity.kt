@@ -141,7 +141,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     initGrammarDetailFragment()
                 }
                 R.id.itemWordStudy -> {
-                    tvLevel.text = getString(R.string.word)
+                    tvLevel.text = getString(R.string.wordStudy)
                     initGrammarDetailFragment()
                 }
             }

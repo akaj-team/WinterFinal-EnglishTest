@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.item_list_test_title.view.*
+import kotlinx.android.synthetic.main.item_test_title.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.WordListItem
 
@@ -14,7 +14,7 @@ class WordListAdapter(
 ) :
     RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test_title, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_test_title, parent, false)
         return WordListViewHolder(view)
     }
 

@@ -39,7 +39,6 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score).append(getString(R.string.totalScore))
         }
-
         addTimeAndScore()
     }
 
@@ -81,8 +80,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList()
-                ?: arrayListOf()
+            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
         listTimeandScore.add(
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",

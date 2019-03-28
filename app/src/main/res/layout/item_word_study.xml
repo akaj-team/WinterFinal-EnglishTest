@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen5dp"
+        android:layout_marginBottom="@dimen/dimen5dp"
+        android:layout_marginStart="@dimen/dimen10dp"
+        android:layout_marginEnd="@dimen/dimen10dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen10dp">
+
+        <ImageView
+                android:id="@+id/imgWordStudy"
+                android:layout_width="@dimen/dimen70dp"
+                android:layout_height="@dimen/dimen70dp"
+                android:src="@drawable/img_welcome"/>
+
+        <TextView
+                android:id="@+id/tvWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Locate"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_toRightOf="@+id/imgWordStudy"/>
+
+        <TextView
+                android:id="@+id/tvSpelling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="/ləʊˈkeɪt/"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_toRightOf="@+id/tvWord"/>
+
+        <TextView
+                android:id="@+id/tvDefinition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="to find or discover the exact position of something"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_toRightOf="@+id/imgWordStudy"
+                android:layout_below="@+id/tvWord"/>
+
+        <TextView
+                android:id="@+id/tvMeaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Xác định vị trí"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_toRightOf="@+id/imgWordStudy"
+                android:layout_below="@+id/tvDefinition"/>
+
+        <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/dimen20dp"
+                android:layout_marginEnd="@dimen/dimen20dp"
+                android:layout_marginTop="@dimen/dimen5dp"
+                android:layout_below="@+id/imgWordStudy"
+                android:background="?android:attr/listDivider"/>
+
+        <TextView
+                android:id="@+id/tvExample"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen5dp"
+                android:text="Police are still trying to locate the suspect."
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_below="@+id/divider"/>
+
+        <TextView
+                android:id="@+id/tvTranslation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cảnh sát vẫn đang cố gắng xác định ví trí của nghi phạm."
+                android:textColor="@color/colorGreen"
+                android:textSize="@dimen/dimen16dp"
+                android:layout_below="@+id/tvExample"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

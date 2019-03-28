@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.wordlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -10,17 +11,15 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.WordListItem
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener{
 
 
     private var wordListItem = arrayListOf<WordListItem>()
     private var wordListAdapter: WordListAdapter? = null
-    private var level: Int? = null
 
     companion object {
-
-        const val ARG_WORD_LIST = "arg_word_list"
 
         fun getInstance(level: Int): WordListFragment =
             WordListFragment().apply {
@@ -42,7 +41,11 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener{
     }
 
     override fun onClickWordList(position: Int) {
-
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(ListReadingTestFragment.ARG_POSITION, position)
+                .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+        )
     }
 
     private fun initRecyclerView(){

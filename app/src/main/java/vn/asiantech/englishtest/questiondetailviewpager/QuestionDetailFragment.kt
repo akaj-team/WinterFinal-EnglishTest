@@ -107,6 +107,15 @@ class QuestionDetailFragment : Fragment() {
                     divider4.visibility = it
                 }
             }
+            R.id.itemPart3, R.id.itemPart4 -> {
+                View.VISIBLE.let {
+                    tvQuestionContent.visibility = it
+                    cardViewAudio.visibility = it
+                }
+                View.GONE.let {
+                    tvQuestionTitle.visibility = it
+                }
+            }
         }
     }
 

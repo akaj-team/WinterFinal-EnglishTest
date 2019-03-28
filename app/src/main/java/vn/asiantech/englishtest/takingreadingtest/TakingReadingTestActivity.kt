@@ -97,6 +97,14 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 tvLevel.text = getString(R.string.part2)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part2-0${position + 1}")
             }
+            R.id.itemPart3 -> {
+                tvLevel.text = getString(R.string.part3)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part3-0${position + 1}")
+            }
+            R.id.itemPart4 -> {
+                tvLevel.text = getString(R.string.part4)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part4-0${position + 1}")
+            }
             R.id.itemPart5Basic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")

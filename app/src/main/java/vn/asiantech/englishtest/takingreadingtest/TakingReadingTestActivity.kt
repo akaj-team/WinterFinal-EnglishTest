@@ -1,5 +1,7 @@
 package vn.asiantech.englishtest.takingreadingtest
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
@@ -33,7 +36,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         when {
-            supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> finish()
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
             frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
@@ -66,6 +69,19 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 onBackPressed()
             }
         }
+    }
+
+    private fun setResult() {
+        setResult(
+            Activity.RESULT_OK, Intent()
+                .putExtra(TestResultFragment.KEY_TIME, tvDurationTime.text.toString())
+                .putExtra(TestResultFragment.KEY_SCORE, score.toString())
+                .putExtra(
+                    ListReadingTestFragment.ARG_POSITION,
+                    intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+                )
+        )
+        finish()
     }
 
     private fun initData() {

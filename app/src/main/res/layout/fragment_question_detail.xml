@@ -64,10 +64,12 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/dimen16dp"
                         android:visibility="gone"/>
+
                 <RadioGroup
                         android:id="@+id/rgAnswer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                     <RadioButton
                             android:id="@+id/rbAnswerA"
                             android:layout_width="match_parent"
@@ -77,9 +79,11 @@
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
+                            android:text="@string/optionA"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
+
                     <View
                             android:id="@+id/divider2"
                             android:layout_width="match_parent"
@@ -87,6 +91,7 @@
                             android:layout_marginStart="@dimen/dimen20dp"
                             android:layout_marginEnd="@dimen/dimen20dp"
                             android:background="?android:attr/listDivider"/>
+
                     <RadioButton
                             android:id="@+id/rbAnswerB"
                             android:layout_width="match_parent"
@@ -97,8 +102,10 @@
                             android:paddingBottom="@dimen/dimen10dp"
                             android:textColor="@color/colorBlack"
                             android:background="@drawable/bg_answer"
+                            android:text="@string/optionB"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
+
                     <View
                             android:id="@+id/divider3"
                             android:layout_width="match_parent"
@@ -106,6 +113,7 @@
                             android:layout_marginStart="@dimen/dimen20dp"
                             android:layout_marginEnd="@dimen/dimen20dp"
                             android:background="?android:attr/listDivider"/>
+
                     <RadioButton
                             android:id="@+id/rbAnswerC"
                             android:layout_width="match_parent"
@@ -116,8 +124,10 @@
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
                             android:textColor="@color/colorBlack"
+                            android:text="@string/optionC"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
+
                     <View
                             android:id="@+id/divider4"
                             android:layout_width="match_parent"
@@ -125,6 +135,7 @@
                             android:layout_marginStart="@dimen/dimen20dp"
                             android:layout_marginEnd="@dimen/dimen20dp"
                             android:background="?android:attr/listDivider"/>
+
                     <RadioButton
                             android:id="@+id/rbAnswerD"
                             android:layout_width="match_parent"
@@ -134,9 +145,11 @@
                             android:paddingTop="@dimen/dimen10dp"
                             android:paddingBottom="@dimen/dimen10dp"
                             android:background="@drawable/bg_answer"
+                            android:text="@string/optionD"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/dimen16dp"
                             android:button="@null"/>
+
                 </RadioGroup>
             </LinearLayout>
         </android.support.v7.widget.CardView>

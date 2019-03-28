@@ -141,14 +141,9 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerC.text = answerC
                     rbAnswerD.text = answerD
                     tvQuestionContent.text = questionContent
+                    tvExplanation.text = explanation
+                    tvTranslation.text = translation
                 }
-                tvQuestionTitle.text = questionTitle
-                rbAnswerA.text = answerA
-                rbAnswerB.text = answerB
-                rbAnswerC.text = answerC
-                rbAnswerD.text = answerD
-                tvExplanation.text = explanation
-                tvTranslation.text = translation
             }
             if ((activity as TakingReadingTestActivity).review) {
                 if (level == R.id.itemPart1 || level == R.id.itemPart2) {

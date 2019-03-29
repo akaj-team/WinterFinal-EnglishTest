@@ -50,9 +50,9 @@ class QuestionDetailFragment : Fragment() {
         when (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
-                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                if (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0) == R.id.itemPart7) {
-                    ViewGroup.LayoutParams.WRAP_CONTENT.let {
+                ViewGroup.LayoutParams.WRAP_CONTENT.let {
+                    tvQuestionTitle.layoutParams.height = it
+                    if (activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0) == R.id.itemPart7) {
                         rbAnswerA.layoutParams.height = it
                         rbAnswerB.layoutParams.height = it
                         rbAnswerC.layoutParams.height = it

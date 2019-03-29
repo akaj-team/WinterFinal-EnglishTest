@@ -29,5 +29,4 @@
             android:background="@drawable/bg_button_submit"
             android:layout_gravity="center_horizontal"/>
 
-</LinearLayout
->
+</LinearLayout>

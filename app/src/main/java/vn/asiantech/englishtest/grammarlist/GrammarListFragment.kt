@@ -66,7 +66,6 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
         reference = FirebaseDatabase.getInstance().getReference("grammar")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented")
             }
 
             override fun onDataChange(grammarData: DataSnapshot) {

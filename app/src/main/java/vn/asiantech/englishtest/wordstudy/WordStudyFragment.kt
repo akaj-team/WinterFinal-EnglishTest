@@ -43,7 +43,6 @@ class WordStudyFragment : Fragment() {
         reference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented")
             }
 
             override fun onDataChange(wordStudyData: DataSnapshot) {

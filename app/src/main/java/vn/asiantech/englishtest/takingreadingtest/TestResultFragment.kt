@@ -16,7 +16,9 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListReadingTestItem
 
+
 class TestResultFragment : Fragment(), View.OnClickListener {
+
     private var level: Int? = null
     private var position: Int? = null
 
@@ -28,6 +30,9 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        (activity as TakingReadingTestActivity).apply {
+            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+        }
         return inflater.inflate(R.layout.fragment_test_result, container, false)
     }
 
@@ -37,9 +42,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         btnExit.setOnClickListener(this)
         (activity as TakingReadingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
-            tvCorrectAnswer.text = StringBuilder().append(score).append(getString(R.string.totalScore))
+            tvCorrectAnswer.text = StringBuilder().append(score.toString())
+                .append("/${questionList.size}")
         }
-        addTimeAndScore()
+        setTimeAndScore()
     }
 
     override fun onClick(view: View?) {
@@ -48,7 +54,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                 (activity as TakingReadingTestActivity).review = true
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
-                    questionDetailPager?.apply {
+                    questionDetailPager.apply {
                         adapter?.notifyDataSetChanged()
                         currentItem = 0
                     }
@@ -71,16 +77,16 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun addTimeAndScore() {
+    private fun setTimeAndScore() {
         val preferences = activity?.getSharedPreferences(getString(R.string.fileName), Context.MODE_PRIVATE)
         activity?.intent?.apply {
-            level = getIntExtra(ListReadingTestFragment.ARG_LEVEL, -1)
             position = getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)
         }
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
+            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList()
+                ?: arrayListOf()
         listTimeandScore.add(
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",

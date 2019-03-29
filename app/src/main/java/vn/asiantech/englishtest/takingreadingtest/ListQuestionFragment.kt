@@ -9,15 +9,18 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
-    private var listAdapter : ListQuestionAdapter ?= null
+    private var level: Int? = null
+    private var listAdapter: ListQuestionAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
@@ -46,7 +49,15 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
 
     private fun setListQuestionNumber() {
         for (i in 0 until (activity as TakingReadingTestActivity).questionList.size) {
-            (listQuestionItems as ArrayList<ListQuestionItem>).add(ListQuestionItem(101 + i))
+            (listQuestionItems as ArrayList<ListQuestionItem>).add(
+                ListQuestionItem(
+                    when (level) {
+                        R.id.itemPart6 -> 141 + i
+                        R.id.itemPart7 -> 147 + i
+                        else -> 101 + i
+                    }
+                )
+            )
         }
     }
 

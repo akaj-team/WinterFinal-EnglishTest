@@ -22,6 +22,7 @@
                     android:id="@+id/imgWordStudy"
                     android:layout_width="@dimen/dimen70dp"
                     android:layout_height="@dimen/dimen70dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/img_welcome"/>
 
             <TextView

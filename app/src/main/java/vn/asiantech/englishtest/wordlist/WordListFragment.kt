@@ -24,6 +24,8 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
     companion object {
 
+        const val ARG_LIST_TEST_TITLE = "arg_list_test_title"
+
         fun getInstance(level: Int): WordListFragment =
             WordListFragment().apply {
                 val bundle = Bundle().apply {
@@ -43,11 +45,12 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         initData()
     }
 
-    override fun onClickWordList(position: Int) {
+    override fun onClickTestTitle(position: Int) {
         startActivity(
             Intent(activity, TakingReadingTestActivity::class.java)
                 .putExtra(ListReadingTestFragment.ARG_POSITION, position)
                 .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+                .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
         )
     }
 

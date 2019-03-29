@@ -21,7 +21,9 @@ import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.model.WordListItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
+import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
 @Suppress("DEPRECATION")
@@ -30,6 +32,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var grammarList = arrayListOf<GrammarItem>()
+    private var testTitleList = arrayListOf<WordListItem>()
     var progressDialog: ProgressDialog? = null
     var score = 0
     var review = false
@@ -141,7 +144,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     initGrammarDetailFragment()
                 }
                 R.id.itemWordStudy -> {
-                    tvLevel.text = getString(R.string.wordStudy)
+                    testTitleList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
+                    tvLevel.text = testTitleList[position].testTitle
                     initGrammarDetailFragment()
                 }
             }

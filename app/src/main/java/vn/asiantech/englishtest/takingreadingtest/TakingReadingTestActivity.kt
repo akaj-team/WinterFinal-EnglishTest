@@ -1,7 +1,5 @@
 package vn.asiantech.englishtest.takingreadingtest
 
-import android.text.TextUtils.replace
-
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +16,7 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
+@Suppress("DEPRECATION")
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
@@ -68,7 +67,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btnBackToListTest -> {
-                setResult()
+                onBackPressed()
             }
         }
     }
@@ -90,17 +89,41 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         progressDialog?.show()
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-            R.id.itemReadingLevelBasic -> {
+            R.id.itemPart1 -> {
+                tvLevel.text = getString(R.string.part1)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
+            }
+            R.id.itemPart2 -> {
+                tvLevel.text = getString(R.string.part2)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part2-0${position + 1}")
+            }
+            R.id.itemPart3 -> {
+                tvLevel.text = getString(R.string.part3)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part3-0${position + 1}")
+            }
+            R.id.itemPart4 -> {
+                tvLevel.text = getString(R.string.part4)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part4-0${position + 1}")
+            }
+            R.id.itemPart5Basic -> {
                 tvLevel.text = getString(R.string.part5Basic)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
             }
-            R.id.itemReadingLevelIntermediate -> {
+            R.id.itemPart5Intermediate -> {
                 tvLevel.text = getString(R.string.part5Intermediate)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5intermediate0${position + 1}")
             }
-            R.id.itemReadingLevelAdvanced -> {
+            R.id.itemPart5Advanced -> {
                 tvLevel.text = getString(R.string.part5Advanced)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part5advanced0${position + 1}")
+            }
+            R.id.itemPart6 -> {
+                tvLevel.text = getString(R.string.part6)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part6-0${position + 1}")
+            }
+            R.id.itemPart7 -> {
+                tvLevel.text = getString(R.string.part7)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
             }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
@@ -109,6 +132,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onDataChange(dataPractice: DataSnapshot) {
+                progressDialog?.dismiss()
                 for (i in dataPractice.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
                     question?.let {
@@ -132,12 +156,13 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
+
         }.show()
     }
 
     private fun initProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
-        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        val dialogView = View.inflate(this, R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
         builder.setView(dialogView)
         progressDialog = builder.create()

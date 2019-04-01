@@ -17,8 +17,9 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListReadingTestItem
 
 class TestResultFragment : Fragment(), View.OnClickListener {
-    private var level: Int? = null
     private var position: Int? = null
+    private var level: Int? = null
+    private var questionNumber: Int? = null
 
     companion object {
         const val KEY_TIME = "key_time"
@@ -28,6 +29,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        (activity as TakingReadingTestActivity).apply {
+            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+            questionNumber = questionList.size
+        }
         return inflater.inflate(R.layout.fragment_test_result, container, false)
     }
 
@@ -37,10 +42,12 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         btnExit.setOnClickListener(this)
         (activity as TakingReadingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
-            tvCorrectAnswer.text = StringBuilder().append(score).append(getString(R.string.totalScore))
+            tvCorrectAnswer.text = StringBuilder().append(score.toString())
+                .append("/$questionNumber")
         }
         addTimeAndScore()
     }
+
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -48,7 +55,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                 (activity as TakingReadingTestActivity).review = true
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
-                    questionDetailPager?.apply {
+                    questionDetailPager.apply {
                         adapter?.notifyDataSetChanged()
                         currentItem = 0
                     }
@@ -80,7 +87,8 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList() ?: arrayListOf()
+            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList()
+                ?: arrayListOf()
         listTimeandScore.add(
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",

@@ -32,7 +32,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     override fun onClickQuestionNumber(position: Int) {
-        activity?.apply {
+        (activity as TakingReadingTestActivity).apply {
             frListQuestions?.visibility = View.GONE
             questionDetailPager?.currentItem = position
         }
@@ -53,6 +53,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 ListQuestionItem(
                     when (level) {
                         R.id.itemPart1 -> 1 + i
+                        R.id.itemPart2 -> 11 + i
                         R.id.itemPart6 -> 141 + i
                         R.id.itemPart7 -> 147 + i
                         else -> 101 + i
@@ -64,24 +65,22 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
 
     private fun onClickSubmit() {
         btnSubmit.setOnClickListener {
-            activity?.chronometer?.stop()
             fragmentManager?.beginTransaction()?.apply {
                 setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
                 replace(R.id.frListQuestions, TestResultFragment())
                 commit()
             }
-            activity?.apply {
+            (activity as TakingReadingTestActivity).apply {
+                chronometer?.stop()
                 with(View.GONE) {
                     chronometer?.visibility = this
                     btnListQuestions?.visibility = this
                 }
-            }
-            (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
-                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
-                    (activity as TakingReadingTestActivity).score += 1
+                questionList.forEach { listQuestionDetailItem ->
+                    if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
+                        score += 1
+                    }
                 }
-            }
-            (activity as TakingReadingTestActivity).apply {
                 mediaPlayer?.apply {
                     stop()
                     release()

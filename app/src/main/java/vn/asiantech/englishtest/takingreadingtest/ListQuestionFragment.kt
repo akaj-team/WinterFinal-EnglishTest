@@ -15,6 +15,7 @@ import vn.asiantech.englishtest.model.ListQuestionItem
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
     private var level: Int? = null
+    private var listAdapter: ListQuestionAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,6 +27,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
+        setListQuestionNumber()
         onClickSubmit()
     }
 
@@ -37,11 +39,11 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     private fun initRecycleView() {
-        setListQuestionNumber()
         recycleViewListQuestions.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 5)
-            adapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
+            listAdapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
+            adapter = listAdapter
         }
     }
 

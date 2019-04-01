@@ -21,6 +21,7 @@ import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 import java.text.SimpleDateFormat
 
 
+@Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
     private var data: ListQuestionDetailItem? = null
@@ -119,7 +120,6 @@ class QuestionDetailFragment : Fragment() {
                     tvQuestionContent.text = questionContent
                 }
             }
-
             if ((activity as TakingReadingTestActivity).review) {
                 if (level == R.id.itemPart1) {
                     data?.let { it1 ->
@@ -131,10 +131,10 @@ class QuestionDetailFragment : Fragment() {
                         }
                     }
                 }
+                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-
                             answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                             answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)

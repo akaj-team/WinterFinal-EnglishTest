@@ -31,7 +31,7 @@ class WordListAdapter(
     }
 
     inner class WordListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(p0: View?) {
+        override fun onClick(view: View?) {
             wordListListener.onClickWordList(layoutPosition)
         }
 

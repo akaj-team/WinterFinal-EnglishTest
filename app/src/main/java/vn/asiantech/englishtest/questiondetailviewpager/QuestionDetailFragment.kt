@@ -98,12 +98,12 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
             R.id.itemPart3, R.id.itemPart4 -> {
-                View.VISIBLE.let {
-                    tvQuestionContent.visibility = it
-                    cardViewAudio.visibility = it
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    cardViewAudio.visibility = this
                 }
-                View.GONE.let {
-                    tvQuestionTitle.visibility = it
+                with(View.GONE) {
+                    tvQuestionTitle.visibility = this
                 }
             }
         }

@@ -128,7 +128,6 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerB.text = answerB
                     rbAnswerC.text = answerC
                     rbAnswerD.text = answerD
-                    tvQuestionContent.text = questionContent
                 }
             }
 
@@ -140,6 +139,7 @@ class QuestionDetailFragment : Fragment() {
                             rbAnswerB.text = answerB
                             rbAnswerC.text = answerC
                             rbAnswerD.text = answerD
+                            tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
                         }
                     }
                 }

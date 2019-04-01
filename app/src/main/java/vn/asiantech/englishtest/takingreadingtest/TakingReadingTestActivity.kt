@@ -1,18 +1,26 @@
+@file:Suppress("DEPRECATION")
+
 package vn.asiantech.englishtest.takingreadingtest
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
+import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
+import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
@@ -21,15 +29,19 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
-    var progressDialog: AlertDialog? = null
+    private var grammarList = arrayListOf<GrammarItem>()
+    var progressDialog: ProgressDialog? = null
+    var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_taking_reading_test)
-        initProgressDialog()
+        window.statusBarColor = resources.getColor(R.color.colorBlue)
+        progressDialog = ProgressDialog(this)
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -38,6 +50,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         when {
             supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is GrammarDetailFragment -> finish()
             frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
@@ -86,62 +99,86 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initData() {
-        progressDialog?.show()
+        initProgressDialog()
+        val level: Int = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        when (intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)) {
-            R.id.itemPart1 -> {
-                tvLevel.text = getString(R.string.part1)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
-            }
-            R.id.itemPart2 -> {
-                tvLevel.text = getString(R.string.part2)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part2-0${position + 1}")
-            }
-            R.id.itemPart3 -> {
-                tvLevel.text = getString(R.string.part3)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part3-0${position + 1}")
-            }
-            R.id.itemPart4 -> {
-                tvLevel.text = getString(R.string.part4)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part4-0${position + 1}")
-            }
-            R.id.itemPart5Basic -> {
-                tvLevel.text = getString(R.string.part5Basic)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part5basic0${position + 1}")
-            }
-            R.id.itemPart5Intermediate -> {
-                tvLevel.text = getString(R.string.part5Intermediate)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part5intermediate0${position + 1}")
-            }
-            R.id.itemPart5Advanced -> {
-                tvLevel.text = getString(R.string.part5Advanced)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part5advanced0${position + 1}")
-            }
-            R.id.itemPart6 -> {
-                tvLevel.text = getString(R.string.part6)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part6-0${position + 1}")
-            }
-            R.id.itemPart7 -> {
-                tvLevel.text = getString(R.string.part7)
-                dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
+        FirebaseDatabase.getInstance().apply {
+            when (level) {
+                R.id.itemPart1 -> {
+                    tvLevel.text = getString(R.string.part1)
+                    dataQuestion = getReference("part1-0${position + 1}")
+                }
+                R.id.itemPart2 -> {
+                    tvLevel.text = getString(R.string.part2)
+                    dataQuestion = getReference("part2-0${position + 1}")
+                }
+                R.id.itemPart3 -> {
+                    tvLevel.text = getString(R.string.part3)
+                    dataQuestion = getReference("part3-0${position + 1}")
+                }
+                R.id.itemPart4 -> {
+                    tvLevel.text = getString(R.string.part4)
+                    dataQuestion = getReference("part4-0${position + 1}")
+                }
+                R.id.itemPart5Basic -> {
+                    tvLevel.text = getString(R.string.part5Basic)
+                    dataQuestion = getReference("part5Basic0${position + 1}")
+                }
+                R.id.itemPart5Intermediate -> {
+                    tvLevel.text = getString(R.string.part5Intermediate)
+                    dataQuestion = getReference("part5Intermediate0${position + 1}")
+                }
+                R.id.itemPart5Advanced -> {
+                    tvLevel.text = getString(R.string.part5Advanced)
+                    dataQuestion = getReference("part5Advanced0${position + 1}")
+                }
+                R.id.itemPart6 -> {
+                    tvLevel.text = getString(R.string.part6)
+                    dataQuestion = getReference("part6-0${position + 1}")
+                }
+                R.id.itemPart7 -> {
+                    tvLevel.text = getString(R.string.part7)
+                    dataQuestion = getReference("part7-0${position + 1}")
+                }
+                R.id.itemGrammar -> {
+                    grammarList = intent.getParcelableArrayListExtra(GrammarListFragment.ARG_GRAMMAR_LIST)
+                    tvLevel.text = grammarList[position].grammarTitle
+                    initGrammarDetailFragment()
+                }
             }
         }
-        dataQuestion.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(dataPractice: DatabaseError) {
-                TODO("not implemented")
-            }
 
-            override fun onDataChange(dataPractice: DataSnapshot) {
-                progressDialog?.dismiss()
-                for (i in dataPractice.children) {
-                    val question = i.getValue(ListQuestionDetailItem::class.java)
-                    question?.let {
-                        questionList.add(it)
-                    }
+        if (level != R.id.itemGrammar) {
+            dataQuestion.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(dataPractice: DatabaseError) {
+                    dismissProgressDialog()
                 }
-                questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
-            }
-        })
+
+                override fun onDataChange(dataPractice: DataSnapshot) {
+                    dismissProgressDialog()
+                    for (i in dataPractice.children) {
+                        val question = i.getValue(ListQuestionDetailItem::class.java)
+                        question?.let {
+                            questionList.add(it)
+                        }
+                    }
+                    questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                }
+            })
+        }
+    }
+
+    private fun initGrammarDetailFragment() {
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+            replace(R.id.frListQuestions, GrammarDetailFragment())
+            commit()
+        }
+        frListQuestions.visibility = View.VISIBLE
+        with(View.GONE) {
+            chronometer.visibility = this
+            btnListQuestions.visibility = this
+        }
     }
 
     private fun initAlertDialog() {
@@ -156,15 +193,18 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
-
         }.show()
     }
 
     private fun initProgressDialog() {
-        val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
-        val dialogView = View.inflate(this, R.layout.progress_dialog, null)
-        dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
-        builder.setView(dialogView)
-        progressDialog = builder.create()
+        progressDialog?.apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage(getString(R.string.loadingData))
+            show()
+        }
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

@@ -14,8 +14,8 @@ import vn.asiantech.englishtest.model.ListQuestionItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
     private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
-    private var listAdapter : ListQuestionAdapter ?= null
     private var level: Int? = null
+    private var listAdapter: ListQuestionAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,7 +32,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     override fun onClickQuestionNumber(position: Int) {
-        activity?.apply {
+        (activity as TakingReadingTestActivity).apply {
             frListQuestions?.visibility = View.GONE
             questionDetailPager?.currentItem = position
         }
@@ -65,20 +65,27 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
 
     private fun onClickSubmit() {
         btnSubmit.setOnClickListener {
-            activity?.chronometer?.stop()
             fragmentManager?.beginTransaction()?.apply {
                 setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
                 replace(R.id.frListQuestions, TestResultFragment())
                 commit()
             }
-            activity?.apply {
-                chronometer?.visibility = View.GONE
-                btnListQuestions?.visibility = View.GONE
-            }
-            (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
-                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
-                    (activity as TakingReadingTestActivity).score += 1
+            (activity as TakingReadingTestActivity).apply {
+                chronometer?.stop()
+                with(View.GONE) {
+                    chronometer?.visibility = this
+                    btnListQuestions?.visibility = this
                 }
+                questionList.forEach { listQuestionDetailItem ->
+                    if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
+                        score += 1
+                    }
+                }
+                mediaPlayer?.apply {
+                    stop()
+                    release()
+                }
+                mediaPlayer = null
             }
         }
     }

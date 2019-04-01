@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.list_question_items.view.*
+import kotlinx.android.synthetic.main.item_list_question.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ListQuestionItem
 
@@ -14,7 +14,7 @@ class ListQuestionAdapter(
 ) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListQuestionViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_question_items, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_question, parent, false)
         return ListQuestionViewHolder(view)
     }
 

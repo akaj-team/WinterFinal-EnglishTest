@@ -192,7 +192,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         progressDialog?.apply {
             setProgressStyle(ProgressDialog.STYLE_SPINNER)
             setMessage(getString(R.string.loadingData))
-            setCancelable(false)
             show()
         }
     }

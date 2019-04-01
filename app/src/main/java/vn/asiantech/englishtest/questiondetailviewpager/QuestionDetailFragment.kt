@@ -70,15 +70,6 @@ class QuestionDetailFragment : Fragment() {
 
     private fun showView() {
         when (level) {
-            R.id.itemPart6 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            R.id.itemPart7 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                setLayoutHeight()
-            }
             R.id.itemPart1 -> {
                 with(View.VISIBLE) {
                     tvQuestionContent.visibility = this
@@ -97,6 +88,13 @@ class QuestionDetailFragment : Fragment() {
                     tvQuestionTitle.visibility = this
                     rbAnswerD.visibility = this
                     divider4.visibility = this
+                }
+            }
+            R.id.itemPart6, R.id.itemPart7 -> {
+                tvQuestionContent.visibility = View.VISIBLE
+                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                if (level == R.id.itemPart7) {
+                    setLayoutHeight()
                 }
             }
         }

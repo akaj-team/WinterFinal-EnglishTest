@@ -17,11 +17,10 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListReadingTestItem
 import java.lang.StringBuilder
 
-
 class TestResultFragment : Fragment(), View.OnClickListener {
 
-    private var level: Int? = null
     private var position: Int? = null
+    private var level: Int? = null
 
     companion object {
         const val KEY_TIME = "key_time"
@@ -48,6 +47,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         }
         setTimeAndScore()
     }
+
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -92,7 +92,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                "${(activity as TakingReadingTestActivity).score}${getString(R.string.totalScore)}"
+                (activity as TakingReadingTestActivity).score.toString()
             )
         )
         val json = Gson().toJson(listTimeandScore)

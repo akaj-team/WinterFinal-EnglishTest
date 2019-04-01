@@ -52,6 +52,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
             (listQuestionItems as ArrayList<ListQuestionItem>).add(
                 ListQuestionItem(
                     when (level) {
+                        R.id.itemPart1 -> 1 + i
                         R.id.itemPart6 -> 141 + i
                         R.id.itemPart7 -> 147 + i
                         else -> 101 + i
@@ -70,13 +71,22 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 commit()
             }
             activity?.apply {
-                chronometer?.visibility = View.GONE
-                btnListQuestions?.visibility = View.GONE
+                with(View.GONE) {
+                    chronometer?.visibility = this
+                    btnListQuestions?.visibility = this
+                }
             }
             (activity as TakingReadingTestActivity).questionList.forEach { listQuestionDetailItem ->
                 if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
                     (activity as TakingReadingTestActivity).score += 1
                 }
+            }
+            (activity as TakingReadingTestActivity).apply {
+                mediaPlayer?.apply {
+                    stop()
+                    release()
+                }
+                mediaPlayer = null
             }
         }
     }

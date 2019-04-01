@@ -43,18 +43,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
-            R.id.itemPart5Basic -> {
-                initListReadingTestFragment(R.id.itemPart5Basic)
-                supportActionBar?.title = getString(R.string.part5Basic)
-            }
-            R.id.itemPart5Intermediate -> {
-                initListReadingTestFragment(R.id.itemPart5Intermediate)
-                supportActionBar?.title = getString(R.string.part5Intermediate)
-            }
-            R.id.itemPart5Advanced -> {
-                initListReadingTestFragment(R.id.itemPart5Advanced)
-                supportActionBar?.title = getString(R.string.part5Advanced)
-            }
             R.id.itemPart1 -> {
                 initListReadingTestFragment(R.id.itemPart1)
                 supportActionBar?.title = getString(R.string.part1)
@@ -70,6 +58,18 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             R.id.itemPart4 -> {
                 initListReadingTestFragment(R.id.itemPart4)
                 supportActionBar?.title = getString(R.string.part4)
+            }
+            R.id.itemPart5Basic -> {
+                initListReadingTestFragment(R.id.itemPart5Basic)
+                supportActionBar?.title = getString(R.string.part5Basic)
+            }
+            R.id.itemPart5Intermediate -> {
+                initListReadingTestFragment(R.id.itemPart5Intermediate)
+                supportActionBar?.title = getString(R.string.part5Intermediate)
+            }
+            R.id.itemPart5Advanced -> {
+                initListReadingTestFragment(R.id.itemPart5Advanced)
+                supportActionBar?.title = getString(R.string.part5Advanced)
             }
             R.id.itemPart6 -> {
                 initListReadingTestFragment(R.id.itemPart6)

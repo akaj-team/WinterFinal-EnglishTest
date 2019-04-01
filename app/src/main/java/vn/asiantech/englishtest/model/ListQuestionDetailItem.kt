@@ -12,6 +12,7 @@ data class ListQuestionDetailItem(
     val answerD: String = "",
     val correctAnswer: String = "",
     var myAnswer: String = "",
+    val audio : String = "",
     var explanation: String = "",
     var translation: String = "",
     val questionContent: String = ""

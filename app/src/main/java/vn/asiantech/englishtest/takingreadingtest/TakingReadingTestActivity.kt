@@ -1,9 +1,8 @@
 package vn.asiantech.englishtest.takingreadingtest
 
-import android.text.TextUtils.replace
-
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -18,11 +17,13 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
 
+@Suppress("DEPRECATION")
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
     var progressDialog: AlertDialog? = null
+    var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
 
@@ -68,7 +69,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btnBackToListTest -> {
-                setResult()
+                onBackPressed()
             }
         }
     }
@@ -110,6 +111,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 tvLevel.text = getString(R.string.part7)
                 dataQuestion = FirebaseDatabase.getInstance().getReference("part7-0${position + 1}")
             }
+            R.id.itemPart1 -> {
+                tvLevel.text = getString(R.string.part1)
+                dataQuestion = FirebaseDatabase.getInstance().getReference("part1-0${position + 1}")
+            }
         }
         dataQuestion.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(dataPractice: DatabaseError) {
@@ -117,6 +122,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onDataChange(dataPractice: DataSnapshot) {
+                progressDialog?.dismiss()
                 for (i in dataPractice.children) {
                     val question = i.getValue(ListQuestionDetailItem::class.java)
                     question?.let {
@@ -145,7 +151,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initProgressDialog() {
         val builder = AlertDialog.Builder(this@TakingReadingTestActivity)
-        val dialogView = layoutInflater.inflate(R.layout.progress_dialog, null)
+        val dialogView = View.inflate(this, R.layout.progress_dialog, null)
         dialogView.findViewById<TextView>(R.id.progressDialogMessage).text = getString(R.string.loadingData)
         builder.setView(dialogView)
         progressDialog = builder.create()

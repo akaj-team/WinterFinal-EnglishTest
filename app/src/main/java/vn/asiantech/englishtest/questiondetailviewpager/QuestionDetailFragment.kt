@@ -77,23 +77,25 @@ class QuestionDetailFragment : Fragment() {
             R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                ViewGroup.LayoutParams.WRAP_CONTENT.let {
-                    rbAnswerA.layoutParams.height = it
-                    rbAnswerB.layoutParams.height = it
-                    rbAnswerC.layoutParams.height = it
-                    rbAnswerD.layoutParams.height = it
+                with(ViewGroup.LayoutParams.WRAP_CONTENT) {
+                    rbAnswerA.layoutParams.height = this
+                    rbAnswerB.layoutParams.height = this
+                    rbAnswerC.layoutParams.height = this
+                    rbAnswerD.layoutParams.height = this
                 }
             }
             R.id.itemPart1 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                imgQuestionTitle.visibility = View.VISIBLE
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    imgQuestionTitle.visibility = this
+                    cardViewAudio.visibility = this
+                }
                 tvQuestionTitle.visibility = View.GONE
-                cardViewAudio.visibility = View.VISIBLE
-                ViewGroup.LayoutParams.WRAP_CONTENT.let {
-                    rbAnswerA.layoutParams.height = it
-                    rbAnswerB.layoutParams.height = it
-                    rbAnswerC.layoutParams.height = it
-                    rbAnswerD.layoutParams.height = it
+                with(ViewGroup.LayoutParams.WRAP_CONTENT) {
+                    rbAnswerA.layoutParams.height = this
+                    rbAnswerB.layoutParams.height = this
+                    rbAnswerC.layoutParams.height = this
+                    rbAnswerD.layoutParams.height = this
                 }
             }
         }
@@ -170,7 +172,6 @@ class QuestionDetailFragment : Fragment() {
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
 
-
                 val handler = Handler()
                 (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
@@ -183,7 +184,6 @@ class QuestionDetailFragment : Fragment() {
                             handler.postDelayed(this, 1000)
                         } catch (e: Exception) {
                         }
-
                     }
                 })
                 seekBarChangeListener()

@@ -146,7 +146,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
-
         }.show()
     }
 

@@ -131,6 +131,7 @@ class QuestionDetailFragment : Fragment() {
                             rbAnswerB.text = answerB
                             rbAnswerC.text = answerC
                             rbAnswerD.text = answerD
+                            tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
                         }
                     }
                 } else {
@@ -173,8 +174,6 @@ class QuestionDetailFragment : Fragment() {
                 }
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
-
-                val handler = Handler()
                 (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
                         if (isDestroy) {
@@ -183,7 +182,7 @@ class QuestionDetailFragment : Fragment() {
                         try {
                             seekBarPlay.progress = currentPosition
                             tvCurrentTime.text = timeFormat.format(currentPosition)
-                            handler.postDelayed(this, 1000)
+                            Handler().postDelayed(this, 1000)
                         } catch (e: Exception) {
                         }
                     }

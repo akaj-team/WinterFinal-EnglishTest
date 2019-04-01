@@ -167,8 +167,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             commit()
         }
         frListQuestions.visibility = View.VISIBLE
-        chronometer.visibility = View.GONE
-        btnListQuestions.visibility = View.GONE
+        with(View.GONE) {
+            chronometer.visibility = this
+            btnListQuestions.visibility = this
+        }
     }
 
     private fun initAlertDialog() {

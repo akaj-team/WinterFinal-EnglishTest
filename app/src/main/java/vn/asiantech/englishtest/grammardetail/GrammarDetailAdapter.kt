@@ -11,7 +11,7 @@ import vn.asiantech.englishtest.model.GrammarDetailItem
 class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem>) :
     RecyclerView.Adapter<GrammarDetailAdapter.GrammarDetailViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarDetailViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_grammar_detail, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_grammar_detail, parent, false)
         return GrammarDetailViewHolder(view)
     }
 

@@ -50,8 +50,8 @@ class QuestionDetailFragment : Fragment() {
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
+            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         }
-        level = (activity as TakingReadingTestActivity).intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
@@ -63,7 +63,7 @@ class QuestionDetailFragment : Fragment() {
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
         showView()
-        selectedAnswer()
+        setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
     }
@@ -105,10 +105,7 @@ class QuestionDetailFragment : Fragment() {
     private fun setDataFirebase() {
         data?.let {
             with(it) {
-                when ((activity as TakingReadingTestActivity).intent.getIntExtra(
-                    ListReadingTestFragment.ARG_LEVEL,
-                    0
-                )) {
+                when (level) {
                     R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
                         imgQuestionTitle
                     )
@@ -177,8 +174,6 @@ class QuestionDetailFragment : Fragment() {
                 }
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
-
-                val handler = Handler()
                 (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
                         if (isDestroy) {
@@ -187,7 +182,7 @@ class QuestionDetailFragment : Fragment() {
                         try {
                             seekBarPlay.progress = currentPosition
                             tvCurrentTime.text = timeFormat.format(currentPosition)
-                            handler.postDelayed(this, 1000)
+                            Handler().postDelayed(this, 1000)
                         } catch (e: Exception) {
                         }
                     }
@@ -204,7 +199,7 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun selectedAnswer() {
+    private fun setValueForMyAnswer() {
         rgAnswer.setOnCheckedChangeListener { _, _ ->
             when {
                 rbAnswerA.isChecked -> {

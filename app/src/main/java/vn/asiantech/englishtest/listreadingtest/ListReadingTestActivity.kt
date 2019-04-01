@@ -1,5 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package vn.asiantech.englishtest.listreadingtest
 
+import android.app.ProgressDialog
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,13 +14,16 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.grammar.GrammarListFragment
+import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+        progressDialog = ProgressDialog(this)
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -30,6 +37,9 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         navigationView.apply {
             setNavigationItemSelectedListener(this@ListReadingTestActivity)
             setCheckedItem(R.id.itemPart5Basic)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = resources.getColor(R.color.colorBlue)
         }
     }
 
@@ -125,5 +135,17 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 finish()
             }
         }.show()
+    }
+
+    fun initProgressDialog() {
+        progressDialog?.apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage(getString(R.string.loadingData))
+            show()
+        }
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

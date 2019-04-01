@@ -86,7 +86,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
             listReadingTestItems.add(
                 ListReadingTestItem(
                     "${getString(R.string.practice)} ${i + 1}",
-                    getString(R.string.timeDefault), "0"
+                    getString(R.string.timeDefault), getString(R.string.scoreDefault)
                 )
             )
         }

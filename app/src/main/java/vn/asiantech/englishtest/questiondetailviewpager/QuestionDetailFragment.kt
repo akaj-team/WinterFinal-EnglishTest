@@ -20,7 +20,6 @@ import vn.asiantech.englishtest.model.ListQuestionDetailItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 import java.text.SimpleDateFormat
 
-
 @Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
@@ -51,39 +50,26 @@ class QuestionDetailFragment : Fragment() {
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
+            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         }
-        level = (activity as TakingReadingTestActivity).intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         (activity as TakingReadingTestActivity).apply {
             mediaPlayer = MediaPlayer()
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
         showView()
-        selectedAnswer()
+        setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
     }
 
     private fun showView() {
         when (level) {
-            R.id.itemPart6 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            R.id.itemPart7 -> {
-                tvQuestionContent.visibility = View.VISIBLE
-                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                with(ViewGroup.LayoutParams.WRAP_CONTENT) {
-                    rbAnswerA.layoutParams.height = this
-                    rbAnswerB.layoutParams.height = this
-                    rbAnswerC.layoutParams.height = this
-                    rbAnswerD.layoutParams.height = this
-                }
-            }
             R.id.itemPart1 -> {
                 with(View.VISIBLE) {
                     tvQuestionContent.visibility = this
@@ -91,11 +77,24 @@ class QuestionDetailFragment : Fragment() {
                     cardViewAudio.visibility = this
                 }
                 tvQuestionTitle.visibility = View.GONE
-                with(ViewGroup.LayoutParams.WRAP_CONTENT) {
-                    rbAnswerA.layoutParams.height = this
-                    rbAnswerB.layoutParams.height = this
-                    rbAnswerC.layoutParams.height = this
-                    rbAnswerD.layoutParams.height = this
+                setLayoutHeight()
+            }
+            R.id.itemPart2 -> {
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    cardViewAudio.visibility = this
+                }
+                with(View.GONE) {
+                    tvQuestionTitle.visibility = this
+                    rbAnswerD.visibility = this
+                    divider4.visibility = this
+                }
+            }
+            R.id.itemPart6, R.id.itemPart7 -> {
+                tvQuestionContent.visibility = View.VISIBLE
+                tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                if (level == R.id.itemPart7) {
+                    setLayoutHeight()
                 }
             }
         }
@@ -104,36 +103,38 @@ class QuestionDetailFragment : Fragment() {
     private fun setDataFirebase() {
         data?.let {
             with(it) {
-                when ((activity as TakingReadingTestActivity).intent.getIntExtra(
-                    ListReadingTestFragment.ARG_LEVEL,
-                    0
-                )) {
+                when (level) {
                     R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
                         imgQuestionTitle
                     )
                 }
                 tvQuestionContent.text = questionContent
-                if (level != R.id.itemPart1) {
+
+                if (level != R.id.itemPart1 && level != R.id.itemPart2) {
                     tvQuestionTitle.text = questionTitle
                     rbAnswerA.text = answerA
                     rbAnswerB.text = answerB
                     rbAnswerC.text = answerC
                     rbAnswerD.text = answerD
+                    tvExplanation.text = explanation
+                    tvTranslation.text = translation
                     tvQuestionContent.text = questionContent
                 }
             }
             if ((activity as TakingReadingTestActivity).review) {
-                if (level == R.id.itemPart1) {
+                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
                     data?.let { it1 ->
                         with(it1) {
                             rbAnswerA.text = answerA
                             rbAnswerB.text = answerB
                             rbAnswerC.text = answerC
                             rbAnswerD.text = answerD
+                            tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
                         }
                     }
+                } else {
+                    cardViewExplanation.visibility = View.VISIBLE
                 }
-                cardViewExplanation.visibility = View.VISIBLE
                 with(it) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
@@ -171,8 +172,6 @@ class QuestionDetailFragment : Fragment() {
                 }
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
-
-                val handler = Handler()
                 (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
                         if (isDestroy) {
@@ -181,7 +180,7 @@ class QuestionDetailFragment : Fragment() {
                         try {
                             seekBarPlay.progress = currentPosition
                             tvCurrentTime.text = timeFormat.format(currentPosition)
-                            handler.postDelayed(this, 1000)
+                            Handler().postDelayed(this, 1000)
                         } catch (e: Exception) {
                         }
                     }
@@ -198,7 +197,7 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun selectedAnswer() {
+    private fun setValueForMyAnswer() {
         rgAnswer.setOnCheckedChangeListener { _, _ ->
             when {
                 rbAnswerA.isChecked -> {
@@ -253,5 +252,14 @@ class QuestionDetailFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
+    }
+
+    private fun setLayoutHeight() {
+        with(ViewGroup.LayoutParams.WRAP_CONTENT) {
+            rbAnswerA.layoutParams.height = this
+            rbAnswerB.layoutParams.height = this
+            rbAnswerC.layoutParams.height = this
+            rbAnswerD.layoutParams.height = this
+        }
     }
 }

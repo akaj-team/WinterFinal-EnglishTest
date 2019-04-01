@@ -12,9 +12,9 @@
     <string name="part5Basic">Part 5 - Basic</string>
     <string name="part5Intermediate">Part 5 - Intermediate</string>
     <string name="part5Advanced">Part 5 - Advanced</string>
-    <string name="p5Basic">P5 - Basic - </string>
-    <string name="p5Intermediate">P5 - Intermediate - </string>
-    <string name="p5Advanced">P5 - Advanced - </string>
+    <string name="p5Basic">P5 - Basic -</string>
+    <string name="p5Intermediate">P5 - Intermediate -</string>
+    <string name="p5Advanced">P5 - Advanced -</string>
     <string name="communicate">Communicate</string>
     <string name="share">Share</string>
     <string name="send">Send</string>
@@ -52,4 +52,6 @@
     <string name="optionA">A.</string>
     <string name="explanation">Giải thích:</string>
     <string name="translation">Dịch:</string>
+    <string name="grammar">Grammar</string>
+    <string name="toeicIntroduction">TOEIC Introduction</string>
 </resources>

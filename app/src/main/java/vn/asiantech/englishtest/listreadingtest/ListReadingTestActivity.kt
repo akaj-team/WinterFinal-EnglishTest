@@ -1,5 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package vn.asiantech.englishtest.listreadingtest
 
+import android.app.ProgressDialog
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,12 +14,17 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
+import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
+        progressDialog = ProgressDialog(this)
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -29,6 +38,9 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         navigationView.apply {
             setNavigationItemSelectedListener(this@ListReadingTestActivity)
             setCheckedItem(R.id.itemPart5Basic)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = resources.getColor(R.color.colorBlue)
         }
     }
 
@@ -79,6 +91,28 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 initListReadingTestFragment(R.id.itemPart7)
                 supportActionBar?.title = getString(R.string.part7)
             }
+            R.id.itemGrammar -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_left
+                    )
+                    replace(
+                        R.id.frListReadingTest,
+                        GrammarListFragment.getInstance(R.id.itemGrammar)
+                    )
+                    commit()
+                }
+                supportActionBar?.title = getString(R.string.grammar)
+            }
+            R.id.itemToeicIntroduction -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                    replace(R.id.frListReadingTest, GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
+                    commit()
+                }
+                supportActionBar?.title = getString(R.string.toeicIntroduction)
+            }
         }
         return true
     }
@@ -110,5 +144,17 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                 finish()
             }
         }.show()
+    }
+
+    fun initProgressDialog() {
+        progressDialog?.apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setMessage(getString(R.string.loadingData))
+            show()
+        }
+    }
+
+    fun dismissProgressDialog() {
+        progressDialog?.dismiss()
     }
 }

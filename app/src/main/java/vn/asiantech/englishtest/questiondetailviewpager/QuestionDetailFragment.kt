@@ -228,21 +228,21 @@ class QuestionDetailFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (!isVisibleToUser && isResumed) {
-            (activity as TakingReadingTestActivity).mediaPlayer?.stop()
+            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
             imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as TakingReadingTestActivity).mediaPlayer?.pause()
+        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
         isDestroy = true
     }
 
     private fun seekBarChangeListener() {
         seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if ((activity as TakingReadingTestActivity).mediaPlayer != null && fromUser) {
+                if (fromUser) {
                     (activity as TakingReadingTestActivity).mediaPlayer?.seekTo(progress)
                 }
             }

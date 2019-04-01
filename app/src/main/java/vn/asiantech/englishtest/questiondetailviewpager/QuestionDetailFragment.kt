@@ -141,7 +141,6 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerD.text = answerD
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
-                    tvQuestionContent.text = questionContent
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
                 }

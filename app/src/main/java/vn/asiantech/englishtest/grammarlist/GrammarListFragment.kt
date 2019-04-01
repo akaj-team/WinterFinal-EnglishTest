@@ -19,7 +19,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
 
     private var grammarListAdapter: GrammarListAdapter? = null
     private var grammarListItems: ArrayList<GrammarItem> = arrayListOf()
-    private lateinit var reference: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
 
     companion object {
 
@@ -63,8 +63,8 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
 
     private fun initData() {
         (activity as ListReadingTestActivity).initProgressDialog()
-        reference = FirebaseDatabase.getInstance().getReference("grammar")
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }

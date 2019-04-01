@@ -17,13 +17,12 @@ class GrammarDetailFragment : Fragment() {
 
     private var grammarDetailAdapter: GrammarDetailAdapter? = null
     private var grammarDetailItem = arrayListOf<GrammarDetailItem>()
-    private lateinit var reference: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
     }
 
@@ -43,8 +42,8 @@ class GrammarDetailFragment : Fragment() {
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        reference = FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference = FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }

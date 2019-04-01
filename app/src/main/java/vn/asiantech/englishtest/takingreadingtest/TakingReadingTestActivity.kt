@@ -5,6 +5,7 @@ package vn.asiantech.englishtest.takingreadingtest
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -30,6 +31,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var grammarList = arrayListOf<GrammarItem>()
     var progressDialog: ProgressDialog? = null
+    var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
 
@@ -181,7 +183,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
-
         }.show()
     }
 

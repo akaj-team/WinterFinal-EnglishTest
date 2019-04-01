@@ -24,7 +24,6 @@ class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem
     }
 
     inner class GrammarDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindView(grammarDetailItem: GrammarDetailItem) {
             with(itemView) {
                 with(grammarDetailItem) {

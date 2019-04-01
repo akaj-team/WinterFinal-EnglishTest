@@ -5,6 +5,7 @@ package vn.asiantech.englishtest.takingreadingtest
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -30,6 +31,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var grammarList = arrayListOf<GrammarItem>()
     var progressDialog: ProgressDialog? = null
+    var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
 
@@ -112,15 +114,15 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 R.id.itemPart5Basic -> {
                     tvLevel.text = getString(R.string.part5Basic)
-                    dataQuestion = getReference("part5basic0${position + 1}")
+                    dataQuestion = getReference("part5Basic0${position + 1}")
                 }
                 R.id.itemPart5Intermediate -> {
                     tvLevel.text = getString(R.string.part5Intermediate)
-                    dataQuestion = getReference("part5intermediate0${position + 1}")
+                    dataQuestion = getReference("part5Intermediate0${position + 1}")
                 }
                 R.id.itemPart5Advanced -> {
                     tvLevel.text = getString(R.string.part5Advanced)
-                    dataQuestion = getReference("part5advanced0${position + 1}")
+                    dataQuestion = getReference("part5Advanced0${position + 1}")
                 }
                 R.id.itemPart6 -> {
                     tvLevel.text = getString(R.string.part6)
@@ -165,8 +167,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             commit()
         }
         frListQuestions.visibility = View.VISIBLE
-        chronometer.visibility = View.GONE
-        btnListQuestions.visibility = View.GONE
+        with(View.GONE) {
+            chronometer.visibility = this
+            btnListQuestions.visibility = this
+        }
     }
 
     private fun initAlertDialog() {
@@ -181,7 +185,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
-
         }.show()
     }
 

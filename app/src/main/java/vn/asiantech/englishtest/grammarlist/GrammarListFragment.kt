@@ -18,11 +18,10 @@ import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
 
     private var grammarListAdapter: GrammarListAdapter? = null
-    private var grammarListItems: ArrayList<GrammarItem> = arrayListOf()
-    private lateinit var reference: DatabaseReference
+    private var grammarListItems = arrayListOf<GrammarItem>()
+    private var databaseReference: DatabaseReference? = null
 
     companion object {
-
         const val ARG_GRAMMAR_LIST = "arg_grammar_list"
 
         fun getInstance(level: Int): GrammarListFragment =
@@ -63,8 +62,8 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
 
     private fun initData() {
         (activity as ListReadingTestActivity).initProgressDialog()
-        reference = FirebaseDatabase.getInstance().getReference("grammar")
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
+        databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }

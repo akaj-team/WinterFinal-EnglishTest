@@ -15,7 +15,6 @@ import vn.asiantech.englishtest.model.WordListItem
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
-
     private var wordListItem = arrayListOf<WordListItem>()
     private var wordListAdapter: WordListAdapter? = null
     private lateinit var reference: DatabaseReference
@@ -43,7 +42,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
     }
 
     override fun onClickWordList(position: Int) {
-
+        TODO("not implemented")
     }
 
     private fun initRecyclerView() {

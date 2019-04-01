@@ -2,7 +2,6 @@
 
 package vn.asiantech.englishtest.listreadingtest
 
-import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
@@ -23,7 +22,6 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
 
     private var progressDialog: ProgressDialog? = null
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_reading_tests)
@@ -42,7 +40,9 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             setNavigationItemSelectedListener(this@ListReadingTestActivity)
             setCheckedItem(R.id.itemPart5Basic)
         }
-        window.statusBarColor = resources.getColor(R.color.colorBlue)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = resources.getColor(R.color.colorBlue)
+        }
     }
 
     override fun onBackPressed() {

@@ -3,7 +3,6 @@ package vn.asiantech.englishtest.grammardetail
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class GrammarDetailFragment : Fragment() {
     private var toeicIntroAdapter: ToeicIntroAdapter? = null
     private var grammarDetailItem = arrayListOf<GrammarDetailItem>()
     private var toeicIntroItem = arrayListOf<ToeicIntroItem>()
-    private lateinit var reference: DatabaseReference
+    private var databaseReference: DatabaseReference? = null
     private var level: Int? = null
 
     companion object {
@@ -41,7 +40,6 @@ class GrammarDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         level = arguments?.getInt(ListReadingTestFragment.ARG_LEVEL)
-        Log.i("kkkk", level.toString())
         return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
     }
 
@@ -62,15 +60,14 @@ class GrammarDetailFragment : Fragment() {
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
-        when (level) {
+        databaseReference = when (level) {
             R.id.itemToeicIntroduction -> {
                 (activity as ListReadingTestActivity).initProgressDialog()
-                reference = FirebaseDatabase.getInstance().getReference("toeicIntroduction")
+                FirebaseDatabase.getInstance().getReference("toeicIntroduction")
             }
-            else -> reference = FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+            else -> FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
         }
-
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }

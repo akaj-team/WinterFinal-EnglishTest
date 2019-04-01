@@ -22,7 +22,6 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
     private var databaseReference: DatabaseReference? = null
 
     companion object {
-
         const val ARG_GRAMMAR_LIST = "arg_grammar_list"
 
         fun getInstance(level: Int): GrammarListFragment =

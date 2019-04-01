@@ -14,7 +14,7 @@ class GrammarListAdapter(
 ) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_grammar, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_grammar, parent, false)
         return GrammarViewHolder(view)
     }
 
@@ -31,7 +31,7 @@ class GrammarListAdapter(
     }
 
     inner class GrammarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(p0: View?) {
+        override fun onClick(view: View?) {
             grammarListener.onClickGrammarItem(layoutPosition)
         }
 

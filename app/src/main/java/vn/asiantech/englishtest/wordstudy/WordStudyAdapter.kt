@@ -12,7 +12,7 @@ import vn.asiantech.englishtest.model.WordStudyItem
 class WordStudyAdapter(private val wordStudy: MutableList<WordStudyItem>) :
     RecyclerView.Adapter<WordStudyAdapter.WordStudyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordStudyViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_word_study, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_word_study, parent, false)
         return WordStudyViewHolder(view)
     }
 

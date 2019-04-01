@@ -14,7 +14,7 @@ class ListReadingTestAdapter(
 ) :
     RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test, parent, false)
         return ListReadingTestViewHolder(view)
     }
 

@@ -11,8 +11,7 @@ import vn.asiantech.englishtest.model.ToeicIntroItem
 class ToeicIntroAdapter(private val toeicIntroItem: List<ToeicIntroItem>) :
     RecyclerView.Adapter<ToeicIntroAdapter.ToeicIntroViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ToeicIntroViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_grammar_detail, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_grammar_detail, parent, false)
         return ToeicIntroViewHolder(view)
     }
 
@@ -25,7 +24,6 @@ class ToeicIntroAdapter(private val toeicIntroItem: List<ToeicIntroItem>) :
     }
 
     inner class ToeicIntroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindView(toeicIntroItem: ToeicIntroItem) {
             with(itemView) {
                 with(toeicIntroItem) {

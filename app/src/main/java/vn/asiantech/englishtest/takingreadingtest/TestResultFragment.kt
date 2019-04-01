@@ -15,11 +15,12 @@ import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.ListReadingTestItem
+import java.lang.StringBuilder
 
 class TestResultFragment : Fragment(), View.OnClickListener {
+
     private var position: Int? = null
     private var level: Int? = null
-    private var questionNumber: Int? = null
 
     companion object {
         const val KEY_TIME = "key_time"
@@ -31,7 +32,6 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     ): View? {
         (activity as TakingReadingTestActivity).apply {
             level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-            questionNumber = questionList.size
         }
         return inflater.inflate(R.layout.fragment_test_result, container, false)
     }
@@ -43,9 +43,9 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         (activity as TakingReadingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score.toString())
-                .append("/$questionNumber")
+                .append("/${questionList.size}")
         }
-        addTimeAndScore()
+        setTimeAndScore()
     }
 
 
@@ -78,10 +78,9 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun addTimeAndScore() {
+    private fun setTimeAndScore() {
         val preferences = activity?.getSharedPreferences(getString(R.string.fileName), Context.MODE_PRIVATE)
         activity?.intent?.apply {
-            level = getIntExtra(ListReadingTestFragment.ARG_LEVEL, -1)
             position = getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)
         }
         val dataTimeAndScore = preferences?.getString("$level", "")
@@ -93,7 +92,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
             ListReadingTestItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                "${(activity as TakingReadingTestActivity).score}${getString(R.string.totalScore)}"
+                (activity as TakingReadingTestActivity).score.toString()
             )
         )
         val json = Gson().toJson(listTimeandScore)

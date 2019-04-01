@@ -112,6 +112,14 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     tvLevel.text = getString(R.string.part2)
                     dataQuestion = getReference("part2-0${position + 1}")
                 }
+                R.id.itemPart3 -> {
+                    tvLevel.text = getString(R.string.part3)
+                    dataQuestion = getReference("part3-0${position + 1}")
+                }
+                R.id.itemPart4 -> {
+                    tvLevel.text = getString(R.string.part4)
+                    dataQuestion = getReference("part4-0${position + 1}")
+                }
                 R.id.itemPart5Basic -> {
                     tvLevel.text = getString(R.string.part5Basic)
                     dataQuestion = getReference("part5Basic0${position + 1}")

@@ -50,8 +50,8 @@ class QuestionDetailFragment : Fragment() {
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
-            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         }
+        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
@@ -90,6 +90,15 @@ class QuestionDetailFragment : Fragment() {
                     divider4.visibility = this
                 }
             }
+            R.id.itemPart3, R.id.itemPart4 -> {
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    cardViewAudio.visibility = this
+                }
+                with(View.GONE) {
+                    tvQuestionTitle.visibility = this
+                }
+            }
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
                 tvQuestionTitle.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -109,16 +118,15 @@ class QuestionDetailFragment : Fragment() {
                     )
                 }
                 tvQuestionContent.text = questionContent
-
                 if (level != R.id.itemPart1 && level != R.id.itemPart2) {
                     tvQuestionTitle.text = questionTitle
+                    tvQuestionContent.text = questionContent
                     rbAnswerA.text = answerA
                     rbAnswerB.text = answerB
                     rbAnswerC.text = answerC
                     rbAnswerD.text = answerD
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
-                    tvQuestionContent.text = questionContent
                 }
             }
             if ((activity as TakingReadingTestActivity).review) {

@@ -2,6 +2,7 @@ package vn.asiantech.englishtest.takingreadingtest
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -22,6 +23,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
     var progressDialog: AlertDialog? = null
+    var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
 
@@ -150,7 +152,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             { _, _ ->
                 finish()
             }
-
         }.show()
     }
 

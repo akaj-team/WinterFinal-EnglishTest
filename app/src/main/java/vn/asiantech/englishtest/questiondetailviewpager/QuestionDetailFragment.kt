@@ -50,8 +50,8 @@ class QuestionDetailFragment : Fragment() {
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
-            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         }
+        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 

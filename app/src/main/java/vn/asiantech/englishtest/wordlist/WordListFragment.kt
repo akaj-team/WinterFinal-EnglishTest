@@ -17,10 +17,9 @@ import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
-
     private var wordListItem = arrayListOf<WordListItem>()
     private var wordListAdapter: WordListAdapter? = null
-    private lateinit var reference: DatabaseReference
+    private var databaseReference: DatabaseReference? = null
 
     companion object {
 
@@ -64,8 +63,8 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
     private fun initData() {
         (activity as ListReadingTestActivity).initProgressDialog()
-        reference = FirebaseDatabase.getInstance().getReference("testTitle")
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
+        databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 

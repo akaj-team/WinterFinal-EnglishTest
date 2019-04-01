@@ -31,7 +31,7 @@ class GrammarAdapter(
     }
 
     inner class GrammarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(p0: View?) {
+        override fun onClick(view: View?) {
             grammarListener.onClickGrammarItem(layoutPosition)
         }
 

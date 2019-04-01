@@ -138,7 +138,6 @@ class QuestionDetailFragment : Fragment() {
                             rbAnswerD.text = answerD
                         }
                     }
-
                 } else {
                     cardViewExplanation.visibility = View.VISIBLE
                 }
@@ -170,7 +169,6 @@ class QuestionDetailFragment : Fragment() {
         @SuppressLint("SimpleDateFormat")
         val timeFormat = SimpleDateFormat("mm:ss")
         imgState.setOnClickListener {
-
             (activity as TakingReadingTestActivity).mediaPlayer?.apply {
                 try {
                     setDataSource(data?.audio)

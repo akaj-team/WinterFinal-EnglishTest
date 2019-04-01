@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
 
     private var grammarAdapter: GrammarAdapter? = null
     private var grammarItems = arrayListOf<GrammarItem>()
-    private lateinit var reference: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
     var progressDialog: AlertDialog? = null
 
     companion object {
@@ -47,9 +46,11 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
     }
 
     override fun onClickGrammarItem(position: Int) {
-        startActivity(Intent(activity, TakingReadingTestActivity::class.java)
-            .putExtra(ListReadingTestFragment.ARG_POSITION, position)
-            .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL)))
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(ListReadingTestFragment.ARG_POSITION, position)
+                .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+        )
     }
 
     private fun initRecyclerView() {
@@ -61,9 +62,9 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
     }
 
     private fun initData() {
-        reference = FirebaseDatabase.getInstance().getReference("grammar")
+        databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
         progressDialog?.show()
-        reference.addValueEventListener(object : ValueEventListener {
+        databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented")
             }
@@ -78,7 +79,6 @@ class GrammarListFragment : Fragment(), GrammarAdapter.OnClickGrammarListener {
                 }
                 grammarAdapter?.notifyDataSetChanged()
             }
-
         })
     }
 

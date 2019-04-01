@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import vn.asiantech.englishtest.R
 
-
 class GrammarDetailFragment : Fragment() {
 
     override fun onCreateView(

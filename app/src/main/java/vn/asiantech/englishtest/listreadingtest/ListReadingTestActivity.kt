@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
+import vn.asiantech.englishtest.grammar.GrammarListFragment
 
 class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -78,6 +79,20 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             R.id.itemPart7 -> {
                 initListReadingTestFragment(R.id.itemPart7)
                 supportActionBar?.title = getString(R.string.part7)
+            }
+            R.id.itemGrammar -> {
+                supportFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_left
+                    )
+                    replace(
+                        R.id.frListReadingTest,
+                        GrammarListFragment.getInstance(R.id.itemGrammar)
+                    )
+                    commit()
+                }
+                supportActionBar?.title = getString(R.string.grammar)
             }
         }
         return true

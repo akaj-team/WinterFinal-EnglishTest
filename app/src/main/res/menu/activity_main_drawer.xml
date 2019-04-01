@@ -51,6 +51,17 @@
         </menu>
     </item>
 
+    <item android:title="@string/grammar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/itemGrammar"
+                        android:icon="@drawable/ic_import_contacts_black_18dp"
+                        android:title="@string/grammar"/>
+            </group>
+        </menu>
+    </item>
+
     <item android:title="@string/communicate">
         <menu>
             <item

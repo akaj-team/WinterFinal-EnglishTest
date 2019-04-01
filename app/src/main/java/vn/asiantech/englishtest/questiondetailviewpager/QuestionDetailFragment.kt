@@ -97,6 +97,15 @@ class QuestionDetailFragment : Fragment() {
                     setLayoutHeight()
                 }
             }
+            R.id.itemPart3, R.id.itemPart4 -> {
+                with(View.VISIBLE) {
+                    tvQuestionContent.visibility = this
+                    cardViewAudio.visibility = this
+                }
+                with(View.GONE) {
+                    tvQuestionTitle.visibility = this
+                }
+            }
         }
     }
 
@@ -119,6 +128,8 @@ class QuestionDetailFragment : Fragment() {
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
                     tvQuestionContent.text = questionContent
+                    tvExplanation.text = explanation
+                    tvTranslation.text = translation
                 }
             }
             if ((activity as TakingReadingTestActivity).review) {
@@ -241,7 +252,7 @@ class QuestionDetailFragment : Fragment() {
     private fun seekBarChangeListener() {
         seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if ((activity as TakingReadingTestActivity).mediaPlayer != null && fromUser) {
+                if (fromUser) {
                     (activity as TakingReadingTestActivity).mediaPlayer?.seekTo(progress)
                 }
             }

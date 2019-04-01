@@ -120,7 +120,7 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
                     replace(R.id.frListReadingTest, WordListFragment.getInstance(R.id.itemWordStudy))
                     commit()
                 }
-                supportActionBar?.title = getString(R.string.word)
+                supportActionBar?.title = getString(R.string.wordStudy)
             }
         }
         return true

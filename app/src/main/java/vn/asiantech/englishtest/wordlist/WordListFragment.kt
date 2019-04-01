@@ -1,5 +1,6 @@
 package vn.asiantech.englishtest.wordlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.WordListItem
+import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
@@ -21,6 +23,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
     companion object {
 
+        const val ARG_LIST_TEST_TITLE = "arg_list_test_title"
 
         fun getInstance(level: Int): WordListFragment =
             WordListFragment().apply {
@@ -41,8 +44,13 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         initData()
     }
 
-    override fun onClickWordList(position: Int) {
-        TODO("not implemented")
+    override fun onClickTestTitle(position: Int) {
+        startActivity(
+            Intent(activity, TakingReadingTestActivity::class.java)
+                .putExtra(ListReadingTestFragment.ARG_POSITION, position)
+                .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+                .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
+        )
     }
 
     private fun initRecyclerView() {
@@ -58,7 +66,6 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented")
             }
 
             override fun onDataChange(wordListData: DataSnapshot) {

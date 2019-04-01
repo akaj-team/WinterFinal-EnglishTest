@@ -27,12 +27,12 @@ class WordListAdapter(
     }
 
     interface OnWordListClickListener {
-        fun onClickWordList(position: Int)
+        fun onClickTestTitle(position: Int)
     }
 
     inner class WordListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(view: View?) {
-            wordListListener.onClickWordList(layoutPosition)
+            wordListListener.onClickTestTitle(layoutPosition)
         }
 
         fun bindView(wordListItem: WordListItem) {

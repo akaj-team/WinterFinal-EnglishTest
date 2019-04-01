@@ -50,8 +50,8 @@ class QuestionDetailFragment : Fragment() {
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
-            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         }
+        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 
@@ -66,6 +66,20 @@ class QuestionDetailFragment : Fragment() {
         setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (!isVisibleToUser && isResumed) {
+            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
+            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
+        isDestroy = true
     }
 
     private fun showView() {
@@ -127,7 +141,6 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerD.text = answerD
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
-                    tvQuestionContent.text = questionContent
                     tvExplanation.text = explanation
                     tvTranslation.text = translation
                 }
@@ -233,20 +246,6 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (!isVisibleToUser && isResumed) {
-            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
-            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
-        isDestroy = true
     }
 
     private fun seekBarChangeListener() {

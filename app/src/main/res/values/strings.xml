@@ -53,6 +53,7 @@
     <string name="optionA">A.</string>
     <string name="grammar">Grammar</string>
     <string name="toeicIntroduction">TOEIC Introduction</string>
-    <string name="word">Word</string>
+    <string name="word">Words</string>
+    <string name="wordStudy">Word Study</string>
     <string name="study">Study</string>
 </resources>

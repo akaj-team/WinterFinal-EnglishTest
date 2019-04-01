@@ -13,7 +13,6 @@ import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarDetailItem
 import vn.asiantech.englishtest.model.ToeicIntroItem
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
 class GrammarDetailFragment : Fragment() {
 
@@ -69,13 +68,12 @@ class GrammarDetailFragment : Fragment() {
         }
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented")
             }
 
             override fun onDataChange(grammarDetailData: DataSnapshot) {
+                (activity as ListReadingTestActivity).dismissProgressDialog()
                 when (level) {
                     R.id.itemToeicIntroduction -> {
-                        (activity as ListReadingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(ToeicIntroItem::class.java)
                             introDetail?.let {
@@ -85,7 +83,6 @@ class GrammarDetailFragment : Fragment() {
                         toeicIntroAdapter?.notifyDataSetChanged()
                     }
                     else -> {
-                        (activity as TakingReadingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(GrammarDetailItem::class.java)
                             introDetail?.let {

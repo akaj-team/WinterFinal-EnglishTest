@@ -1,9 +1,9 @@
-package vn.asiantech.englishtest.grammarlist
+package vn.asiantech.englishtest.wordlist
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +12,21 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
-import vn.asiantech.englishtest.model.GrammarItem
+import vn.asiantech.englishtest.model.WordListItem
 import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
 
-class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
+class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
-    private var grammarListAdapter: GrammarListAdapter? = null
-    private var grammarListItems = arrayListOf<GrammarItem>()
+    private var wordListItem = arrayListOf<WordListItem>()
+    private var wordListAdapter: WordListAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
     companion object {
-        const val ARG_GRAMMAR_LIST = "arg_grammar_list"
 
-        fun getInstance(level: Int): GrammarListFragment =
-            GrammarListFragment().apply {
+        const val ARG_LIST_TEST_TITLE = "arg_list_test_title"
+
+        fun getInstance(level: Int): WordListFragment =
+            WordListFragment().apply {
                 val bundle = Bundle().apply {
                     putInt(ListReadingTestFragment.ARG_LEVEL, level)
                 }
@@ -43,39 +44,39 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
         initData()
     }
 
-    override fun onClickGrammarItem(position: Int) {
+    override fun onClickTestTitle(position: Int) {
         startActivity(
             Intent(activity, TakingReadingTestActivity::class.java)
                 .putExtra(ListReadingTestFragment.ARG_POSITION, position)
                 .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
-                .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
+                .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
         )
     }
 
     private fun initRecyclerView() {
         recycleViewListReadingTests.apply {
-            layoutManager = LinearLayoutManager(activity)
-            grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
-            adapter = grammarListAdapter
+            layoutManager = GridLayoutManager(activity, 2)
+            wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
+            adapter = wordListAdapter
         }
     }
 
     private fun initData() {
         (activity as ListReadingTestActivity).initProgressDialog()
-        databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
+        databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 
-            override fun onDataChange(grammarData: DataSnapshot) {
+            override fun onDataChange(wordListData: DataSnapshot) {
                 (activity as ListReadingTestActivity).dismissProgressDialog()
-                for (i in grammarData.children) {
-                    val grammar = i.getValue(GrammarItem::class.java)
-                    grammar?.let {
-                        grammarListItems.add(it)
+                for (i in wordListData.children) {
+                    val wordList = i.getValue(WordListItem::class.java)
+                    wordList?.let {
+                        wordListItem.add(it)
                     }
                 }
-                grammarListAdapter?.notifyDataSetChanged()
+                wordListAdapter?.notifyDataSetChanged()
             }
         })
     }

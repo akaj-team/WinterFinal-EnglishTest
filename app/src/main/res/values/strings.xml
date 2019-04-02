@@ -39,7 +39,8 @@
     <string name="review">review</string>
     <string name="exit">exit</string>
     <string name="fileName">timescore</string>
-    <string name="totalScore">"/40"</string>
+    <string name="explanation">Giải thích:</string>
+    <string name="translation">Dịch:</string>
     <string name="part1">Part 1</string>
     <string name="part2">Part 2</string>
     <string name="part3">Part 3</string>
@@ -50,8 +51,9 @@
     <string name="optionC">C.</string>
     <string name="optionB">B.</string>
     <string name="optionA">A.</string>
-    <string name="explanation">Giải thích:</string>
-    <string name="translation">Dịch:</string>
     <string name="grammar">Grammar</string>
     <string name="toeicIntroduction">TOEIC Introduction</string>
+    <string name="word">Words</string>
+    <string name="wordStudy">Word Study</string>
+    <string name="study">Study</string>
 </resources>

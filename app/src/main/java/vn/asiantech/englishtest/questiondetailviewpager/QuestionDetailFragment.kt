@@ -68,6 +68,20 @@ class QuestionDetailFragment : Fragment() {
         setDataFirebase()
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (!isVisibleToUser && isResumed) {
+            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
+            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
+        isDestroy = true
+    }
+
     private fun showView() {
         when (level) {
             R.id.itemPart1 -> {
@@ -230,20 +244,6 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (!isVisibleToUser && isResumed) {
-            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
-            imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
-        isDestroy = true
     }
 
     private fun seekBarChangeListener() {

@@ -22,7 +22,10 @@ import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
 import vn.asiantech.englishtest.model.GrammarItem
 import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.model.WordListItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
+import vn.asiantech.englishtest.wordlist.WordListFragment
+import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
 @Suppress("DEPRECATION")
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,14 +33,20 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<ListQuestionDetailItem>()
     private var grammarList = arrayListOf<GrammarItem>()
+    private var testTitleList = arrayListOf<WordListItem>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
+    var level: Int = -1
+    var position: Int = -1
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+        position = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
 
         setContentView(R.layout.activity_taking_reading_test)
         window.statusBarColor = resources.getColor(R.color.colorBlue)
@@ -51,6 +60,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         when {
             supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
             supportFragmentManager.findFragmentById(R.id.frListQuestions) is GrammarDetailFragment -> finish()
+            supportFragmentManager.findFragmentById(R.id.frListQuestions) is WordStudyFragment -> finish()
             frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
                 animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
                 visibility = View.GONE
@@ -100,8 +110,6 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initData() {
         initProgressDialog()
-        val level: Int = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        val position: Int = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
         FirebaseDatabase.getInstance().apply {
             when (level) {
                 R.id.itemPart1 -> {
@@ -145,10 +153,15 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                     tvLevel.text = grammarList[position].grammarTitle
                     initGrammarDetailFragment()
                 }
+                R.id.itemWordStudy -> {
+                    testTitleList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
+                    tvLevel.text = testTitleList[position].testTitle
+                    initGrammarDetailFragment()
+                }
             }
         }
 
-        if (level != R.id.itemGrammar) {
+        if (level != R.id.itemGrammar && level != R.id.itemWordStudy) {
             dataQuestion.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(dataPractice: DatabaseError) {
                     dismissProgressDialog()
@@ -171,7 +184,10 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     private fun initGrammarDetailFragment() {
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-            replace(R.id.frListQuestions, GrammarDetailFragment())
+            replace(
+                R.id.frListQuestions,
+                if (level == R.id.itemGrammar) GrammarDetailFragment() else WordStudyFragment()
+            )
             commit()
         }
         frListQuestions.visibility = View.VISIBLE

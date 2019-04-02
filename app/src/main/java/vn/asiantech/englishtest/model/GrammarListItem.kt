@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class GrammarItem (
+data class GrammarListItem (
     var grammarTitle: String = "",
     var grammarExample: String = ""
 ) : Parcelable

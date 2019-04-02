@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.listreadingtest
+package vn.asiantech.englishtest.listtest
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_list_test.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ListReadingTestItem
+import vn.asiantech.englishtest.model.TestListItem
 
-class ListReadingTestAdapter(
-    private val listTests: MutableList<ListReadingTestItem>,
+class TestListAdapter(
+    private val listTests: MutableList<TestListItem>,
     private val listener: OnItemClickListener
 ) :
-    RecyclerView.Adapter<ListReadingTestAdapter.ListReadingTestViewHolder>() {
+    RecyclerView.Adapter<TestListAdapter.ListReadingTestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test, parent, false)
         return ListReadingTestViewHolder(view)
@@ -35,7 +35,7 @@ class ListReadingTestAdapter(
             listener.onClick(layoutPosition)
         }
 
-        fun bindView(listItems: ListReadingTestItem) {
+        fun bindView(listItems: TestListItem) {
             with(itemView) {
                 with(listItems) {
                     tvTestName.text = testNumber

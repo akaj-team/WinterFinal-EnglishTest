@@ -15,15 +15,15 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
-import vn.asiantech.englishtest.model.ListQuestionDetailItem
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.listtest.TestListFragment
+import vn.asiantech.englishtest.model.QuestionDetailItem
+import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
-    private var data: ListQuestionDetailItem? = null
+    private var data: QuestionDetailItem? = null
     private var position = 0
     private var level: Int? = null
     private var isDestroy = false
@@ -32,7 +32,7 @@ class QuestionDetailFragment : Fragment() {
         const val ARG_POSITION = "arg_position"
         const val ARG_DATA = "arg_data"
 
-        fun getInstance(position: Int, question: ListQuestionDetailItem): QuestionDetailFragment =
+        fun getInstance(position: Int, question: QuestionDetailItem): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
                     putInt(ARG_POSITION, position)
@@ -45,13 +45,13 @@ class QuestionDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         arguments?.let {
             position = it.getInt(ARG_POSITION)
-            data = it.getParcelable(ARG_DATA) as ListQuestionDetailItem
+            data = it.getParcelable(ARG_DATA) as QuestionDetailItem
         }
         (activity as TakingReadingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
         }
-        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+        level = activity?.intent?.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
     }
 

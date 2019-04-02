@@ -1,6 +1,6 @@
 package vn.asiantech.englishtest.model
 
-data class ListReadingTestItem(
+data class TestListItem(
     var testNumber: String?,
     var timeDisplay: String?,
     var scoreDisplay: String?

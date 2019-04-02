@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.takingreadingtest
+package vn.asiantech.englishtest.takingtest
 
 import android.app.Activity
 import android.content.Context
@@ -13,8 +13,8 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
-import vn.asiantech.englishtest.model.ListReadingTestItem
+import vn.asiantech.englishtest.listtest.TestListFragment
+import vn.asiantech.englishtest.model.TestListItem
 import java.lang.StringBuilder
 
 class TestResultFragment : Fragment(), View.OnClickListener {
@@ -31,7 +31,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         (activity as TakingReadingTestActivity).apply {
-            level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+            level = intent.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         }
         return inflater.inflate(R.layout.fragment_test_result, container, false)
     }
@@ -68,8 +68,8 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                             .putExtra(KEY_TIME, tvDurationTime.text.toString())
                             .putExtra(KEY_SCORE, (activity as TakingReadingTestActivity).score.toString())
                             .putExtra(
-                                ListReadingTestFragment.ARG_POSITION,
-                                activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+                                TestListFragment.ARG_POSITION,
+                                activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
                             )
                     )
                     finish()
@@ -81,15 +81,15 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     private fun setTimeAndScore() {
         val preferences = activity?.getSharedPreferences(getString(R.string.fileName), Context.MODE_PRIVATE)
         activity?.intent?.apply {
-            position = getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)
+            position = getIntExtra(TestListFragment.ARG_POSITION, -1)
         }
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<ListReadingTestItem>::class.java)?.toList()?.toMutableList()
+            gson.fromJson(dataTimeAndScore, Array<TestListItem>::class.java)?.toList()?.toMutableList()
                 ?: arrayListOf()
         listTimeandScore.add(
-            ListReadingTestItem(
+            TestListItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",
                 (activity as TakingReadingTestActivity).chronometer.text.toString(),
                 (activity as TakingReadingTestActivity).score.toString()

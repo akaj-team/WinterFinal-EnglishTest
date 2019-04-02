@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.listtest.TestListActivity
+import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarDetailItem
 import vn.asiantech.englishtest.model.ToeicIntroItem
+import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
 
 class GrammarDetailFragment : Fragment() {
 
@@ -28,7 +29,7 @@ class GrammarDetailFragment : Fragment() {
         fun getInstance(level: Int): GrammarDetailFragment =
             GrammarDetailFragment().apply {
                 val bundle = Bundle().apply {
-                    putInt(ListReadingTestFragment.ARG_LEVEL, level)
+                    putInt(TestListFragment.ARG_LEVEL, level)
                 }
                 arguments = bundle
             }
@@ -38,7 +39,7 @@ class GrammarDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        level = arguments?.getInt(ListReadingTestFragment.ARG_LEVEL)
+        level = arguments?.getInt(TestListFragment.ARG_LEVEL)
         return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
     }
 
@@ -58,10 +59,10 @@ class GrammarDetailFragment : Fragment() {
     }
 
     private fun initData() {
-        val position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
         databaseReference = when (level) {
             R.id.itemToeicIntroduction -> {
-                (activity as ListReadingTestActivity).initProgressDialog()
+                (activity as TestListActivity).initProgressDialog()
                 FirebaseDatabase.getInstance().getReference("toeicIntroduction")
             }
             else -> FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
@@ -71,9 +72,9 @@ class GrammarDetailFragment : Fragment() {
             }
 
             override fun onDataChange(grammarDetailData: DataSnapshot) {
-                (activity as ListReadingTestActivity).dismissProgressDialog()
                 when (level) {
                     R.id.itemToeicIntroduction -> {
+                        (activity as TestListActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(ToeicIntroItem::class.java)
                             introDetail?.let {
@@ -83,6 +84,7 @@ class GrammarDetailFragment : Fragment() {
                         toeicIntroAdapter?.notifyDataSetChanged()
                     }
                     else -> {
+                        (activity as TakingReadingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(GrammarDetailItem::class.java)
                             introDetail?.let {

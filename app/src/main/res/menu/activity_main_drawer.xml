@@ -12,6 +12,29 @@
         </menu>
     </item>
 
+    <item android:title="@string/listening">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/itemPart1"
+                        android:icon="@drawable/ic_filter_1_black_18dp"
+                        android:title="@string/part1"/>
+                <item
+                        android:id="@+id/itemPart2"
+                        android:icon="@drawable/ic_filter_2_black_18dp"
+                        android:title="@string/part2"/>
+                <item
+                        android:id="@+id/itemPart3"
+                        android:icon="@drawable/ic_filter_3_black_18dp"
+                        android:title="@string/part3"/>
+                <item
+                        android:id="@+id/itemPart4"
+                        android:icon="@drawable/ic_filter_4_black_18dp"
+                        android:title="@string/part4"/>
+            </group>
+        </menu>
+    </item>
+
     <item android:title="@string/reading">
         <menu>
             <group android:checkableBehavior="single">
@@ -35,29 +58,6 @@
                         android:id="@+id/itemPart7"
                         android:icon="@drawable/ic_filter_7_black_18dp"
                         android:title="@string/part7"/>
-            </group>
-        </menu>
-    </item>
-
-    <item android:title="@string/listening">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                        android:id="@+id/itemPart1"
-                        android:icon="@drawable/ic_filter_1_black_18dp"
-                        android:title="@string/part1"/>
-                <item
-                        android:id="@+id/itemPart2"
-                        android:icon="@drawable/ic_filter_2_black_18dp"
-                        android:title="@string/part2"/>
-                <item
-                        android:id="@+id/itemPart3"
-                        android:icon="@drawable/ic_filter_3_black_18dp"
-                        android:title="@string/part3"/>
-                <item
-                        android:id="@+id/itemPart4"
-                        android:icon="@drawable/ic_filter_4_black_18dp"
-                        android:title="@string/part4"/>
             </group>
         </menu>
     </item>

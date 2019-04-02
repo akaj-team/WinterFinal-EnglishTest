@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
-import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.model.QuestionDetailItem
 
-class QuestionAdapter(fm: FragmentManager, private var questionList: ArrayList<ListQuestionDetailItem>) :
+class QuestionDetailAdapter(fm: FragmentManager, private var questionList: ArrayList<QuestionDetailItem>) :
     FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {

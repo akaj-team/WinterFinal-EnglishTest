@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.takingreadingtest
+package vn.asiantech.englishtest.takingtest
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,18 +9,18 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_list_questions.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
-import vn.asiantech.englishtest.model.ListQuestionItem
+import vn.asiantech.englishtest.listtest.TestListFragment
+import vn.asiantech.englishtest.model.QuestionNumberItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
-    private var listQuestionItems: MutableList<ListQuestionItem> = arrayListOf()
+    private var listQuestionItems: MutableList<QuestionNumberItem> = arrayListOf()
     private var level: Int? = null
     private var listAdapter: ListQuestionAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        level = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
+        level = activity?.intent?.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_list_questions, container, false)
     }
 
@@ -49,8 +49,8 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
 
     private fun setListQuestionNumber() {
         for (i in 0 until (activity as TakingReadingTestActivity).questionList.size) {
-            (listQuestionItems as ArrayList<ListQuestionItem>).add(
-                ListQuestionItem(
+            (listQuestionItems as ArrayList<QuestionNumberItem>).add(
+                QuestionNumberItem(
                     when (level) {
                         R.id.itemPart1 -> 1 + i
                         R.id.itemPart2 -> 11 + i

@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestActivity
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.listtest.TestListActivity
+import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordListItem
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
@@ -28,7 +28,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         fun getInstance(level: Int): WordListFragment =
             WordListFragment().apply {
                 val bundle = Bundle().apply {
-                    putInt(ListReadingTestFragment.ARG_LEVEL, level)
+                    putInt(TestListFragment.ARG_LEVEL, level)
                 }
                 arguments = bundle
             }
@@ -47,8 +47,8 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
     override fun onClickTestTitle(position: Int) {
         startActivity(
             Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(ListReadingTestFragment.ARG_POSITION, position)
-                .putExtra(ListReadingTestFragment.ARG_LEVEL, arguments?.getInt(ListReadingTestFragment.ARG_LEVEL))
+                .putExtra(TestListFragment.ARG_POSITION, position)
+                .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
                 .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
         )
     }
@@ -62,14 +62,14 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
     }
 
     private fun initData() {
-        (activity as ListReadingTestActivity).initProgressDialog()
+        (activity as TestListActivity).initProgressDialog()
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 
             override fun onDataChange(wordListData: DataSnapshot) {
-                (activity as ListReadingTestActivity).dismissProgressDialog()
+                (activity as TestListActivity).dismissProgressDialog()
                 for (i in wordListData.children) {
                     val wordList = i.getValue(WordListItem::class.java)
                     wordList?.let {

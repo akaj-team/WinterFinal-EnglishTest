@@ -1,11 +1,12 @@
 @file:Suppress("DEPRECATION")
 
-package vn.asiantech.englishtest.listreadingtest
+package vn.asiantech.englishtest.listtest
 
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
@@ -18,7 +19,7 @@ import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.wordlist.WordListFragment
 
-class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var progressDialog: ProgressDialog? = null
 
@@ -34,11 +35,11 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        initListReadingTestFragment(R.id.itemPart5Basic)
-        supportActionBar?.title = getString(R.string.part5Basic)
+        initReferenceFragment(GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
+        supportActionBar?.title = getString(R.string.toeicIntroduction)
         navigationView.apply {
-            setNavigationItemSelectedListener(this@ListReadingTestActivity)
-            setCheckedItem(R.id.itemPart5Basic)
+            setNavigationItemSelectedListener(this@TestListActivity)
+            setCheckedItem(R.id.itemToeicIntroduction)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = resources.getColor(R.color.colorBlue)
@@ -57,76 +58,58 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
             R.id.itemPart1 -> {
-                initListReadingTestFragment(R.id.itemPart1)
+                initListTestFragment(R.id.itemPart1)
                 supportActionBar?.title = getString(R.string.part1)
             }
             R.id.itemPart2 -> {
-                initListReadingTestFragment(R.id.itemPart2)
+                initListTestFragment(R.id.itemPart2)
                 supportActionBar?.title = getString(R.string.part2)
             }
             R.id.itemPart3 -> {
-                initListReadingTestFragment(R.id.itemPart3)
+                initListTestFragment(R.id.itemPart3)
                 supportActionBar?.title = getString(R.string.part3)
             }
             R.id.itemPart4 -> {
-                initListReadingTestFragment(R.id.itemPart4)
+                initListTestFragment(R.id.itemPart4)
                 supportActionBar?.title = getString(R.string.part4)
             }
             R.id.itemPart5Basic -> {
-                initListReadingTestFragment(R.id.itemPart5Basic)
+                initListTestFragment(R.id.itemPart5Basic)
                 supportActionBar?.title = getString(R.string.part5Basic)
             }
             R.id.itemPart5Intermediate -> {
-                initListReadingTestFragment(R.id.itemPart5Intermediate)
+                initListTestFragment(R.id.itemPart5Intermediate)
                 supportActionBar?.title = getString(R.string.part5Intermediate)
             }
             R.id.itemPart5Advanced -> {
-                initListReadingTestFragment(R.id.itemPart5Advanced)
+                initListTestFragment(R.id.itemPart5Advanced)
                 supportActionBar?.title = getString(R.string.part5Advanced)
             }
             R.id.itemPart6 -> {
-                initListReadingTestFragment(R.id.itemPart6)
+                initListTestFragment(R.id.itemPart6)
                 supportActionBar?.title = getString(R.string.part6)
             }
             R.id.itemPart7 -> {
-                initListReadingTestFragment(R.id.itemPart7)
+                initListTestFragment(R.id.itemPart7)
                 supportActionBar?.title = getString(R.string.part7)
             }
             R.id.itemGrammar -> {
-                supportFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_left
-                    )
-                    replace(
-                        R.id.frListReadingTest,
-                        GrammarListFragment.getInstance(R.id.itemGrammar)
-                    )
-                    commit()
-                }
+                initReferenceFragment(GrammarListFragment.getInstance(R.id.itemGrammar))
                 supportActionBar?.title = getString(R.string.grammar)
             }
             R.id.itemToeicIntroduction -> {
-                supportFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-                    replace(R.id.frListReadingTest, GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
-                    commit()
-                }
+                initReferenceFragment(GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
                 supportActionBar?.title = getString(R.string.toeicIntroduction)
             }
             R.id.itemWordStudy -> {
-                supportFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-                    replace(R.id.frListReadingTest, WordListFragment.getInstance(R.id.itemWordStudy))
-                    commit()
-                }
+                initReferenceFragment(WordListFragment.getInstance(R.id.itemWordStudy))
                 supportActionBar?.title = getString(R.string.wordStudy)
             }
         }
         return true
     }
 
-    private fun initListReadingTestFragment(level: Int) {
+    private fun initListTestFragment(level: Int) {
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in_left,
@@ -134,7 +117,21 @@ class ListReadingTestActivity : AppCompatActivity(), NavigationView.OnNavigation
             )
             replace(
                 R.id.frListReadingTest,
-                ListReadingTestFragment.getInstance(level)
+                TestListFragment.getInstance(level)
+            )
+            commit()
+        }
+    }
+
+    private fun initReferenceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_left
+            )
+            replace(
+                R.id.frListReadingTest,
+                fragment
             )
             commit()
         }

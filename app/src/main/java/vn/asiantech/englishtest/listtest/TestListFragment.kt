@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.listreadingtest
+package vn.asiantech.englishtest.listtest
 
 import android.app.Activity
 import android.content.Context
@@ -12,13 +12,13 @@ import android.view.ViewGroup
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ListReadingTestItem
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
-import vn.asiantech.englishtest.takingreadingtest.TestResultFragment
+import vn.asiantech.englishtest.model.TestListItem
+import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TestResultFragment
 
-class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickListener {
-    private var listReadingTestItems: ArrayList<ListReadingTestItem> = arrayListOf()
-    private var testAdapter: ListReadingTestAdapter? = null
+class TestListFragment : Fragment(), TestListAdapter.OnItemClickListener {
+    private var listReadingTestItems: ArrayList<TestListItem> = arrayListOf()
+    private var testAdapter: TestListAdapter? = null
     private var level: Int? = null
 
     companion object {
@@ -26,8 +26,8 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         const val ARG_POSITION = "position"
         const val REQUEST_CODE_TIME_AND_SCORE = 1001
 
-        fun getInstance(level: Int): ListReadingTestFragment =
-            ListReadingTestFragment().apply {
+        fun getInstance(level: Int): TestListFragment =
+            TestListFragment().apply {
                 val bundle = Bundle().apply {
                     putInt(ARG_LEVEL, level)
                 }
@@ -62,9 +62,9 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         if (requestCode == REQUEST_CODE_TIME_AND_SCORE) {
             if (resultCode == Activity.RESULT_OK) {
                 data?.apply {
-                    listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].timeDisplay =
+                    listReadingTestItems[getIntExtra(TestListFragment.ARG_POSITION, -1)].timeDisplay =
                         getStringExtra(TestResultFragment.KEY_TIME)
-                    listReadingTestItems[getIntExtra(ListReadingTestFragment.ARG_POSITION, -1)].scoreDisplay =
+                    listReadingTestItems[getIntExtra(TestListFragment.ARG_POSITION, -1)].scoreDisplay =
                         getStringExtra(TestResultFragment.KEY_SCORE)
                     testAdapter?.notifyDataSetChanged()
                 }
@@ -75,7 +75,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
     private fun initRecycleView() {
         recycleViewListReadingTests.apply {
             layoutManager = LinearLayoutManager(activity)
-            testAdapter = ListReadingTestAdapter(listReadingTestItems, this@ListReadingTestFragment)
+            testAdapter = TestListAdapter(listReadingTestItems, this@TestListFragment)
             adapter = testAdapter
         }
     }
@@ -84,7 +84,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         val maxTestNumber = 10
         for (i in 0 until maxTestNumber) {
             listReadingTestItems.add(
-                ListReadingTestItem(
+                TestListItem(
                     "${getString(R.string.practice)} ${i + 1}",
                     getString(R.string.timeDefault), getString(R.string.scoreDefault)
                 )
@@ -98,7 +98,7 @@ class ListReadingTestFragment : Fragment(), ListReadingTestAdapter.OnItemClickLi
         val json = preferences?.getString("$level", null)
         if (json != null) {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val listTimeandScore = gson.fromJson(json, Array<ListReadingTestItem>::class.java).toList()
+            val listTimeandScore = gson.fromJson(json, Array<TestListItem>::class.java).toList()
             for (testPosition in listReadingTestItems) {
                 for (timeAndScorePosition in listTimeandScore) {
                     if (testPosition.testNumber == timeAndScorePosition.testNumber) {

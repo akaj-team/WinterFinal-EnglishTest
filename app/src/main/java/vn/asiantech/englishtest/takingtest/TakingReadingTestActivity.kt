@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package vn.asiantech.englishtest.takingreadingtest
+package vn.asiantech.englishtest.takingtest
 
 import android.app.Activity
 import android.app.ProgressDialog
@@ -19,11 +19,11 @@ import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarItem
-import vn.asiantech.englishtest.model.ListQuestionDetailItem
+import vn.asiantech.englishtest.model.QuestionDetailItem
 import vn.asiantech.englishtest.model.WordListItem
-import vn.asiantech.englishtest.questiondetailviewpager.QuestionAdapter
+import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
 import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
@@ -31,7 +31,7 @@ import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
-    var questionList = arrayListOf<ListQuestionDetailItem>()
+    var questionList = arrayListOf<QuestionDetailItem>()
     private var grammarList = arrayListOf<GrammarItem>()
     private var testTitleList = arrayListOf<WordListItem>()
     var progressDialog: ProgressDialog? = null
@@ -45,8 +45,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        level = intent.getIntExtra(ListReadingTestFragment.ARG_LEVEL, 0)
-        position = intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        level = intent.getIntExtra(TestListFragment.ARG_LEVEL, 0)
+        position = intent.getIntExtra(TestListFragment.ARG_POSITION, 0)
 
         setContentView(R.layout.activity_taking_reading_test)
         window.statusBarColor = resources.getColor(R.color.colorBlue)
@@ -101,8 +101,8 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 .putExtra(TestResultFragment.KEY_TIME, tvDurationTime.text.toString())
                 .putExtra(TestResultFragment.KEY_SCORE, score.toString())
                 .putExtra(
-                    ListReadingTestFragment.ARG_POSITION,
-                    intent.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+                    TestListFragment.ARG_POSITION,
+                    intent.getIntExtra(TestListFragment.ARG_POSITION, 0)
                 )
         )
         finish()
@@ -170,12 +170,12 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onDataChange(dataPractice: DataSnapshot) {
                     dismissProgressDialog()
                     for (i in dataPractice.children) {
-                        val question = i.getValue(ListQuestionDetailItem::class.java)
+                        val question = i.getValue(QuestionDetailItem::class.java)
                         question?.let {
                             questionList.add(it)
                         }
                     }
-                    questionDetailPager?.adapter = QuestionAdapter(supportFragmentManager, questionList)
+                    questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionList)
                 }
             })
         }

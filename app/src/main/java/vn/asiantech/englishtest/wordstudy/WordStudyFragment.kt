@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.listreadingtest.ListReadingTestFragment
+import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordStudyItem
-import vn.asiantech.englishtest.takingreadingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
 
 class WordStudyFragment : Fragment() {
 
@@ -39,7 +39,7 @@ class WordStudyFragment : Fragment() {
     }
 
     private fun initData() {
-        val position = activity?.intent?.getIntExtra(ListReadingTestFragment.ARG_POSITION, 0)
+        val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
         databaseReference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

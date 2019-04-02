@@ -1,8 +1,5 @@
 <resources>
     <dimen name="dimen16dp">16dp</dimen>
-    <dimen name="activityHorizontalMargin">16dp</dimen>
-    <dimen name="activityVerticalMargin">16dp</dimen>
-    <dimen name="navHeaderVerticalSpacing">8dp</dimen>
     <dimen name="navHeaderHeight">180dp</dimen>
     <dimen name="fabMargin">16dp</dimen>
     <dimen name="dimen30dp">30dp</dimen>

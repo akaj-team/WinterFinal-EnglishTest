@@ -1,4 +1,4 @@
-package vn.asiantech.englishtest.takingreadingtest
+package vn.asiantech.englishtest.takingtest
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_list_question.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ListQuestionItem
+import vn.asiantech.englishtest.model.QuestionNumberItem
 
 class ListQuestionAdapter(
-    private val listQuestions: MutableList<ListQuestionItem>,
+    private val listQuestions: MutableList<QuestionNumberItem>,
     private val listener: OnItemClickQuestionNumber
 ) :
     RecyclerView.Adapter<ListQuestionAdapter.ListQuestionViewHolder>() {
@@ -35,7 +35,7 @@ class ListQuestionAdapter(
             listener.onClickQuestionNumber(layoutPosition)
         }
 
-        fun bindView(listItem: ListQuestionItem) {
+        fun bindView(listItem: QuestionNumberItem) {
             with(itemView) { with(listItem) { tvQuestionNumber.text = testNumber.toString() } }
             itemView.tvQuestionNumber.setOnClickListener(this)
         }

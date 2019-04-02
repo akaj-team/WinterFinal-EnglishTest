@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".listreadingtest.ListReadingTestActivity"/>
-        <activity android:name=".takingreadingtest.TakingReadingTestActivity"/>
+        <activity android:name=".listtest.TestListActivity"/>
+        <activity android:name=".takingtest.TakingReadingTestActivity"/>
     </application>
 </manifest>

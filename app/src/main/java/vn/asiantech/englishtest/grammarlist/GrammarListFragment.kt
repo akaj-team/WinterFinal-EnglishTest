@@ -12,13 +12,13 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.GrammarItem
+import vn.asiantech.englishtest.model.GrammarListItem
 import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
 
 class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
 
     private var grammarListAdapter: GrammarListAdapter? = null
-    private var grammarListItems = arrayListOf<GrammarItem>()
+    private var grammarListItems = arrayListOf<GrammarListItem>()
     private var databaseReference: DatabaseReference? = null
 
     companion object {
@@ -70,7 +70,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
             override fun onDataChange(grammarData: DataSnapshot) {
                 (activity as TestListActivity).dismissProgressDialog()
                 for (i in grammarData.children) {
-                    val grammar = i.getValue(GrammarItem::class.java)
+                    val grammar = i.getValue(GrammarListItem::class.java)
                     grammar?.let {
                         grammarListItems.add(it)
                     }

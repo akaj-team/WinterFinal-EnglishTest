@@ -20,7 +20,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.GrammarItem
+import vn.asiantech.englishtest.model.GrammarListItem
 import vn.asiantech.englishtest.model.QuestionDetailItem
 import vn.asiantech.englishtest.model.WordListItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
@@ -32,7 +32,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<QuestionDetailItem>()
-    private var grammarList = arrayListOf<GrammarItem>()
+    private var grammarList = arrayListOf<GrammarListItem>()
     private var testTitleList = arrayListOf<WordListItem>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null

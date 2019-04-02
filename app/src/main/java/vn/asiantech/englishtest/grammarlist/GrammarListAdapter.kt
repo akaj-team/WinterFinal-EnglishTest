@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_list_grammar.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.GrammarItem
+import vn.asiantech.englishtest.model.GrammarListItem
 
 class GrammarListAdapter(
-    private val grammarItem: List<GrammarItem>,
+    private val grammarItem: List<GrammarListItem>,
     private val grammarListener: OnClickGrammarListener
 ) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 
@@ -35,7 +35,7 @@ class GrammarListAdapter(
             grammarListener.onClickGrammarItem(layoutPosition)
         }
 
-        fun bindView(listGrammar: GrammarItem) {
+        fun bindView(listGrammar: GrammarListItem) {
             with(itemView) {
                 with(listGrammar) {
                     tvGrammarTitle.text = grammarTitle

@@ -200,8 +200,10 @@ class QuestionDetailFragment : Fragment() {
                             return
                         }
                         try {
-                            seekBarPlay.progress = (activity as TakingReadingTestActivity).mediaPlayer?.currentPosition ?: 0
-                            tvCurrentTime.text = timeFormat.format((activity as TakingReadingTestActivity).mediaPlayer?.currentPosition)
+                            (activity as TakingReadingTestActivity).mediaPlayer?.currentPosition.apply {
+                                seekBarPlay.progress =  this ?: 0
+                                tvCurrentTime.text = timeFormat.format(this)
+                            }
                             Handler().postDelayed(this, 1000)
                         } catch (e: Exception) {
                         }

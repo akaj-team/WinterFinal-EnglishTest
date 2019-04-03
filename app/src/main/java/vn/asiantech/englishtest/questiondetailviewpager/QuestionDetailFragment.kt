@@ -103,6 +103,7 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerD.visibility = this
                     divider4.visibility = this
                 }
+                setLayoutHeight()
             }
             R.id.itemPart3, R.id.itemPart4 -> {
                 with(View.VISIBLE) {
@@ -112,6 +113,7 @@ class QuestionDetailFragment : Fragment() {
                 with(View.GONE) {
                     tvQuestionTitle.visibility = this
                 }
+                setLayoutHeight()
             }
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
@@ -173,10 +175,12 @@ class QuestionDetailFragment : Fragment() {
                         }
                     }
                 }
-                rbAnswerA.isClickable = false
-                rbAnswerB.isClickable = false
-                rbAnswerC.isClickable = false
-                rbAnswerD.isClickable = false
+                with(false) {
+                    rbAnswerA.isClickable = this
+                    rbAnswerB.isClickable = this
+                    rbAnswerC.isClickable = this
+                    rbAnswerD.isClickable = this
+                }
             }
         }
     }

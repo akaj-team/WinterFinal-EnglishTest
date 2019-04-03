@@ -14,4 +14,6 @@
     <color name="colorBlue">#66b3ff</color>
     <color name="colorDarkGrey">#808080</color>
     <color name="colorPurple">#6600cc</color>
+    <color name="colorTransparent">#0000FFFF</color>
+    <color name="colorYellow">#FFFF00</color>
 </resources>

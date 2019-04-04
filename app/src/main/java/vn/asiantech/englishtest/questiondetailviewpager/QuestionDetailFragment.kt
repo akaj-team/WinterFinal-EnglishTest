@@ -205,7 +205,7 @@ class QuestionDetailFragment : Fragment() {
                         }
                         try {
                             (activity as TakingTestActivity).mediaPlayer?.currentPosition.apply {
-                                seekBarPlay.progress =  this ?: 0
+                                seekBarPlay.progress = this ?: 0
                                 tvCurrentTime.text = timeFormat.format(this)
                             }
                             Handler().postDelayed(this, 1000)

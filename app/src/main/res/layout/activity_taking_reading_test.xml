@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_activity_taking_test">
+        android:background="@drawable/bg_taking_test">
 
     <RelativeLayout
             android:id="@+id/rlDoTestToolbar"

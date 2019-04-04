@@ -12,7 +12,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.QuestionNumberItem
 
-class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
+class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumber {
     private var listQuestionItems: MutableList<QuestionNumberItem> = arrayListOf()
     private var level: Int? = null
     private var listAdapter: ListQuestionAdapter? = null

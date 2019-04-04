@@ -30,12 +30,10 @@ class WordStudyFragment : Fragment() {
         initData()
     }
 
-    private fun initRecyclerView() {
-        recycleViewGrammarDetail.apply {
-            layoutManager = LinearLayoutManager(activity)
-            wordStudyAdapter = WordStudyAdapter(wordStudyItem)
-            adapter = wordStudyAdapter
-        }
+    private fun initRecyclerView() = recycleViewGrammarDetail.apply {
+        layoutManager = LinearLayoutManager(activity)
+        wordStudyAdapter = WordStudyAdapter(wordStudyItem)
+        adapter = wordStudyAdapter
     }
 
     private fun initData() {

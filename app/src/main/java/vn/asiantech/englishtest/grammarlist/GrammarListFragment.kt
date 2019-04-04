@@ -15,7 +15,7 @@ import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarListItem
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
-class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
+class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
 
     private var grammarListAdapter: GrammarListAdapter? = null
     private var grammarListItems = arrayListOf<GrammarListItem>()
@@ -43,21 +43,17 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
         initData()
     }
 
-    override fun onClickGrammarItem(position: Int) {
-        startActivity(
-            Intent(activity, TakingTestActivity::class.java)
-                .putExtra(TestListFragment.ARG_POSITION, position)
-                .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-                .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
-        )
-    }
+    override fun onClickGrammarItem(position: Int) = startActivity(
+        Intent(activity, TakingTestActivity::class.java)
+            .putExtra(TestListFragment.ARG_POSITION, position)
+            .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
+            .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
+    )
 
-    private fun initRecyclerView() {
-        recycleViewListReadingTests.apply {
-            layoutManager = LinearLayoutManager(activity)
-            grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
-            adapter = grammarListAdapter
-        }
+    private fun initRecyclerView() = recycleViewListReadingTests.apply {
+        layoutManager = LinearLayoutManager(activity)
+        grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
+        adapter = grammarListAdapter
     }
 
     private fun initData() {

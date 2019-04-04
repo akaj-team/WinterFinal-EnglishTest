@@ -10,7 +10,7 @@ import vn.asiantech.englishtest.model.GrammarListItem
 
 class GrammarListAdapter(
     private val grammarItem: List<GrammarListItem>,
-    private val grammarListener: OnClickGrammarListener
+    private val grammarListener: OnClickGrammarItem
 ) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarViewHolder {
@@ -22,18 +22,16 @@ class GrammarListAdapter(
         return grammarItem.size
     }
 
-    override fun onBindViewHolder(holder: GrammarViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GrammarViewHolder, position: Int) =
         holder.bindView(grammarItem[position])
-    }
 
-    interface OnClickGrammarListener {
+    interface OnClickGrammarItem {
         fun onClickGrammarItem(position: Int)
     }
 
     inner class GrammarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(view: View?) {
+        override fun onClick(view: View?) =
             grammarListener.onClickGrammarItem(layoutPosition)
-        }
 
         fun bindView(listGrammar: GrammarListItem) {
             with(itemView) {

@@ -49,14 +49,13 @@ class GrammarDetailFragment : Fragment() {
         initData()
     }
 
-    private fun initRecyclerView() {
-        recycleViewGrammarDetail.apply {
-            layoutManager = LinearLayoutManager(activity)
-            grammarDetailAdapter = GrammarDetailAdapter(grammarDetailItem)
-            toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
-            adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
-        }
+    private fun initRecyclerView() = recycleViewGrammarDetail.apply {
+        layoutManager = LinearLayoutManager(activity)
+        grammarDetailAdapter = GrammarDetailAdapter(grammarDetailItem)
+        toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
+        adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
     }
+
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)

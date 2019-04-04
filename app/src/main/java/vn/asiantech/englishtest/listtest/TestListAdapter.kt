@@ -10,9 +10,10 @@ import vn.asiantech.englishtest.model.TestListItem
 
 class TestListAdapter(
     private val listTests: MutableList<TestListItem>,
-    private val listener: OnItemClickListener
+    private val listener: OnClickTestItem
 ) :
     RecyclerView.Adapter<TestListAdapter.ListReadingTestViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test, parent, false)
         return ListReadingTestViewHolder(view)
@@ -26,13 +27,13 @@ class TestListAdapter(
         holder.bindView(listTests[position])
     }
 
-    interface OnItemClickListener {
-        fun onClick(position: Int)
+    interface OnClickTestItem {
+        fun onClickTestItem(position: Int)
     }
 
     inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         override fun onClick(v: View?) {
-            listener.onClick(layoutPosition)
+            listener.onClickTestItem(layoutPosition)
         }
 
         fun bindView(listItems: TestListItem) {

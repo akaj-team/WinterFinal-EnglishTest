@@ -35,9 +35,9 @@ class WordListAdapter(
             wordListListener.onClickTestTitle(layoutPosition)
         }
 
-        fun bindView(wordListItem: WordListItem) {
-            itemView.tvTestTitle.text = wordListItem.testTitle
-            itemView.tvTestTitle.setOnClickListener(this)
+        fun bindView(wordListItem: WordListItem) = with(itemView.tvTestTitle) {
+            text = wordListItem.testTitle
+            setOnClickListener(this@WordListViewHolder)
         }
     }
 }

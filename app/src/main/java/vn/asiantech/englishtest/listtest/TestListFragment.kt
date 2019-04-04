@@ -16,7 +16,7 @@ import vn.asiantech.englishtest.model.TestListItem
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import vn.asiantech.englishtest.takingtest.TestResultFragment
 
-class TestListFragment : Fragment(), TestListAdapter.OnItemClickListener {
+class TestListFragment : Fragment(), TestListAdapter.OnClickTestItem {
     private var listReadingTestItems: ArrayList<TestListItem> = arrayListOf()
     private var testAdapter: TestListAdapter? = null
     private var level: Int? = null
@@ -48,7 +48,7 @@ class TestListFragment : Fragment(), TestListAdapter.OnItemClickListener {
         setData()
     }
 
-    override fun onClick(position: Int) {
+    override fun onClickTestItem(position: Int) {
         startActivityForResult(
             Intent(activity, TakingTestActivity::class.java)
                 .putExtra(ARG_POSITION, position)

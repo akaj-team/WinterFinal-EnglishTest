@@ -44,22 +44,19 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         initData()
     }
 
-    override fun onClickTestTitle(position: Int) {
-        startActivity(
-            Intent(activity, TakingTestActivity::class.java)
-                .putExtra(TestListFragment.ARG_POSITION, position)
-                .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-                .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
-        )
+    override fun onClickTestTitle(position: Int) = startActivity(
+        Intent(activity, TakingTestActivity::class.java)
+            .putExtra(TestListFragment.ARG_POSITION, position)
+            .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
+            .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
+    )
+
+    private fun initRecyclerView() = recycleViewListReadingTests.apply {
+        layoutManager = GridLayoutManager(activity, 2)
+        wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
+        adapter = wordListAdapter
     }
 
-    private fun initRecyclerView() {
-        recycleViewListReadingTests.apply {
-            layoutManager = GridLayoutManager(activity, 2)
-            wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
-            adapter = wordListAdapter
-        }
-    }
 
     private fun initData() {
         (activity as TestListActivity).initProgressDialog()

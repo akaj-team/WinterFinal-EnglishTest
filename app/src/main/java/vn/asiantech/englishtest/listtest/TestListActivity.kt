@@ -46,12 +46,9 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            initAlertDialog()
-        }
+    override fun onBackPressed() = when {
+        drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+        else -> initAlertDialog()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -109,58 +106,49 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
-    private fun initListTestFragment(level: Int) {
-        supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left
-            )
-            replace(
-                R.id.frListReadingTest,
-                TestListFragment.getInstance(level)
-            )
-            commit()
+    private fun initListTestFragment(level: Int) = supportFragmentManager.beginTransaction().apply {
+        setCustomAnimations(
+            R.anim.slide_in_left,
+            R.anim.slide_out_left
+        )
+        replace(
+            R.id.frListReadingTest,
+            TestListFragment.getInstance(level)
+        )
+        commit()
+    }
+
+    private fun initReferenceFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
+        setCustomAnimations(
+            R.anim.slide_in_left,
+            R.anim.slide_out_left
+        )
+        replace(
+            R.id.frListReadingTest,
+            fragment
+        )
+        commit()
+    }
+
+
+    private fun initAlertDialog() = AlertDialog.Builder(this).create().apply {
+        setTitle(getString(R.string.confirmExit))
+        setMessage(getString(R.string.doYouWantToExit))
+        setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+        { dialogInterface, _ ->
+            dialogInterface.dismiss()
         }
-    }
-
-    private fun initReferenceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left
-            )
-            replace(
-                R.id.frListReadingTest,
-                fragment
-            )
-            commit()
+        setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+        { _, _ ->
+            finish()
         }
+    }.show()
+
+    fun initProgressDialog() = progressDialog?.apply {
+        setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        setMessage(getString(R.string.loadingData))
+        show()
     }
 
-    private fun initAlertDialog() {
-        AlertDialog.Builder(this).create().apply {
-            setTitle(getString(R.string.confirmExit))
-            setMessage(getString(R.string.doYouWantToExit))
-            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
-            { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
-            { _, _ ->
-                finish()
-            }
-        }.show()
-    }
-
-    fun initProgressDialog() {
-        progressDialog?.apply {
-            setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            setMessage(getString(R.string.loadingData))
-            show()
-        }
-    }
-
-    fun dismissProgressDialog() {
-        progressDialog?.dismiss()
-    }
+    fun dismissProgressDialog() = progressDialog?.dismiss()
 }

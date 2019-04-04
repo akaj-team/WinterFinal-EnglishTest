@@ -64,6 +64,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(wordListData: DataSnapshot) {

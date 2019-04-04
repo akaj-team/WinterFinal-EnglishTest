@@ -63,6 +63,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
         databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(grammarData: DataSnapshot) {

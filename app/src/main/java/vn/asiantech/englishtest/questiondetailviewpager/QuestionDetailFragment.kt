@@ -49,7 +49,6 @@ class QuestionDetailFragment : Fragment() {
         }
         (activity as TakingTestActivity).apply {
             progressDialog?.dismiss()
-            chronometer.start()
         }
         level = activity?.intent?.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)

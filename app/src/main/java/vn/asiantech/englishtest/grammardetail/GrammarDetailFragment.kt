@@ -73,6 +73,7 @@ class GrammarDetailFragment : Fragment() {
         }
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(grammarDetailData: DataSnapshot) {

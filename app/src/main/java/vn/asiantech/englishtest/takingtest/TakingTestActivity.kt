@@ -167,7 +167,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         if (level != R.id.itemGrammar && level != R.id.itemWordStudy) {
             dataReference?.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(dataPractice: DatabaseError) {
-                    dismissProgressDialog()
+                    TODO("Not impelented")
                 }
 
                 override fun onDataChange(dataPractice: DataSnapshot) {
@@ -180,6 +180,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }
                     questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionList)
+                    chronometer.start()
                 }
             })
         }

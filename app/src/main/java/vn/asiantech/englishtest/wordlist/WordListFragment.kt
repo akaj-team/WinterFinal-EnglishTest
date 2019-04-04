@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordListItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
@@ -34,9 +34,8 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
             }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_test, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_list_test, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,25 +43,24 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         initData()
     }
 
-    override fun onClickTestTitle(position: Int) {
-        startActivity(
-            Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(TestListFragment.ARG_POSITION, position)
-                .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-                .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
-        )
-    }
+    override fun onClickTestTitle(position: Int) = startActivity(
+        Intent(activity, TakingTestActivity::class.java)
+            .putExtra(TestListFragment.ARG_POSITION, position)
+            .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
+            .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
+    )
 
-    private fun initRecyclerView() {
-        recycleViewListReadingTests.apply {
-            layoutManager = GridLayoutManager(activity, 2)
-            wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
-            adapter = wordListAdapter
-        }
+    private fun initRecyclerView() = recycleViewListReadingTests.apply {
+        layoutManager = GridLayoutManager(activity, 2)
+        wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
+        adapter = wordListAdapter
     }
 
     private fun initData() {
-        (activity as TestListActivity).initProgressDialog()
+        (activity as TestListActivity).apply {
+            initProgressDialog()
+            notifyNetworkStatus()
+        }
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

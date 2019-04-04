@@ -13,9 +13,9 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarListItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
-class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
+class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
 
     private var grammarListAdapter: GrammarListAdapter? = null
     private var grammarListItems = arrayListOf<GrammarListItem>()
@@ -33,9 +33,8 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
             }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_test, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_list_test, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,25 +42,24 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
         initData()
     }
 
-    override fun onClickGrammarItem(position: Int) {
-        startActivity(
-            Intent(activity, TakingReadingTestActivity::class.java)
-                .putExtra(TestListFragment.ARG_POSITION, position)
-                .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-                .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
-        )
-    }
+    override fun onClickGrammarItem(position: Int) = startActivity(
+        Intent(activity, TakingTestActivity::class.java)
+            .putExtra(TestListFragment.ARG_POSITION, position)
+            .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
+            .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
+    )
 
-    private fun initRecyclerView() {
-        recycleViewListReadingTests.apply {
-            layoutManager = LinearLayoutManager(activity)
-            grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
-            adapter = grammarListAdapter
-        }
+    private fun initRecyclerView() = recycleViewListReadingTests.apply {
+        layoutManager = LinearLayoutManager(activity)
+        grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
+        adapter = grammarListAdapter
     }
 
     private fun initData() {
-        (activity as TestListActivity).initProgressDialog()
+        (activity as TestListActivity).apply {
+            initProgressDialog()
+            notifyNetworkStatus()
+        }
         databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

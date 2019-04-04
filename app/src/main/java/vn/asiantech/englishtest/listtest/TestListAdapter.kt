@@ -10,30 +10,27 @@ import vn.asiantech.englishtest.model.TestListItem
 
 class TestListAdapter(
     private val listTests: MutableList<TestListItem>,
-    private val listener: OnItemClickListener
+    private val listener: OnClickTestItem
 ) :
     RecyclerView.Adapter<TestListAdapter.ListReadingTestViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ListReadingTestViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_test, parent, false)
         return ListReadingTestViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listTests.size
-    }
+    override fun getItemCount() = listTests.size
 
-    override fun onBindViewHolder(holder: ListReadingTestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListReadingTestViewHolder, position: Int) =
         holder.bindView(listTests[position])
-    }
 
-    interface OnItemClickListener {
-        fun onClick(position: Int)
+    interface OnClickTestItem {
+        fun onClickTestItem(position: Int)
     }
 
     inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(v: View?) {
-            listener.onClick(layoutPosition)
-        }
+
+        override fun onClick(v: View?) = listener.onClickTestItem(layoutPosition)
 
         fun bindView(listItems: TestListItem) {
             with(itemView) {
@@ -42,8 +39,8 @@ class TestListAdapter(
                     tvTimeDisplay.text = timeDisplay
                     tvScoreDisplay.text = scoreDisplay
                 }
+                clPractice.setOnClickListener(this@ListReadingTestViewHolder)
             }
-            itemView.clPractice.setOnClickListener(this)
         }
     }
 }

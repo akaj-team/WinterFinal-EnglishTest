@@ -13,14 +13,14 @@ import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarDetailItem
 import vn.asiantech.englishtest.model.ToeicIntroItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class GrammarDetailFragment : Fragment() {
 
     private var grammarDetailAdapter: GrammarDetailAdapter? = null
     private var toeicIntroAdapter: ToeicIntroAdapter? = null
-    private var grammarDetailItem = arrayListOf<GrammarDetailItem>()
-    private var toeicIntroItem = arrayListOf<ToeicIntroItem>()
+    private var grammarDetailItem = mutableListOf<GrammarDetailItem>()
+    private var toeicIntroItem = mutableListOf<ToeicIntroItem>()
     private var databaseReference: DatabaseReference? = null
     private var level: Int? = null
 
@@ -49,23 +49,27 @@ class GrammarDetailFragment : Fragment() {
         initData()
     }
 
-    private fun initRecyclerView() {
-        recycleViewGrammarDetail.apply {
-            layoutManager = LinearLayoutManager(activity)
-            grammarDetailAdapter = GrammarDetailAdapter(grammarDetailItem)
-            toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
-            adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
-        }
+    private fun initRecyclerView() = recycleViewGrammarDetail.apply {
+        layoutManager = LinearLayoutManager(activity)
+        grammarDetailAdapter = GrammarDetailAdapter(grammarDetailItem)
+        toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
+        adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
     }
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
         databaseReference = when (level) {
             R.id.itemToeicIntroduction -> {
-                (activity as TestListActivity).initProgressDialog()
+                (activity as TestListActivity).apply {
+                    initProgressDialog()
+                    notifyNetworkStatus()
+                }
                 FirebaseDatabase.getInstance().getReference("toeicIntroduction")
             }
-            else -> FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+            else -> {
+                (activity as TakingTestActivity).notifyNetworkStatus()
+                FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+            }
         }
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -84,7 +88,7 @@ class GrammarDetailFragment : Fragment() {
                         toeicIntroAdapter?.notifyDataSetChanged()
                     }
                     else -> {
-                        (activity as TakingReadingTestActivity).dismissProgressDialog()
+                        (activity as TakingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(GrammarDetailItem::class.java)
                             introDetail?.let {

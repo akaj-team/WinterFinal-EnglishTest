@@ -20,10 +20,8 @@ class MainActivity : AppCompatActivity() {
         screenDelay()
     }
 
-    private fun screenDelay() {
-        Handler().postDelayed({
-            startActivity(Intent(this, TestListActivity::class.java))
-            finish()
-        }, 3000)
-    }
+    private fun screenDelay() = Handler().postDelayed({
+        startActivity(Intent(this, TestListActivity::class.java))
+        finish()
+    }, 3000)
 }

@@ -24,7 +24,7 @@
                 tools:targetApi="lollipop"/>
 
         <FrameLayout
-                android:background="@color/colorLittleGrey"
+                android:background="@drawable/bg_fragment_list_test"
                 android:id="@+id/frListReadingTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

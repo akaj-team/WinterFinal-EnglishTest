@@ -6,7 +6,6 @@ import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -19,7 +18,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_list_reading_tests.*
+import kotlinx.android.synthetic.main.activity_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
@@ -33,20 +32,16 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_list_reading_tests)
+        setContentView(R.layout.activity_list_test)
         progressDialog = ProgressDialog(this)
         initDrawerLayout()
-        notifyNetworkStatus()
         initReferenceFragment(GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
         window.statusBarColor = resources.getColor(R.color.colorBlue)
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            initAlertDialog()
-        }
+    override fun onBackPressed() = when {
+        drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+        else -> initAlertDialog()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -104,63 +99,41 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
-    private fun initListTestFragment(level: Int) {
-        supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left
-            )
-            replace(
-                R.id.frListReadingTest,
-                TestListFragment.getInstance(level)
-            )
-            commit()
+    private fun initListTestFragment(level: Int) = supportFragmentManager.beginTransaction().apply {
+        setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+        replace(R.id.frListReadingTest, TestListFragment.getInstance(level))
+        commit()
+    }
+
+    private fun initReferenceFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
+        setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+        replace(R.id.frListReadingTest, fragment)
+        commit()
+    }
+
+    private fun initAlertDialog() = AlertDialog.Builder(this).create().apply {
+        setTitle(getString(R.string.confirmExit))
+        setMessage(getString(R.string.doYouWantToExit))
+        setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
+        { dialogInterface, _ ->
+            dialogInterface.dismiss()
         }
-    }
-
-    private fun initReferenceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.slide_in_left,
-                R.anim.slide_out_left
-            )
-            replace(
-                R.id.frListReadingTest,
-                fragment
-            )
-            commit()
+        setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
+        { _, _ ->
+            finish()
         }
+    }.show()
+
+    fun initProgressDialog() = progressDialog?.apply {
+        setProgressStyle(ProgressDialog.STYLE_SPINNER)
+        setMessage(getString(R.string.loadingData))
+        show()
+        setCancelable(false)
     }
 
-    private fun initAlertDialog() {
-        AlertDialog.Builder(this).create().apply {
-            setTitle(getString(R.string.confirmExit))
-            setMessage(getString(R.string.doYouWantToExit))
-            setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
-            { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
-            { _, _ ->
-                finish()
-            }
-        }.show()
-    }
+    fun dismissProgressDialog() = progressDialog?.dismiss()
 
-    fun initProgressDialog() {
-        progressDialog?.apply {
-            setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            setMessage(getString(R.string.loadingData))
-            show()
-            setCancelable(false)
-        }
-    }
-
-    fun dismissProgressDialog() {
-        progressDialog?.dismiss()
-    }
-
-    private fun initDrawerLayout(){
+    private fun initDrawerLayout() {
         setSupportActionBar(toolBar as Toolbar)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolBar as Toolbar,
@@ -179,12 +152,12 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
         return if (connectivityManager is ConnectivityManager) {
-            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            val networkInfo = connectivityManager.activeNetworkInfo
             networkInfo?.isConnected ?: false
         } else false
     }
 
-    private fun notifyNetworkStatus() {
+    fun notifyNetworkStatus() {
         if (!isNetworkAvailable()) {
             Handler().postDelayed({
                 dismissProgressDialog()

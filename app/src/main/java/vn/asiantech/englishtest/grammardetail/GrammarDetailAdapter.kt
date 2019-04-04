@@ -8,28 +8,24 @@ import kotlinx.android.synthetic.main.item_grammar_detail.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.GrammarDetailItem
 
-class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem>) :
+class GrammarDetailAdapter(private val grammarDetailItem: MutableList<GrammarDetailItem>) :
     RecyclerView.Adapter<GrammarDetailAdapter.GrammarDetailViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarDetailViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_grammar_detail, parent, false)
         return GrammarDetailViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return grammarDetailItem.size
-    }
+    override fun getItemCount() = grammarDetailItem.size
 
-    override fun onBindViewHolder(holder: GrammarDetailViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GrammarDetailViewHolder, position: Int) =
         holder.bindView(grammarDetailItem[position])
-    }
 
     inner class GrammarDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(grammarDetailItem: GrammarDetailItem) {
-            with(itemView) {
-                with(grammarDetailItem) {
-                    tvGrammarDetailTitle.text = grammarDetailTitle
-                    tvGrammarDetailDescription.text = grammarDetailDescription
-                }
+        fun bindView(grammarDetailItem: GrammarDetailItem) = with(itemView) {
+            with(grammarDetailItem) {
+                tvGrammarDetailTitle.text = grammarDetailTitle
+                tvGrammarDetailDescription.text = grammarDetailDescription
             }
         }
     }

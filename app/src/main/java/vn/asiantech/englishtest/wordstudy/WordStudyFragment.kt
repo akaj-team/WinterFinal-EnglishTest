@@ -11,17 +11,16 @@ import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordStudyItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordStudyFragment : Fragment() {
 
-    private var wordStudyItem = arrayListOf<WordStudyItem>()
+    private var wordStudyItem = mutableListOf<WordStudyItem>()
     private var wordStudyAdapter: WordStudyAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_grammar_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,23 +29,22 @@ class WordStudyFragment : Fragment() {
         initData()
     }
 
-    private fun initRecyclerView() {
-        recycleViewGrammarDetail.apply {
-            layoutManager = LinearLayoutManager(activity)
-            wordStudyAdapter = WordStudyAdapter(wordStudyItem)
-            adapter = wordStudyAdapter
-        }
+    private fun initRecyclerView() = recycleViewGrammarDetail.apply {
+        layoutManager = LinearLayoutManager(activity)
+        wordStudyAdapter = WordStudyAdapter(wordStudyItem)
+        adapter = wordStudyAdapter
     }
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
+        (activity as TakingTestActivity).notifyNetworkStatus()
         databaseReference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 
             override fun onDataChange(wordStudyData: DataSnapshot) {
-                (activity as TakingReadingTestActivity).dismissProgressDialog()
+                (activity as TakingTestActivity).dismissProgressDialog()
                 for (i in wordStudyData.children) {
                     val wordDetail = i.getValue(WordStudyItem::class.java)
                     wordDetail?.let {

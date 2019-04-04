@@ -125,62 +125,60 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun setDataFirebase() {
-        data?.let {
-            with(it) {
-                when (level) {
-                    R.id.itemPart1 -> Glide.with(activity as TakingTestActivity).load(questionTitle).into(
-                        imgQuestionTitle
-                    )
-                }
+    private fun setDataFirebase() = data?.let {
+        with(it) {
+            when (level) {
+                R.id.itemPart1 -> Glide.with(activity as TakingTestActivity).load(questionTitle).into(
+                    imgQuestionTitle
+                )
+            }
+            tvQuestionContent.text = questionContent
+            if (level != R.id.itemPart1 && level != R.id.itemPart2) {
+                tvQuestionTitle.text = questionTitle
                 tvQuestionContent.text = questionContent
-                if (level != R.id.itemPart1 && level != R.id.itemPart2) {
-                    tvQuestionTitle.text = questionTitle
-                    tvQuestionContent.text = questionContent
-                    rbAnswerA.text = answerA
-                    rbAnswerB.text = answerB
-                    rbAnswerC.text = answerC
-                    rbAnswerD.text = answerD
-                    tvExplanation.text = explanation
-                    tvTranslation.text = translation
+                rbAnswerA.text = answerA
+                rbAnswerB.text = answerB
+                rbAnswerC.text = answerC
+                rbAnswerD.text = answerD
+                tvExplanation.text = explanation
+                tvTranslation.text = translation
+            }
+        }
+        if ((activity as TakingTestActivity).review) {
+            if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                data?.let { it1 ->
+                    with(it1) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
+                    }
+                }
+            } else {
+                cardViewExplanation.visibility = View.VISIBLE
+            }
+            with(it) {
+                if (myAnswer != correctAnswer) {
+                    when (correctAnswer) {
+                        answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                    }
+                    when (myAnswer) {
+                        answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                        answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                        answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                        answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                    }
                 }
             }
-            if ((activity as TakingTestActivity).review) {
-                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                    data?.let { it1 ->
-                        with(it1) {
-                            rbAnswerA.text = answerA
-                            rbAnswerB.text = answerB
-                            rbAnswerC.text = answerC
-                            rbAnswerD.text = answerD
-                            tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
-                        }
-                    }
-                } else {
-                    cardViewExplanation.visibility = View.VISIBLE
-                }
-                with(it) {
-                    if (myAnswer != correctAnswer) {
-                        when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        }
-                        when (myAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
-                        }
-                    }
-                }
-                with(false) {
-                    rbAnswerA.isClickable = this
-                    rbAnswerB.isClickable = this
-                    rbAnswerC.isClickable = this
-                    rbAnswerD.isClickable = this
-                }
+            with(false) {
+                rbAnswerA.isClickable = this
+                rbAnswerB.isClickable = this
+                rbAnswerC.isClickable = this
+                rbAnswerD.isClickable = this
             }
         }
     }
@@ -225,34 +223,32 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun setValueForMyAnswer() {
-        rgAnswer.setOnCheckedChangeListener { _, _ ->
-            when {
-                rbAnswerA.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerA
-                    }
+    private fun setValueForMyAnswer() = rgAnswer.setOnCheckedChangeListener { _, _ ->
+        when {
+            rbAnswerA.isChecked -> {
+                data?.apply {
+                    myAnswer = answerA
                 }
-                rbAnswerB.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerB
-                    }
+            }
+            rbAnswerB.isChecked -> {
+                data?.apply {
+                    myAnswer = answerB
                 }
-                rbAnswerC.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerC
-                    }
+            }
+            rbAnswerC.isChecked -> {
+                data?.apply {
+                    myAnswer = answerC
                 }
-                rbAnswerD.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerD
-                    }
+            }
+            rbAnswerD.isChecked -> {
+                data?.apply {
+                    myAnswer = answerD
                 }
             }
         }
     }
 
-    private fun seekBarChangeListener() {
+    private fun seekBarChangeListener() =
         seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -266,14 +262,12 @@ class QuestionDetailFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-    }
 
-    private fun setLayoutHeight() {
-        with(ViewGroup.LayoutParams.WRAP_CONTENT) {
-            rbAnswerA.layoutParams.height = this
-            rbAnswerB.layoutParams.height = this
-            rbAnswerC.layoutParams.height = this
-            rbAnswerD.layoutParams.height = this
-        }
+    private fun setLayoutHeight() = with(ViewGroup.LayoutParams.WRAP_CONTENT) {
+        rbAnswerA.layoutParams.height = this
+        rbAnswerB.layoutParams.height = this
+        rbAnswerC.layoutParams.height = this
+        rbAnswerD.layoutParams.height = this
     }
 }
+

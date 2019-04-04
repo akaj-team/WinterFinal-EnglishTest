@@ -13,27 +13,25 @@ class WordListAdapter(
     private val wordListListener: OnWordListClickListener
 ) :
     RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_test_title, parent, false)
         return WordListViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return wordListItem.size
-    }
+    override fun getItemCount() = wordListItem.size
 
-    override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WordListViewHolder, position: Int) =
         holder.bindView(wordListItem[position])
-    }
+
 
     interface OnWordListClickListener {
         fun onClickTestTitle(position: Int)
     }
 
     inner class WordListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(view: View?) {
-            wordListListener.onClickTestTitle(layoutPosition)
-        }
+
+        override fun onClick(view: View?) = wordListListener.onClickTestTitle(layoutPosition)
 
         fun bindView(wordListItem: WordListItem) = with(itemView.tvTestTitle) {
             text = wordListItem.testTitle

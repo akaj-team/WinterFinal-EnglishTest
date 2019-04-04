@@ -38,13 +38,11 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
         }
     }
 
-    private fun initRecycleView() {
-        recycleViewListQuestions.apply {
-            setHasFixedSize(true)
-            layoutManager = GridLayoutManager(activity, 5)
-            listAdapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
-            adapter = listAdapter
-        }
+    private fun initRecycleView() = recycleViewListQuestions.apply {
+        setHasFixedSize(true)
+        layoutManager = GridLayoutManager(activity, 5)
+        listAdapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
+        adapter = listAdapter
     }
 
     private fun setListQuestionNumber() {
@@ -65,30 +63,28 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
         }
     }
 
-    private fun onClickSubmit() {
-        btnSubmit.setOnClickListener {
-            fragmentManager?.beginTransaction()?.apply {
-                setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-                replace(R.id.frListQuestions, TestResultFragment())
-                commit()
+    private fun onClickSubmit() = btnSubmit.setOnClickListener {
+        fragmentManager?.beginTransaction()?.apply {
+            setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+            replace(R.id.frListQuestions, TestResultFragment())
+            commit()
+        }
+        (activity as TakingTestActivity).apply {
+            chronometer?.stop()
+            with(View.GONE) {
+                chronometer?.visibility = this
+                btnListQuestions?.visibility = this
             }
-            (activity as TakingTestActivity).apply {
-                chronometer?.stop()
-                with(View.GONE) {
-                    chronometer?.visibility = this
-                    btnListQuestions?.visibility = this
+            questionList.forEach { listQuestionDetailItem ->
+                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
+                    score += 1
                 }
-                questionList.forEach { listQuestionDetailItem ->
-                    if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
-                        score += 1
-                    }
-                }
-                mediaPlayer?.apply {
-                    stop()
-                    release()
-                }
-                mediaPlayer = null
             }
+            mediaPlayer?.apply {
+                stop()
+                release()
+            }
+            mediaPlayer = null
         }
     }
 }

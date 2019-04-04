@@ -107,26 +107,14 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     }
 
     private fun initListTestFragment(level: Int) = supportFragmentManager.beginTransaction().apply {
-        setCustomAnimations(
-            R.anim.slide_in_left,
-            R.anim.slide_out_left
-        )
-        replace(
-            R.id.frListReadingTest,
-            TestListFragment.getInstance(level)
-        )
+        setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+        replace(R.id.frListReadingTest, TestListFragment.getInstance(level))
         commit()
     }
 
     private fun initReferenceFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
-        setCustomAnimations(
-            R.anim.slide_in_left,
-            R.anim.slide_out_left
-        )
-        replace(
-            R.id.frListReadingTest,
-            fragment
-        )
+        setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+        replace(R.id.frListReadingTest, fragment)
         commit()
     }
 

@@ -18,9 +18,7 @@ class GrammarListAdapter(
         return GrammarViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return grammarItem.size
-    }
+    override fun getItemCount() = grammarItem.size
 
     override fun onBindViewHolder(holder: GrammarViewHolder, position: Int) =
         holder.bindView(grammarItem[position])
@@ -30,8 +28,8 @@ class GrammarListAdapter(
     }
 
     inner class GrammarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(view: View?) =
-            grammarListener.onClickGrammarItem(layoutPosition)
+
+        override fun onClick(view: View?) = grammarListener.onClickGrammarItem(layoutPosition)
 
         fun bindView(listGrammar: GrammarListItem) {
             with(itemView) {
@@ -39,8 +37,8 @@ class GrammarListAdapter(
                     tvGrammarTitle.text = grammarTitle
                     tvGrammarExample.text = grammarExample
                 }
+                llGrammar.setOnClickListener(this@GrammarViewHolder)
             }
-            itemView.llGrammar.setOnClickListener(this)
         }
     }
 }

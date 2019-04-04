@@ -9,9 +9,7 @@ import vn.asiantech.englishtest.model.QuestionDetailItem
 class QuestionDetailAdapter(fm: FragmentManager, private var questionList: ArrayList<QuestionDetailItem>) :
     FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
-        return QuestionDetailFragment.getInstance(position, questionList[position])
-    }
+    override fun getItem(position: Int): Fragment = QuestionDetailFragment.getInstance(position, questionList[position])
 
     override fun getCount(): Int = questionList.size
 

@@ -16,9 +16,7 @@ class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem
         return GrammarDetailViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return grammarDetailItem.size
-    }
+    override fun getItemCount() = grammarDetailItem.size
 
     override fun onBindViewHolder(holder: GrammarDetailViewHolder, position: Int) =
         holder.bindView(grammarDetailItem[position])

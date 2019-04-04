@@ -16,9 +16,7 @@ class ToeicIntroAdapter(private val toeicIntroItem: List<ToeicIntroItem>) :
         return ToeicIntroViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return toeicIntroItem.size
-    }
+    override fun getItemCount() = toeicIntroItem.size
 
     override fun onBindViewHolder(holder: ToeicIntroViewHolder, position: Int) =
         holder.bindView(toeicIntroItem[position])

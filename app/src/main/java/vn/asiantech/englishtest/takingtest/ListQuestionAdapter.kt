@@ -19,30 +19,24 @@ class ListQuestionAdapter(
         return ListQuestionViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listQuestions.size
-    }
+    override fun getItemCount() = listQuestions.size
 
-    override fun onBindViewHolder(holder: ListQuestionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListQuestionViewHolder, position: Int) =
         holder.bindView(listQuestions[position])
-    }
 
     interface OnClickQuestionNumber {
         fun onClickQuestionNumber(position: Int)
     }
 
     inner class ListQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(v: View?) {
-            listener.onClickQuestionNumber(layoutPosition)
-        }
 
-        fun bindView(listItem: QuestionNumberItem) {
-            with(itemView.tvQuestionNumber) {
-                with(listItem) {
-                    text = testNumber.toString()
-                }
-                setOnClickListener(this@ListQuestionViewHolder)
+        override fun onClick(v: View?) = listener.onClickQuestionNumber(layoutPosition)
+
+        fun bindView(listItem: QuestionNumberItem) = with(itemView.tvQuestionNumber) {
+            with(listItem) {
+                text = testNumber.toString()
             }
+            setOnClickListener(this@ListQuestionViewHolder)
         }
     }
 }

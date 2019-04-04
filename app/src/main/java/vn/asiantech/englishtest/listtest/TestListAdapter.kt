@@ -19,9 +19,7 @@ class TestListAdapter(
         return ListReadingTestViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listTests.size
-    }
+    override fun getItemCount(): Int = listTests.size
 
     override fun onBindViewHolder(holder: ListReadingTestViewHolder, position: Int) {
         holder.bindView(listTests[position])
@@ -32,9 +30,8 @@ class TestListAdapter(
     }
 
     inner class ListReadingTestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(v: View?) {
-            listener.onClickTestItem(layoutPosition)
-        }
+
+        override fun onClick(v: View?) = listener.onClickTestItem(layoutPosition)
 
         fun bindView(listItems: TestListItem) {
             with(itemView) {
@@ -43,8 +40,8 @@ class TestListAdapter(
                     tvTimeDisplay.text = timeDisplay
                     tvScoreDisplay.text = scoreDisplay
                 }
+                clPractice.setOnClickListener(this@ListReadingTestViewHolder)
             }
-            itemView.clPractice.setOnClickListener(this)
         }
     }
 }

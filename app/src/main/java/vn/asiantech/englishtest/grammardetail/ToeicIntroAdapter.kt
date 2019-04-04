@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_grammar_detail.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.ToeicIntroItem
 
-class ToeicIntroAdapter(private val toeicIntroItem: List<ToeicIntroItem>) :
+class ToeicIntroAdapter(private val toeicIntroItem: MutableList<ToeicIntroItem>) :
     RecyclerView.Adapter<ToeicIntroAdapter.ToeicIntroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ToeicIntroViewHolder {

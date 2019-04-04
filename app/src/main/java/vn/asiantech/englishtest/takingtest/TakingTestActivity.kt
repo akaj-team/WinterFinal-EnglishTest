@@ -32,8 +32,8 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private var dataReference: DatabaseReference? = null
     var questionList = arrayListOf<QuestionDetailItem>()
-    private var grammarList = arrayListOf<GrammarListItem>()
-    private var testTitleList = arrayListOf<WordListItem>()
+    private var grammarList = mutableListOf<GrammarListItem>()
+    private var testTitleList = mutableListOf<WordListItem>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null
     var score = 0

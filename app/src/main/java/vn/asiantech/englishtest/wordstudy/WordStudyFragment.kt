@@ -15,13 +15,12 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordStudyFragment : Fragment() {
 
-    private var wordStudyItem = arrayListOf<WordStudyItem>()
+    private var wordStudyItem = mutableListOf<WordStudyItem>()
     private var wordStudyAdapter: WordStudyAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_grammar_detail, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_grammar_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

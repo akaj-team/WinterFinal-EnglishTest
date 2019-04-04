@@ -9,7 +9,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.GrammarListItem
 
 class GrammarListAdapter(
-    private val grammarItem: List<GrammarListItem>,
+    private val grammarItem: MutableList<GrammarListItem>,
     private val grammarListener: OnClickGrammarItem
 ) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 

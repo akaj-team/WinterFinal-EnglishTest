@@ -19,11 +19,10 @@ class TestListAdapter(
         return ListReadingTestViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listTests.size
+    override fun getItemCount() = listTests.size
 
-    override fun onBindViewHolder(holder: ListReadingTestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListReadingTestViewHolder, position: Int) =
         holder.bindView(listTests[position])
-    }
 
     interface OnClickTestItem {
         fun onClickTestItem(position: Int)

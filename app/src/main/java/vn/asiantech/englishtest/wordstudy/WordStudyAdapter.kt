@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_word_study.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.R.string.wordStudy
 import vn.asiantech.englishtest.model.WordStudyItem
 
 class WordStudyAdapter(private val wordStudy: MutableList<WordStudyItem>) :

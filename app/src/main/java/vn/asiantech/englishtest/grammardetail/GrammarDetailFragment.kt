@@ -19,8 +19,8 @@ class GrammarDetailFragment : Fragment() {
 
     private var grammarDetailAdapter: GrammarDetailAdapter? = null
     private var toeicIntroAdapter: ToeicIntroAdapter? = null
-    private var grammarDetailItem = arrayListOf<GrammarDetailItem>()
-    private var toeicIntroItem = arrayListOf<ToeicIntroItem>()
+    private var grammarDetailItem = mutableListOf<GrammarDetailItem>()
+    private var toeicIntroItem = mutableListOf<ToeicIntroItem>()
     private var databaseReference: DatabaseReference? = null
     private var level: Int? = null
 
@@ -55,7 +55,6 @@ class GrammarDetailFragment : Fragment() {
         toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
         adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
     }
-
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)

@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_grammar_detail.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.GrammarDetailItem
 
-class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem>) :
+class GrammarDetailAdapter(private val grammarDetailItem: MutableList<GrammarDetailItem>) :
     RecyclerView.Adapter<GrammarDetailAdapter.GrammarDetailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarDetailViewHolder {
@@ -20,7 +20,6 @@ class GrammarDetailAdapter(private val grammarDetailItem: List<GrammarDetailItem
 
     override fun onBindViewHolder(holder: GrammarDetailViewHolder, position: Int) =
         holder.bindView(grammarDetailItem[position])
-
 
     inner class GrammarDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(grammarDetailItem: GrammarDetailItem) = with(itemView) {

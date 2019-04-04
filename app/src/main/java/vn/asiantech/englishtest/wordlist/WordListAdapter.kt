@@ -9,7 +9,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.WordListItem
 
 class WordListAdapter(
-    private val wordListItem: List<WordListItem>,
+    private val wordListItem: MutableList<WordListItem>,
     private val wordListListener: OnWordListClickListener
 ) :
     RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
@@ -23,7 +23,6 @@ class WordListAdapter(
 
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) =
         holder.bindView(wordListItem[position])
-
 
     interface OnWordListClickListener {
         fun onClickTestTitle(position: Int)

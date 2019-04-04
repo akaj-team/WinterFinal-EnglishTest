@@ -57,7 +57,6 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         adapter = wordListAdapter
     }
 
-
     private fun initData() {
         (activity as TestListActivity).initProgressDialog()
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")

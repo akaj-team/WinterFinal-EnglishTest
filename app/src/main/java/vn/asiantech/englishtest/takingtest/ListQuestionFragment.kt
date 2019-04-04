@@ -32,7 +32,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     override fun onClickQuestionNumber(position: Int) {
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             frListQuestions?.visibility = View.GONE
             questionDetailPager?.currentItem = position
         }
@@ -48,7 +48,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     private fun setListQuestionNumber() {
-        for (i in 0 until (activity as TakingReadingTestActivity).questionList.size) {
+        for (i in 0 until (activity as TakingTestActivity).questionList.size) {
             (listQuestionItems as ArrayList<QuestionNumberItem>).add(
                 QuestionNumberItem(
                     when (level) {
@@ -72,7 +72,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
                 replace(R.id.frListQuestions, TestResultFragment())
                 commit()
             }
-            (activity as TakingReadingTestActivity).apply {
+            (activity as TakingTestActivity).apply {
                 chronometer?.stop()
                 with(View.GONE) {
                     chronometer?.visibility = this

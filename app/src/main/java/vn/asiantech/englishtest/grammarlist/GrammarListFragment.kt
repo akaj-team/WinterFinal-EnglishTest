@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarListItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListener {
 
@@ -45,7 +45,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarListene
 
     override fun onClickGrammarItem(position: Int) {
         startActivity(
-            Intent(activity, TakingReadingTestActivity::class.java)
+            Intent(activity, TakingTestActivity::class.java)
                 .putExtra(TestListFragment.ARG_POSITION, position)
                 .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
                 .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)

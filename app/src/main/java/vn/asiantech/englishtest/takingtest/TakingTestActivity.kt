@@ -28,7 +28,7 @@ import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
 @Suppress("DEPRECATION")
-class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
+class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var dataQuestion: DatabaseReference
     var questionList = arrayListOf<QuestionDetailItem>()

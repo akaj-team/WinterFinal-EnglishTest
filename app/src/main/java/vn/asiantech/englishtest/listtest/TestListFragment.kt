@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.TestListItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import vn.asiantech.englishtest.takingtest.TestResultFragment
 
 class TestListFragment : Fragment(), TestListAdapter.OnItemClickListener {
@@ -50,7 +50,7 @@ class TestListFragment : Fragment(), TestListAdapter.OnItemClickListener {
 
     override fun onClick(position: Int) {
         startActivityForResult(
-            Intent(activity, TakingReadingTestActivity::class.java)
+            Intent(activity, TakingTestActivity::class.java)
                 .putExtra(ARG_POSITION, position)
                 .putExtra(ARG_LEVEL, arguments?.getInt(ARG_LEVEL)), REQUEST_CODE_TIME_AND_SCORE
         )

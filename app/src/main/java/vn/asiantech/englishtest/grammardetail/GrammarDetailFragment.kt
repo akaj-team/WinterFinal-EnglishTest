@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarDetailItem
 import vn.asiantech.englishtest.model.ToeicIntroItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class GrammarDetailFragment : Fragment() {
 
@@ -84,7 +84,7 @@ class GrammarDetailFragment : Fragment() {
                         toeicIntroAdapter?.notifyDataSetChanged()
                     }
                     else -> {
-                        (activity as TakingReadingTestActivity).dismissProgressDialog()
+                        (activity as TakingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(GrammarDetailItem::class.java)
                             introDetail?.let {

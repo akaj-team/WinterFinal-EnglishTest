@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordStudyItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordStudyFragment : Fragment() {
 
@@ -46,7 +46,7 @@ class WordStudyFragment : Fragment() {
             }
 
             override fun onDataChange(wordStudyData: DataSnapshot) {
-                (activity as TakingReadingTestActivity).dismissProgressDialog()
+                (activity as TakingTestActivity).dismissProgressDialog()
                 for (i in wordStudyData.children) {
                     val wordDetail = i.getValue(WordStudyItem::class.java)
                     wordDetail?.let {

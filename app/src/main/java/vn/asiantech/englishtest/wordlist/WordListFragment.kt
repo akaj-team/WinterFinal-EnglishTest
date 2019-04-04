@@ -13,7 +13,7 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordListItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
@@ -46,7 +46,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
     override fun onClickTestTitle(position: Int) {
         startActivity(
-            Intent(activity, TakingReadingTestActivity::class.java)
+            Intent(activity, TakingTestActivity::class.java)
                 .putExtra(TestListFragment.ARG_POSITION, position)
                 .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
                 .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)

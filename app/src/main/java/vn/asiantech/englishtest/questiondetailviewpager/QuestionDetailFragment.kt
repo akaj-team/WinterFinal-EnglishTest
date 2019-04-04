@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.QuestionDetailItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
@@ -47,7 +47,7 @@ class QuestionDetailFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             data = it.getParcelable(ARG_DATA) as QuestionDetailItem
         }
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
         }
@@ -58,7 +58,7 @@ class QuestionDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             mediaPlayer = MediaPlayer()
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
@@ -71,14 +71,14 @@ class QuestionDetailFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (!isVisibleToUser && isResumed) {
-            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
+            (activity as TakingTestActivity).mediaPlayer?.pause()
             imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
+        (activity as TakingTestActivity).mediaPlayer?.stop()
         isDestroy = true
     }
 
@@ -129,7 +129,7 @@ class QuestionDetailFragment : Fragment() {
         data?.let {
             with(it) {
                 when (level) {
-                    R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
+                    R.id.itemPart1 -> Glide.with(activity as TakingTestActivity).load(questionTitle).into(
                         imgQuestionTitle
                     )
                 }
@@ -145,7 +145,7 @@ class QuestionDetailFragment : Fragment() {
                     tvTranslation.text = translation
                 }
             }
-            if ((activity as TakingReadingTestActivity).review) {
+            if ((activity as TakingTestActivity).review) {
                 if (level == R.id.itemPart1 || level == R.id.itemPart2) {
                     data?.let { it1 ->
                         with(it1) {
@@ -189,7 +189,7 @@ class QuestionDetailFragment : Fragment() {
         @SuppressLint("SimpleDateFormat")
         val timeFormat = SimpleDateFormat("mm:ss")
         imgState.setOnClickListener {
-            (activity as TakingReadingTestActivity).mediaPlayer?.apply {
+            (activity as TakingTestActivity).mediaPlayer?.apply {
                 try {
                     setDataSource(data?.audio)
                     setOnPreparedListener { mp -> mp.start() }
@@ -198,13 +198,13 @@ class QuestionDetailFragment : Fragment() {
                 }
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
-                (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
+                (activity as TakingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
                         if (isDestroy) {
                             return
                         }
                         try {
-                            (activity as TakingReadingTestActivity).mediaPlayer?.currentPosition.apply {
+                            (activity as TakingTestActivity).mediaPlayer?.currentPosition.apply {
                                 seekBarPlay.progress =  this ?: 0
                                 tvCurrentTime.text = timeFormat.format(this)
                             }
@@ -256,7 +256,7 @@ class QuestionDetailFragment : Fragment() {
         seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                    (activity as TakingReadingTestActivity).mediaPlayer?.seekTo(progress)
+                    (activity as TakingTestActivity).mediaPlayer?.seekTo(progress)
                 }
             }
 

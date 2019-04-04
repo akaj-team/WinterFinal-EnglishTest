@@ -30,7 +30,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             level = intent.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         }
         return inflater.inflate(R.layout.fragment_test_result, container, false)
@@ -40,7 +40,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         btnReview.setOnClickListener(this)
         btnExit.setOnClickListener(this)
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score.toString())
                 .append("/${questionList.size}")
@@ -52,7 +52,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnReview -> {
-                (activity as TakingReadingTestActivity).review = true
+                (activity as TakingTestActivity).review = true
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
                     questionDetailPager.apply {
@@ -66,7 +66,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                     setResult(
                         Activity.RESULT_OK, Intent()
                             .putExtra(KEY_TIME, tvDurationTime.text.toString())
-                            .putExtra(KEY_SCORE, (activity as TakingReadingTestActivity).score.toString())
+                            .putExtra(KEY_SCORE, (activity as TakingTestActivity).score.toString())
                             .putExtra(
                                 TestListFragment.ARG_POSITION,
                                 activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
@@ -91,8 +91,8 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         listTimeandScore.add(
             TestListItem(
                 "${getString(R.string.practice)} ${position?.let { it + 1 }}",
-                (activity as TakingReadingTestActivity).chronometer.text.toString(),
-                (activity as TakingReadingTestActivity).score.toString()
+                (activity as TakingTestActivity).chronometer.text.toString(),
+                (activity as TakingTestActivity).score.toString()
             )
         )
         val json = Gson().toJson(listTimeandScore)

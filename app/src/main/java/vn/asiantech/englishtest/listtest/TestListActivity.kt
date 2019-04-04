@@ -2,9 +2,14 @@
 
 package vn.asiantech.englishtest.listtest
 
+import android.annotation.TargetApi
 import android.app.ProgressDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -13,6 +18,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_list_reading_tests.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
@@ -23,27 +29,16 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     private var progressDialog: ProgressDialog? = null
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_list_reading_tests)
         progressDialog = ProgressDialog(this)
-        setSupportActionBar(toolBar as Toolbar)
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolBar as Toolbar,
-            R.string.navigationDrawerOpen,
-            R.string.navigationDrawerClose
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        initDrawerLayout()
+        notifyNetworkStatus()
         initReferenceFragment(GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
-        supportActionBar?.title = getString(R.string.toeicIntroduction)
-        navigationView.apply {
-            setNavigationItemSelectedListener(this@TestListActivity)
-            setCheckedItem(R.id.itemToeicIntroduction)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = resources.getColor(R.color.colorBlue)
-        }
+        window.statusBarColor = resources.getColor(R.color.colorBlue)
     }
 
     override fun onBackPressed() {
@@ -157,10 +152,44 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             setProgressStyle(ProgressDialog.STYLE_SPINNER)
             setMessage(getString(R.string.loadingData))
             show()
+            setCancelable(false)
         }
     }
 
     fun dismissProgressDialog() {
         progressDialog?.dismiss()
+    }
+
+    private fun initDrawerLayout(){
+        setSupportActionBar(toolBar as Toolbar)
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolBar as Toolbar,
+            R.string.navigationDrawerOpen,
+            R.string.navigationDrawerClose
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.title = getString(R.string.toeicIntroduction)
+        navigationView.apply {
+            setNavigationItemSelectedListener(this@TestListActivity)
+            setCheckedItem(R.id.itemToeicIntroduction)
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }
+
+    private fun notifyNetworkStatus() {
+        if (!isNetworkAvailable()) {
+            Handler().postDelayed({
+                dismissProgressDialog()
+                Toast.makeText(this, getString(R.string.networkNotification), Toast.LENGTH_LONG).show()
+            }, 5000)
+        }
     }
 }

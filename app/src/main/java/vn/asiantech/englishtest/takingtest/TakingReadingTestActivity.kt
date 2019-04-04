@@ -4,15 +4,20 @@ package vn.asiantech.englishtest.takingtest
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_reading_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
@@ -51,6 +56,7 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_taking_reading_test)
         window.statusBarColor = resources.getColor(R.color.colorBlue)
         progressDialog = ProgressDialog(this)
+        notifyNetworkStatus()
         initData()
         btnBackToListTest.setOnClickListener(this)
         btnListQuestions.setOnClickListener(this)
@@ -217,10 +223,28 @@ class TakingReadingTestActivity : AppCompatActivity(), View.OnClickListener {
             setProgressStyle(ProgressDialog.STYLE_SPINNER)
             setMessage(getString(R.string.loadingData))
             show()
+            setCancelable(false)
         }
     }
 
     fun dismissProgressDialog() {
         progressDialog?.dismiss()
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }
+
+    private fun notifyNetworkStatus() {
+        if (!isNetworkAvailable()) {
+            Handler().postDelayed({
+                dismissProgressDialog()
+                Toast.makeText(this, getString(R.string.networkNotification), Toast.LENGTH_LONG).show()
+            }, 5000)
+        }
     }
 }

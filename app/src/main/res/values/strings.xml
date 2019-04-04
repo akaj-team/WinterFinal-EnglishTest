@@ -56,4 +56,5 @@
     <string name="word">Words</string>
     <string name="wordStudy">Word Study</string>
     <string name="study">Study</string>
+    <string name="networkNotification">No network connection!</string>
 </resources>

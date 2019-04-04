@@ -9,8 +9,8 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.GrammarListItem
 
 class GrammarListAdapter(
-    private val grammarItem: List<GrammarListItem>,
-    private val grammarListener: OnClickGrammarListener
+    private val grammarItem: MutableList<GrammarListItem>,
+    private val grammarListener: OnClickGrammarItem
 ) : RecyclerView.Adapter<GrammarListAdapter.GrammarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): GrammarViewHolder {
@@ -18,22 +18,18 @@ class GrammarListAdapter(
         return GrammarViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return grammarItem.size
-    }
+    override fun getItemCount() = grammarItem.size
 
-    override fun onBindViewHolder(holder: GrammarViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GrammarViewHolder, position: Int) =
         holder.bindView(grammarItem[position])
-    }
 
-    interface OnClickGrammarListener {
+    interface OnClickGrammarItem {
         fun onClickGrammarItem(position: Int)
     }
 
     inner class GrammarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        override fun onClick(view: View?) {
-            grammarListener.onClickGrammarItem(layoutPosition)
-        }
+
+        override fun onClick(view: View?) = grammarListener.onClickGrammarItem(layoutPosition)
 
         fun bindView(listGrammar: GrammarListItem) {
             with(itemView) {
@@ -41,8 +37,8 @@ class GrammarListAdapter(
                     tvGrammarTitle.text = grammarTitle
                     tvGrammarExample.text = grammarExample
                 }
+                llGrammar.setOnClickListener(this@GrammarViewHolder)
             }
-            itemView.llGrammar.setOnClickListener(this)
         }
     }
 }

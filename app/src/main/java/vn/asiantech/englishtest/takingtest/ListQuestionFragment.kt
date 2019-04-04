@@ -12,8 +12,8 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.QuestionNumberItem
 
-class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestionNumber {
-    private var listQuestionItems: MutableList<QuestionNumberItem> = arrayListOf()
+class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumber {
+    private var listQuestionItems = mutableListOf<QuestionNumberItem>()
     private var level: Int? = null
     private var listAdapter: ListQuestionAdapter? = null
 
@@ -32,28 +32,28 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
     }
 
     override fun onClickQuestionNumber(position: Int) {
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             frListQuestions?.visibility = View.GONE
             questionDetailPager?.currentItem = position
         }
     }
 
-    private fun initRecycleView() {
-        recycleViewListQuestions.apply {
-            setHasFixedSize(true)
-            layoutManager = GridLayoutManager(activity, 5)
-            listAdapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
-            adapter = listAdapter
-        }
+    private fun initRecycleView() = recycleViewListQuestions.apply {
+        setHasFixedSize(true)
+        layoutManager = GridLayoutManager(activity, 5)
+        listAdapter = ListQuestionAdapter(listQuestionItems, this@ListQuestionFragment)
+        adapter = listAdapter
     }
 
     private fun setListQuestionNumber() {
-        for (i in 0 until (activity as TakingReadingTestActivity).questionList.size) {
+        for (i in 0 until (activity as TakingTestActivity).questionList.size) {
             (listQuestionItems as ArrayList<QuestionNumberItem>).add(
                 QuestionNumberItem(
                     when (level) {
                         R.id.itemPart1 -> 1 + i
                         R.id.itemPart2 -> 11 + i
+                        R.id.itemPart3 -> 41 + i
+                        R.id.itemPart4 -> 71 + i
                         R.id.itemPart6 -> 141 + i
                         R.id.itemPart7 -> 147 + i
                         else -> 101 + i
@@ -63,30 +63,28 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnItemClickQuestion
         }
     }
 
-    private fun onClickSubmit() {
-        btnSubmit.setOnClickListener {
-            fragmentManager?.beginTransaction()?.apply {
-                setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-                replace(R.id.frListQuestions, TestResultFragment())
-                commit()
+    private fun onClickSubmit() = btnSubmit.setOnClickListener {
+        fragmentManager?.beginTransaction()?.apply {
+            setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+            replace(R.id.frListQuestions, TestResultFragment())
+            commit()
+        }
+        (activity as TakingTestActivity).apply {
+            chronometer?.stop()
+            with(View.GONE) {
+                chronometer?.visibility = this
+                btnListQuestions?.visibility = this
             }
-            (activity as TakingReadingTestActivity).apply {
-                chronometer?.stop()
-                with(View.GONE) {
-                    chronometer?.visibility = this
-                    btnListQuestions?.visibility = this
+            questionList.forEach { listQuestionDetailItem ->
+                if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
+                    score += 1
                 }
-                questionList.forEach { listQuestionDetailItem ->
-                    if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
-                        score += 1
-                    }
-                }
-                mediaPlayer?.apply {
-                    stop()
-                    release()
-                }
-                mediaPlayer = null
             }
+            mediaPlayer?.apply {
+                stop()
+                release()
+            }
+            mediaPlayer = null
         }
     }
 }

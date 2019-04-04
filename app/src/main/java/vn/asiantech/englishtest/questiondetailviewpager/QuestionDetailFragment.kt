@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.QuestionDetailItem
-import vn.asiantech.englishtest.takingtest.TakingReadingTestActivity
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
@@ -47,7 +47,7 @@ class QuestionDetailFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             data = it.getParcelable(ARG_DATA) as QuestionDetailItem
         }
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             progressDialog?.dismiss()
             chronometer.start()
         }
@@ -58,7 +58,7 @@ class QuestionDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as TakingReadingTestActivity).apply {
+        (activity as TakingTestActivity).apply {
             mediaPlayer = MediaPlayer()
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
@@ -71,14 +71,14 @@ class QuestionDetailFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (!isVisibleToUser && isResumed) {
-            (activity as TakingReadingTestActivity).mediaPlayer?.pause()
+            (activity as TakingTestActivity).mediaPlayer?.pause()
             imgState.setImageResource(R.drawable.ic_play_arrow_black_24dp)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as TakingReadingTestActivity).mediaPlayer?.stop()
+        (activity as TakingTestActivity).mediaPlayer?.stop()
         isDestroy = true
     }
 
@@ -103,6 +103,7 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerD.visibility = this
                     divider4.visibility = this
                 }
+                setLayoutHeight()
             }
             R.id.itemPart3, R.id.itemPart4 -> {
                 with(View.VISIBLE) {
@@ -112,6 +113,7 @@ class QuestionDetailFragment : Fragment() {
                 with(View.GONE) {
                     tvQuestionTitle.visibility = this
                 }
+                setLayoutHeight()
             }
             R.id.itemPart6, R.id.itemPart7 -> {
                 tvQuestionContent.visibility = View.VISIBLE
@@ -123,60 +125,60 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun setDataFirebase() {
-        data?.let {
-            with(it) {
-                when (level) {
-                    R.id.itemPart1 -> Glide.with(activity as TakingReadingTestActivity).load(questionTitle).into(
-                        imgQuestionTitle
-                    )
-                }
+    private fun setDataFirebase() = data?.let {
+        with(it) {
+            when (level) {
+                R.id.itemPart1 -> Glide.with(activity as TakingTestActivity).load(questionTitle).into(
+                    imgQuestionTitle
+                )
+            }
+            tvQuestionContent.text = questionContent
+            if (level != R.id.itemPart1 && level != R.id.itemPart2) {
+                tvQuestionTitle.text = questionTitle
                 tvQuestionContent.text = questionContent
-                if (level != R.id.itemPart1 && level != R.id.itemPart2) {
-                    tvQuestionTitle.text = questionTitle
-                    tvQuestionContent.text = questionContent
-                    rbAnswerA.text = answerA
-                    rbAnswerB.text = answerB
-                    rbAnswerC.text = answerC
-                    rbAnswerD.text = answerD
-                    tvExplanation.text = explanation
-                    tvTranslation.text = translation
+                rbAnswerA.text = answerA
+                rbAnswerB.text = answerB
+                rbAnswerC.text = answerC
+                rbAnswerD.text = answerD
+                tvExplanation.text = explanation
+                tvTranslation.text = translation
+            }
+        }
+        if ((activity as TakingTestActivity).review) {
+            if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                data?.let { it1 ->
+                    with(it1) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
+                    }
+                }
+            } else {
+                cardViewExplanation.visibility = View.VISIBLE
+            }
+            with(it) {
+                if (myAnswer != correctAnswer) {
+                    when (correctAnswer) {
+                        answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                    }
+                    when (myAnswer) {
+                        answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                        answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                        answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                        answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                    }
                 }
             }
-            if ((activity as TakingReadingTestActivity).review) {
-                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                    data?.let { it1 ->
-                        with(it1) {
-                            rbAnswerA.text = answerA
-                            rbAnswerB.text = answerB
-                            rbAnswerC.text = answerC
-                            rbAnswerD.text = answerD
-                            tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
-                        }
-                    }
-                } else {
-                    cardViewExplanation.visibility = View.VISIBLE
-                }
-                with(it) {
-                    if (myAnswer != correctAnswer) {
-                        when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        }
-                        when (myAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
-                        }
-                    }
-                }
-                rbAnswerA.isClickable = false
-                rbAnswerB.isClickable = false
-                rbAnswerC.isClickable = false
-                rbAnswerD.isClickable = false
+            with(false) {
+                rbAnswerA.isClickable = this
+                rbAnswerB.isClickable = this
+                rbAnswerC.isClickable = this
+                rbAnswerD.isClickable = this
             }
         }
     }
@@ -185,7 +187,7 @@ class QuestionDetailFragment : Fragment() {
         @SuppressLint("SimpleDateFormat")
         val timeFormat = SimpleDateFormat("mm:ss")
         imgState.setOnClickListener {
-            (activity as TakingReadingTestActivity).mediaPlayer?.apply {
+            (activity as TakingTestActivity).mediaPlayer?.apply {
                 try {
                     setDataSource(data?.audio)
                     setOnPreparedListener { mp -> mp.start() }
@@ -194,14 +196,14 @@ class QuestionDetailFragment : Fragment() {
                 }
                 seekBarPlay.max = duration
                 tvTotalTime.text = timeFormat.format(duration)
-                (activity as TakingReadingTestActivity).runOnUiThread(object : Runnable {
+                (activity as TakingTestActivity).runOnUiThread(object : Runnable {
                     override fun run() {
                         if (isDestroy) {
                             return
                         }
                         try {
-                            (activity as TakingReadingTestActivity).mediaPlayer?.currentPosition.apply {
-                                seekBarPlay.progress =  this ?: 0
+                            (activity as TakingTestActivity).mediaPlayer?.currentPosition.apply {
+                                seekBarPlay.progress = this ?: 0
                                 tvCurrentTime.text = timeFormat.format(this)
                             }
                             Handler().postDelayed(this, 1000)
@@ -221,38 +223,36 @@ class QuestionDetailFragment : Fragment() {
         }
     }
 
-    private fun setValueForMyAnswer() {
-        rgAnswer.setOnCheckedChangeListener { _, _ ->
-            when {
-                rbAnswerA.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerA
-                    }
+    private fun setValueForMyAnswer() = rgAnswer.setOnCheckedChangeListener { _, _ ->
+        when {
+            rbAnswerA.isChecked -> {
+                data?.apply {
+                    myAnswer = answerA
                 }
-                rbAnswerB.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerB
-                    }
+            }
+            rbAnswerB.isChecked -> {
+                data?.apply {
+                    myAnswer = answerB
                 }
-                rbAnswerC.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerC
-                    }
+            }
+            rbAnswerC.isChecked -> {
+                data?.apply {
+                    myAnswer = answerC
                 }
-                rbAnswerD.isChecked -> {
-                    data?.apply {
-                        myAnswer = answerD
-                    }
+            }
+            rbAnswerD.isChecked -> {
+                data?.apply {
+                    myAnswer = answerD
                 }
             }
         }
     }
 
-    private fun seekBarChangeListener() {
+    private fun seekBarChangeListener() =
         seekBarPlay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                    (activity as TakingReadingTestActivity).mediaPlayer?.seekTo(progress)
+                    (activity as TakingTestActivity).mediaPlayer?.seekTo(progress)
                 }
             }
 
@@ -262,14 +262,12 @@ class QuestionDetailFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-    }
 
-    private fun setLayoutHeight() {
-        with(ViewGroup.LayoutParams.WRAP_CONTENT) {
-            rbAnswerA.layoutParams.height = this
-            rbAnswerB.layoutParams.height = this
-            rbAnswerC.layoutParams.height = this
-            rbAnswerD.layoutParams.height = this
-        }
+    private fun setLayoutHeight() = with(ViewGroup.LayoutParams.WRAP_CONTENT) {
+        rbAnswerA.layoutParams.height = this
+        rbAnswerB.layoutParams.height = this
+        rbAnswerC.layoutParams.height = this
+        rbAnswerD.layoutParams.height = this
     }
 }
+

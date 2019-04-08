@@ -4,17 +4,21 @@ package vn.asiantech.englishtest.takingtest
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import kotlinx.android.synthetic.main.activity_taking_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
@@ -48,7 +52,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         level = intent.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         position = intent.getIntExtra(TestListFragment.ARG_POSITION, 0)
 
-        setContentView(R.layout.activity_taking_reading_test)
+        setContentView(R.layout.activity_taking_test)
         window.statusBarColor = resources.getColor(R.color.colorBlue)
         progressDialog = ProgressDialog(this)
         initData()
@@ -108,6 +112,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initData() {
         initProgressDialog()
+        notifyNetworkStatus()
         FirebaseDatabase.getInstance().apply {
             when (level) {
                 R.id.itemPart1 -> {
@@ -162,11 +167,12 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         if (level != R.id.itemGrammar && level != R.id.itemWordStudy) {
             dataReference?.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(dataPractice: DatabaseError) {
-                    dismissProgressDialog()
+                    TODO("Not impelented")
                 }
 
                 override fun onDataChange(dataPractice: DataSnapshot) {
                     dismissProgressDialog()
+                    notifyNetworkStatus()
                     for (i in dataPractice.children) {
                         val question = i.getValue(QuestionDetailItem::class.java)
                         question?.let {
@@ -174,6 +180,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }
                     questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionList)
+                    chronometer.start()
                 }
             })
         }
@@ -212,7 +219,25 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         setProgressStyle(ProgressDialog.STYLE_SPINNER)
         setMessage(getString(R.string.loadingData))
         show()
+        setCancelable(false)
     }
 
     fun dismissProgressDialog() = progressDialog?.dismiss()
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }
+
+    fun notifyNetworkStatus() {
+        if (!isNetworkAvailable()) {
+            Handler().postDelayed({
+                dismissProgressDialog()
+                Toast.makeText(this, getString(R.string.networkNotification), Toast.LENGTH_LONG).show()
+            }, 5000)
+        }
+    }
 }

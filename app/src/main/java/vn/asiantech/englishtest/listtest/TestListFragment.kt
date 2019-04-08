@@ -17,6 +17,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import vn.asiantech.englishtest.takingtest.TestResultFragment
 
 class TestListFragment : Fragment(), TestListAdapter.OnClickTestItem {
+
     private var listReadingTestItems = mutableListOf<TestListItem>()
     private var testAdapter: TestListAdapter? = null
     private var level: Int? = null

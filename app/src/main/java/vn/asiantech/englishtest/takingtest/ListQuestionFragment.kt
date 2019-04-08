@@ -6,13 +6,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_taking_reading_test.*
-import kotlinx.android.synthetic.main.fragment_list_questions.*
+import kotlinx.android.synthetic.main.activity_taking_test.*
+import kotlinx.android.synthetic.main.fragment_list_question.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.QuestionNumberItem
 
 class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumber {
+
     private var listQuestionItems = mutableListOf<QuestionNumberItem>()
     private var level: Int? = null
     private var listAdapter: ListQuestionAdapter? = null
@@ -21,7 +22,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         level = activity?.intent?.getIntExtra(TestListFragment.ARG_LEVEL, 0)
-        return inflater.inflate(R.layout.fragment_list_questions, container, false)
+        return inflater.inflate(R.layout.fragment_list_question, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

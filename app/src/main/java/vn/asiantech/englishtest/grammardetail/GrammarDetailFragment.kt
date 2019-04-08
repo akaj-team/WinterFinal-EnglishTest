@@ -60,13 +60,20 @@ class GrammarDetailFragment : Fragment() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
         databaseReference = when (level) {
             R.id.itemToeicIntroduction -> {
-                (activity as TestListActivity).initProgressDialog()
+                (activity as TestListActivity).apply {
+                    initProgressDialog()
+                    notifyNetworkStatus()
+                }
                 FirebaseDatabase.getInstance().getReference("toeicIntroduction")
             }
-            else -> FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+            else -> {
+                (activity as TakingTestActivity).notifyNetworkStatus()
+                FirebaseDatabase.getInstance().getReference("grammarDetail0${position?.plus(1)}")
+            }
         }
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(grammarDetailData: DataSnapshot) {

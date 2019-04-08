@@ -37,9 +37,11 @@ class WordStudyFragment : Fragment() {
 
     private fun initData() {
         val position = activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
+        (activity as TakingTestActivity).notifyNetworkStatus()
         databaseReference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(wordStudyData: DataSnapshot) {

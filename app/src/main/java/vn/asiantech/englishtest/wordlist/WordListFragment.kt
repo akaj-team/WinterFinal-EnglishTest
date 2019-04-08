@@ -34,9 +34,8 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
             }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_test, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_list_test, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,10 +57,14 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
     }
 
     private fun initData() {
-        (activity as TestListActivity).initProgressDialog()
+        (activity as TestListActivity).apply {
+            initProgressDialog()
+            notifyNetworkStatus()
+        }
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
+                TODO("Not impelented")
             }
 
             override fun onDataChange(wordListData: DataSnapshot) {

@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import kotlinx.android.synthetic.main.activity_taking_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
@@ -49,7 +49,6 @@ class QuestionDetailFragment : Fragment() {
         }
         (activity as TakingTestActivity).apply {
             progressDialog?.dismiss()
-            chronometer.start()
         }
         level = activity?.intent?.getIntExtra(TestListFragment.ARG_LEVEL, 0)
         return inflater.inflate(R.layout.fragment_question_detail, container, false)
@@ -270,4 +269,3 @@ class QuestionDetailFragment : Fragment() {
         rbAnswerD.layoutParams.height = this
     }
 }
-

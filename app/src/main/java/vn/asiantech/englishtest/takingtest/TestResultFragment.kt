@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_taking_reading_test.*
+import kotlinx.android.synthetic.main.activity_taking_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment

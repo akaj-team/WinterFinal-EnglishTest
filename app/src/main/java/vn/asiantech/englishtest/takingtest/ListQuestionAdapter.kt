@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.item_list_question.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.QuestionNumberItem
 
+@Suppress("DEPRECATION")
 class ListQuestionAdapter(
     private val listQuestions: MutableList<QuestionNumberItem>,
     private val listener: OnClickQuestionNumber
@@ -36,6 +37,9 @@ class ListQuestionAdapter(
             with(listItem) {
                 text = testNumber.toString()
             }
+            background = if (listItem.isQuestionChecked) {
+                resources.getDrawable(R.drawable.shape_circle_textview_checked)
+            } else resources.getDrawable(R.drawable.shape_circle_textview)
             setOnClickListener(this@ListQuestionViewHolder)
         }
     }

@@ -223,25 +223,25 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun setValueForMyAnswer() = rgAnswer.setOnCheckedChangeListener { _, _ ->
-        when {
-            rbAnswerA.isChecked -> {
-                data?.apply {
-                    myAnswer = answerA
-                }
-            }
-            rbAnswerB.isChecked -> {
-                data?.apply {
-                    myAnswer = answerB
-                }
-            }
-            rbAnswerC.isChecked -> {
-                data?.apply {
-                    myAnswer = answerC
-                }
-            }
-            rbAnswerD.isChecked -> {
-                data?.apply {
-                    myAnswer = answerD
+        (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+            data?.apply {
+                when {
+                    rbAnswerA.isChecked -> {
+                        myAnswer = answerA
+                        isQuestionChecked = true
+                    }
+                    rbAnswerB.isChecked -> {
+                        myAnswer = answerB
+                        isQuestionChecked = true
+                    }
+                    rbAnswerC.isChecked -> {
+                        myAnswer = answerC
+                        isQuestionChecked = true
+                    }
+                    rbAnswerD.isChecked -> {
+                        myAnswer = answerD
+                        isQuestionChecked = true
+                    }
                 }
             }
         }

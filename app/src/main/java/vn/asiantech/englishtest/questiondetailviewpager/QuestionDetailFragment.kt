@@ -223,33 +223,25 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun setValueForMyAnswer() = rgAnswer.setOnCheckedChangeListener { _, _ ->
-        when {
-            rbAnswerA.isChecked -> {
-                data?.apply {
-                    myAnswer = answerA
-                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].isQuestionChecked =
-                        true
-                }
-            }
-            rbAnswerB.isChecked -> {
-                data?.apply {
-                    myAnswer = answerB
-                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].isQuestionChecked =
-                        true
-                }
-            }
-            rbAnswerC.isChecked -> {
-                data?.apply {
-                    myAnswer = answerC
-                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].isQuestionChecked =
-                        true
-                }
-            }
-            rbAnswerD.isChecked -> {
-                data?.apply {
-                    myAnswer = answerD
-                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].isQuestionChecked =
-                        true
+        (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+            data?.apply {
+                when {
+                    rbAnswerA.isChecked -> {
+                        myAnswer = answerA
+                        isQuestionChecked = true
+                    }
+                    rbAnswerB.isChecked -> {
+                        myAnswer = answerB
+                        isQuestionChecked = true
+                    }
+                    rbAnswerC.isChecked -> {
+                        myAnswer = answerC
+                        isQuestionChecked = true
+                    }
+                    rbAnswerD.isChecked -> {
+                        myAnswer = answerD
+                        isQuestionChecked = true
+                    }
                 }
             }
         }

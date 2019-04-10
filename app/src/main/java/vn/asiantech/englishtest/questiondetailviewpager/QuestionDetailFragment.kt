@@ -227,21 +227,29 @@ class QuestionDetailFragment : Fragment() {
             rbAnswerA.isChecked -> {
                 data?.apply {
                     myAnswer = answerA
+                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].questionChecked =
+                        true
                 }
             }
             rbAnswerB.isChecked -> {
                 data?.apply {
                     myAnswer = answerB
+                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].questionChecked =
+                        true
                 }
             }
             rbAnswerC.isChecked -> {
                 data?.apply {
                     myAnswer = answerC
+                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].questionChecked =
+                        true
                 }
             }
             rbAnswerD.isChecked -> {
                 data?.apply {
                     myAnswer = answerD
+                    (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].questionChecked =
+                        true
                 }
             }
         }

@@ -26,6 +26,7 @@ import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.GrammarListItem
 import vn.asiantech.englishtest.model.QuestionDetailItem
+import vn.asiantech.englishtest.model.QuestionNumberItem
 import vn.asiantech.englishtest.model.WordListItem
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
 import vn.asiantech.englishtest.wordlist.WordListFragment
@@ -38,6 +39,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
     var questionList = arrayListOf<QuestionDetailItem>()
     private var grammarList = mutableListOf<GrammarListItem>()
     private var testTitleList = mutableListOf<WordListItem>()
+    var listQuestionItems = mutableListOf<QuestionNumberItem>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null
     var score = 0
@@ -179,10 +181,29 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                             questionList.add(it)
                         }
                     }
+                    setListQuestionNumber()
                     questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionList)
                     chronometer.start()
                 }
             })
+        }
+    }
+
+    private fun setListQuestionNumber() {
+        for (i in 0 until questionList.size) {
+            (listQuestionItems as ArrayList<QuestionNumberItem>).add(
+                QuestionNumberItem(
+                    when (level) {
+                        R.id.itemPart1 -> 1 + i
+                        R.id.itemPart2 -> 11 + i
+                        R.id.itemPart3 -> 41 + i
+                        R.id.itemPart4 -> 71 + i
+                        R.id.itemPart6 -> 141 + i
+                        R.id.itemPart7 -> 147 + i
+                        else -> 101 + i
+                    }
+                )
+            )
         }
     }
 

@@ -37,7 +37,7 @@ class ListQuestionAdapter(
             with(listItem) {
                 text = testNumber.toString()
             }
-            background = if (listItem.questionChecked) {
+            background = if (listItem.isQuestionChecked) {
                 resources.getDrawable(R.drawable.shape_circle_textview_checked)
             } else resources.getDrawable(R.drawable.shape_circle_textview)
             setOnClickListener(this@ListQuestionViewHolder)

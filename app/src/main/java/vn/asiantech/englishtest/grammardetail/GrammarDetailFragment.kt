@@ -19,8 +19,8 @@ class GrammarDetailFragment : Fragment() {
 
     private var grammarDetailAdapter: GrammarDetailAdapter? = null
     private var toeicIntroAdapter: ToeicIntroAdapter? = null
-    private var grammarDetailItem = mutableListOf<GrammarDetailItem>()
-    private var toeicIntroItem = mutableListOf<ToeicIntroItem>()
+    private var grammarDetailList = mutableListOf<GrammarDetailItem>()
+    private var toeicIntroList = mutableListOf<ToeicIntroItem>()
     private var databaseReference: DatabaseReference? = null
     private var level: Int? = null
 
@@ -51,8 +51,8 @@ class GrammarDetailFragment : Fragment() {
 
     private fun initRecyclerView() = recycleViewGrammarDetail.apply {
         layoutManager = LinearLayoutManager(activity)
-        grammarDetailAdapter = GrammarDetailAdapter(grammarDetailItem)
-        toeicIntroAdapter = ToeicIntroAdapter(toeicIntroItem)
+        grammarDetailAdapter = GrammarDetailAdapter(grammarDetailList)
+        toeicIntroAdapter = ToeicIntroAdapter(toeicIntroList)
         adapter = if (level == R.id.itemToeicIntroduction) toeicIntroAdapter else grammarDetailAdapter
     }
 
@@ -73,7 +73,7 @@ class GrammarDetailFragment : Fragment() {
         }
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("Not impelented")
+                TODO("Not implemented")
             }
 
             override fun onDataChange(grammarDetailData: DataSnapshot) {
@@ -83,7 +83,7 @@ class GrammarDetailFragment : Fragment() {
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(ToeicIntroItem::class.java)
                             introDetail?.let {
-                                toeicIntroItem.add(it)
+                                toeicIntroList.add(it)
                             }
                         }
                         toeicIntroAdapter?.notifyDataSetChanged()
@@ -93,7 +93,7 @@ class GrammarDetailFragment : Fragment() {
                         for (i in grammarDetailData.children) {
                             val introDetail = i.getValue(GrammarDetailItem::class.java)
                             introDetail?.let {
-                                grammarDetailItem.add(it)
+                                grammarDetailList.add(it)
                             }
                         }
                         grammarDetailAdapter?.notifyDataSetChanged()

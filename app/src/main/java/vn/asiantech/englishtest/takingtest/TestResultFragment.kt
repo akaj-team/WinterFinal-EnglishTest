@@ -43,7 +43,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         (activity as TakingTestActivity).apply {
             tvDurationTime.text = chronometer.text.toString()
             tvCorrectAnswer.text = StringBuilder().append(score.toString())
-                .append("/${questionList.size}")
+                .append("/${questionDetailList.size}")
         }
         setTimeAndScore()
     }

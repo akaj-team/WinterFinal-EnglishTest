@@ -223,7 +223,7 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun setValueForMyAnswer() = rgAnswer.setOnCheckedChangeListener { _, _ ->
-        (activity as TakingTestActivity).listQuestionItems[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+        (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
             data?.apply {
                 when {
                     rbAnswerA.isChecked -> {

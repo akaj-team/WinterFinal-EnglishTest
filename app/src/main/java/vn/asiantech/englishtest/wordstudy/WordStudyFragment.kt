@@ -15,7 +15,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordStudyFragment : Fragment() {
 
-    private var wordStudyItem = mutableListOf<WordStudyItem>()
+    private var wordStudyList = mutableListOf<WordStudyItem>()
     private var wordStudyAdapter: WordStudyAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
@@ -31,7 +31,7 @@ class WordStudyFragment : Fragment() {
 
     private fun initRecyclerView() = recycleViewGrammarDetail.apply {
         layoutManager = LinearLayoutManager(activity)
-        wordStudyAdapter = WordStudyAdapter(wordStudyItem)
+        wordStudyAdapter = WordStudyAdapter(wordStudyList)
         adapter = wordStudyAdapter
     }
 
@@ -41,7 +41,7 @@ class WordStudyFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().getReference("wordStudy0${position?.plus(1)}")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("Not impelented")
+                TODO("Not implemented")
             }
 
             override fun onDataChange(wordStudyData: DataSnapshot) {
@@ -49,7 +49,7 @@ class WordStudyFragment : Fragment() {
                 for (i in wordStudyData.children) {
                     val wordDetail = i.getValue(WordStudyItem::class.java)
                     wordDetail?.let {
-                        wordStudyItem.add(it)
+                        wordStudyList.add(it)
                     }
                 }
                 wordStudyAdapter?.notifyDataSetChanged()

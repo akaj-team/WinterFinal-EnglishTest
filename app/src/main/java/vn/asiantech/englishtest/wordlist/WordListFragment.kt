@@ -17,7 +17,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
-    private var wordListItem = arrayListOf<WordListItem>()
+    private var wordList = arrayListOf<WordListItem>()
     private var wordListAdapter: WordListAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
@@ -47,12 +47,12 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         Intent(activity, TakingTestActivity::class.java)
             .putExtra(TestListFragment.ARG_POSITION, position)
             .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-            .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordListItem)
+            .putParcelableArrayListExtra(ARG_LIST_TEST_TITLE, wordList)
     )
 
     private fun initRecyclerView() = recycleViewListReadingTests.apply {
         layoutManager = GridLayoutManager(activity, 2)
-        wordListAdapter = WordListAdapter(wordListItem, this@WordListFragment)
+        wordListAdapter = WordListAdapter(wordList, this@WordListFragment)
         adapter = wordListAdapter
     }
 
@@ -64,7 +64,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
         databaseReference = FirebaseDatabase.getInstance().getReference("testTitle")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("Not impelented")
+                TODO("Not implemented")
             }
 
             override fun onDataChange(wordListData: DataSnapshot) {
@@ -72,7 +72,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
                 for (i in wordListData.children) {
                     val wordList = i.getValue(WordListItem::class.java)
                     wordList?.let {
-                        wordListItem.add(it)
+                        this@WordListFragment.wordList.add(it)
                     }
                 }
                 wordListAdapter?.notifyDataSetChanged()

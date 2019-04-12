@@ -18,7 +18,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
 
     private var grammarListAdapter: GrammarListAdapter? = null
-    private var grammarListItems = arrayListOf<GrammarListItem>()
+    private var grammarList = arrayListOf<GrammarListItem>()
     private var databaseReference: DatabaseReference? = null
 
     companion object {
@@ -46,12 +46,12 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
         Intent(activity, TakingTestActivity::class.java)
             .putExtra(TestListFragment.ARG_POSITION, position)
             .putExtra(TestListFragment.ARG_LEVEL, arguments?.getInt(TestListFragment.ARG_LEVEL))
-            .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarListItems)
+            .putParcelableArrayListExtra(ARG_GRAMMAR_LIST, grammarList)
     )
 
     private fun initRecyclerView() = recycleViewListReadingTests.apply {
         layoutManager = LinearLayoutManager(activity)
-        grammarListAdapter = GrammarListAdapter(grammarListItems, this@GrammarListFragment)
+        grammarListAdapter = GrammarListAdapter(grammarList, this@GrammarListFragment)
         adapter = grammarListAdapter
     }
 
@@ -63,7 +63,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
         databaseReference = FirebaseDatabase.getInstance().getReference("grammar")
         databaseReference?.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("Not impelented")
+                TODO("Not implemented")
             }
 
             override fun onDataChange(grammarData: DataSnapshot) {
@@ -71,7 +71,7 @@ class GrammarListFragment : Fragment(), GrammarListAdapter.OnClickGrammarItem {
                 for (i in grammarData.children) {
                     val grammar = i.getValue(GrammarListItem::class.java)
                     grammar?.let {
-                        grammarListItems.add(it)
+                        grammarList.add(it)
                     }
                 }
                 grammarListAdapter?.notifyDataSetChanged()

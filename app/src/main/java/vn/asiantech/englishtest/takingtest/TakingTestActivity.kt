@@ -36,10 +36,10 @@ import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private var dataReference: DatabaseReference? = null
-    var questionList = arrayListOf<QuestionDetailItem>()
     private var grammarList = mutableListOf<GrammarListItem>()
-    private var testTitleList = mutableListOf<WordListItem>()
-    var listQuestionItems = mutableListOf<QuestionNumberItem>()
+    private var wordList = mutableListOf<WordListItem>()
+    var questionNumberList = mutableListOf<QuestionNumberItem>()
+    var questionDetailList = arrayListOf<QuestionDetailItem>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null
     var score = 0
@@ -159,8 +159,8 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                     initGrammarDetailFragment()
                 }
                 R.id.itemWordStudy -> {
-                    testTitleList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
-                    tvLevel.text = testTitleList[position].testTitle
+                    wordList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
+                    tvLevel.text = wordList[position].testTitle
                     initGrammarDetailFragment()
                 }
             }
@@ -169,7 +169,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         if (level != R.id.itemGrammar && level != R.id.itemWordStudy) {
             dataReference?.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(dataPractice: DatabaseError) {
-                    TODO("Not impelented")
+                    TODO("Not implemented")
                 }
 
                 override fun onDataChange(dataPractice: DataSnapshot) {
@@ -178,11 +178,11 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                     for (i in dataPractice.children) {
                         val question = i.getValue(QuestionDetailItem::class.java)
                         question?.let {
-                            questionList.add(it)
+                            questionDetailList.add(it)
                         }
                     }
                     setListQuestionNumber()
-                    questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionList)
+                    questionDetailPager?.adapter = QuestionDetailAdapter(supportFragmentManager, questionDetailList)
                     chronometer.start()
                 }
             })
@@ -190,8 +190,8 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setListQuestionNumber() {
-        for (i in 0 until questionList.size) {
-            (listQuestionItems as ArrayList<QuestionNumberItem>).add(
+        for (i in 0 until questionDetailList.size) {
+            (questionNumberList as ArrayList<QuestionNumberItem>).add(
                 QuestionNumberItem(
                     when (level) {
                         R.id.itemPart1 -> 1 + i

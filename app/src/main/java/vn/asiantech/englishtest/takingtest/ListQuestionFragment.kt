@@ -38,7 +38,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
     private fun initRecycleView() = recycleViewListQuestions.apply {
         setHasFixedSize(true)
         layoutManager = GridLayoutManager(activity, 5)
-        adapter = ListQuestionAdapter((activity as TakingTestActivity).listQuestionItems, this@ListQuestionFragment)
+        adapter = ListQuestionAdapter((activity as TakingTestActivity).questionNumberList, this@ListQuestionFragment)
     }
 
     private fun onClickSubmit() = btnSubmit.setOnClickListener {
@@ -53,7 +53,7 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
                 chronometer?.visibility = this
                 btnListQuestions?.visibility = this
             }
-            questionList.forEach { listQuestionDetailItem ->
+            questionDetailList.forEach { listQuestionDetailItem ->
                 if (listQuestionDetailItem.correctAnswer == listQuestionDetailItem.myAnswer) {
                     score += 1
                 }

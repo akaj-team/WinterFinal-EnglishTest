@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_test_title.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.WordListItem
+import vn.asiantech.englishtest.model.WordList
 
 class WordListAdapter(
-    private val wordListItem: MutableList<WordListItem>,
+    private val wordList: MutableList<WordList>,
     private val wordListListener: OnWordListClickListener
 ) :
     RecyclerView.Adapter<WordListAdapter.WordListViewHolder>() {
@@ -19,10 +19,10 @@ class WordListAdapter(
         return WordListViewHolder(view)
     }
 
-    override fun getItemCount() = wordListItem.size
+    override fun getItemCount() = wordList.size
 
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) =
-        holder.bindView(wordListItem[position])
+        holder.bindView(wordList[position])
 
     interface OnWordListClickListener {
         fun onClickTestTitle(position: Int)
@@ -32,8 +32,8 @@ class WordListAdapter(
 
         override fun onClick(view: View?) = wordListListener.onClickTestTitle(layoutPosition)
 
-        fun bindView(wordListItem: WordListItem) = with(itemView.tvTestTitle) {
-            text = wordListItem.testTitle
+        fun bindView(wordList: WordList) = with(itemView.tvTestTitle) {
+            text = wordList.testTitle
             setOnClickListener(this@WordListViewHolder)
         }
     }

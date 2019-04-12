@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_taking_test.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.TestListItem
+import vn.asiantech.englishtest.model.TestList
 import java.lang.StringBuilder
 
 class TestResultFragment : Fragment(), View.OnClickListener {
@@ -86,10 +86,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
         val dataTimeAndScore = preferences?.getString("$level", "")
         val gson = GsonBuilder().setPrettyPrinting().create()
         val listTimeandScore =
-            gson.fromJson(dataTimeAndScore, Array<TestListItem>::class.java)?.toList()?.toMutableList()
+            gson.fromJson(dataTimeAndScore, Array<TestList>::class.java)?.toList()?.toMutableList()
                 ?: arrayListOf()
         listTimeandScore.add(
-            TestListItem(
+            TestList(
                 "${getString(R.string.practice)} ${position + 1}",
                 (activity as TakingTestActivity).chronometer.text.toString(),
                 (activity as TakingTestActivity).score.toString()

@@ -10,12 +10,12 @@ import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.WordStudyItem
+import vn.asiantech.englishtest.model.WordStudy
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordStudyFragment : Fragment() {
 
-    private var wordStudyList = mutableListOf<WordStudyItem>()
+    private var wordStudyList = mutableListOf<WordStudy>()
     private var wordStudyAdapter: WordStudyAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
@@ -47,7 +47,7 @@ class WordStudyFragment : Fragment() {
             override fun onDataChange(wordStudyData: DataSnapshot) {
                 (activity as TakingTestActivity).dismissProgressDialog()
                 for (i in wordStudyData.children) {
-                    val wordDetail = i.getValue(WordStudyItem::class.java)
+                    val wordDetail = i.getValue(WordStudy::class.java)
                     wordDetail?.let {
                         wordStudyList.add(it)
                     }

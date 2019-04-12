@@ -24,10 +24,10 @@ import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.GrammarListItem
-import vn.asiantech.englishtest.model.QuestionDetailItem
-import vn.asiantech.englishtest.model.QuestionNumberItem
-import vn.asiantech.englishtest.model.WordListItem
+import vn.asiantech.englishtest.model.GrammarList
+import vn.asiantech.englishtest.model.QuestionDetail
+import vn.asiantech.englishtest.model.QuestionNumber
+import vn.asiantech.englishtest.model.WordList
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
 import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
@@ -36,10 +36,10 @@ import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private var dataReference: DatabaseReference? = null
-    private var grammarList = mutableListOf<GrammarListItem>()
-    private var wordList = mutableListOf<WordListItem>()
-    var questionNumberList = mutableListOf<QuestionNumberItem>()
-    var questionDetailList = arrayListOf<QuestionDetailItem>()
+    private var grammarList = mutableListOf<GrammarList>()
+    private var wordList = mutableListOf<WordList>()
+    var questionNumberList = mutableListOf<QuestionNumber>()
+    var questionDetailList = arrayListOf<QuestionDetail>()
     var progressDialog: ProgressDialog? = null
     var mediaPlayer: MediaPlayer? = null
     var score = 0
@@ -176,7 +176,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                     dismissProgressDialog()
                     notifyNetworkStatus()
                     for (i in dataPractice.children) {
-                        val question = i.getValue(QuestionDetailItem::class.java)
+                        val question = i.getValue(QuestionDetail::class.java)
                         question?.let {
                             questionDetailList.add(it)
                         }
@@ -191,8 +191,8 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setListQuestionNumber() {
         for (i in 0 until questionDetailList.size) {
-            (questionNumberList as ArrayList<QuestionNumberItem>).add(
-                QuestionNumberItem(
+            (questionNumberList as ArrayList<QuestionNumber>).add(
+                QuestionNumber(
                     when (level) {
                         R.id.itemPart1 -> 1 + i
                         R.id.itemPart2 -> 11 + i

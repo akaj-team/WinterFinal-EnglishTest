@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class WordListItem(val testTitle: String = "") : Parcelable
+class WordList(val testTitle: String = "") : Parcelable

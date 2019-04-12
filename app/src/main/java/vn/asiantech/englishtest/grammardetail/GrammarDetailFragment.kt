@@ -11,16 +11,16 @@ import kotlinx.android.synthetic.main.fragment_grammar_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.GrammarDetailItem
-import vn.asiantech.englishtest.model.ToeicIntroItem
+import vn.asiantech.englishtest.model.GrammarDetail
+import vn.asiantech.englishtest.model.ToeicIntro
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class GrammarDetailFragment : Fragment() {
 
     private var grammarDetailAdapter: GrammarDetailAdapter? = null
     private var toeicIntroAdapter: ToeicIntroAdapter? = null
-    private var grammarDetailList = mutableListOf<GrammarDetailItem>()
-    private var toeicIntroList = mutableListOf<ToeicIntroItem>()
+    private var grammarDetailList = mutableListOf<GrammarDetail>()
+    private var toeicIntroList = mutableListOf<ToeicIntro>()
     private var databaseReference: DatabaseReference? = null
     private var level: Int? = null
 
@@ -81,7 +81,7 @@ class GrammarDetailFragment : Fragment() {
                     R.id.itemToeicIntroduction -> {
                         (activity as TestListActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
-                            val introDetail = i.getValue(ToeicIntroItem::class.java)
+                            val introDetail = i.getValue(ToeicIntro::class.java)
                             introDetail?.let {
                                 toeicIntroList.add(it)
                             }
@@ -91,7 +91,7 @@ class GrammarDetailFragment : Fragment() {
                     else -> {
                         (activity as TakingTestActivity).dismissProgressDialog()
                         for (i in grammarDetailData.children) {
-                            val introDetail = i.getValue(GrammarDetailItem::class.java)
+                            val introDetail = i.getValue(GrammarDetail::class.java)
                             introDetail?.let {
                                 grammarDetailList.add(it)
                             }

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_list_test.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.TestListItem
+import vn.asiantech.englishtest.model.TestList
 
 class TestListAdapter(
-    private val listTests: MutableList<TestListItem>,
+    private val listTests: MutableList<TestList>,
     private val listener: OnClickTestItem
 ) :
     RecyclerView.Adapter<TestListAdapter.ListReadingTestViewHolder>() {
@@ -32,7 +32,7 @@ class TestListAdapter(
 
         override fun onClick(v: View?) = listener.onClickTestItem(layoutPosition)
 
-        fun bindView(listItems: TestListItem) {
+        fun bindView(listItems: TestList) {
             with(itemView) {
                 with(listItems) {
                     tvTestName.text = testNumber

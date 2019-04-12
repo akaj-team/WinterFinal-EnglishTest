@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ToeicIntroItem(
-    var introTitle: String = "",
-    var introContent: String = ""
+data class GrammarList (
+    var grammarTitle: String = "",
+    var grammarExample: String = ""
 ) : Parcelable

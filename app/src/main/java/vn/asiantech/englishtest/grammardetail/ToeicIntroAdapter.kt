@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_grammar_detail.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.ToeicIntroItem
+import vn.asiantech.englishtest.model.ToeicIntro
 
-class ToeicIntroAdapter(private val toeicIntroItem: MutableList<ToeicIntroItem>) :
+class ToeicIntroAdapter(private val toeicIntro: MutableList<ToeicIntro>) :
     RecyclerView.Adapter<ToeicIntroAdapter.ToeicIntroViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ToeicIntroViewHolder {
@@ -16,14 +16,14 @@ class ToeicIntroAdapter(private val toeicIntroItem: MutableList<ToeicIntroItem>)
         return ToeicIntroViewHolder(view)
     }
 
-    override fun getItemCount() = toeicIntroItem.size
+    override fun getItemCount() = toeicIntro.size
 
     override fun onBindViewHolder(holder: ToeicIntroViewHolder, position: Int) =
-        holder.bindView(toeicIntroItem[position])
+        holder.bindView(toeicIntro[position])
 
     inner class ToeicIntroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(toeicIntroItem: ToeicIntroItem) = with(itemView) {
-            with(toeicIntroItem) {
+        fun bindView(toeicIntro: ToeicIntro) = with(itemView) {
+            with(toeicIntro) {
                 tvGrammarDetailTitle.text = introTitle
                 tvGrammarDetailDescription.text = introContent
             }

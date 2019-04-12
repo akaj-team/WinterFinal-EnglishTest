@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_word_study.view.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.WordStudyItem
+import vn.asiantech.englishtest.model.WordStudy
 
-class WordStudyAdapter(private val wordStudy: MutableList<WordStudyItem>) :
+class WordStudyAdapter(private val wordStudy: MutableList<WordStudy>) :
     RecyclerView.Adapter<WordStudyAdapter.WordStudyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordStudyViewHolder {
@@ -24,7 +24,7 @@ class WordStudyAdapter(private val wordStudy: MutableList<WordStudyItem>) :
 
     inner class WordStudyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(wordStudy: WordStudyItem) = with(itemView) {
+        fun bindView(wordStudy: WordStudy) = with(itemView) {
             with(wordStudy) {
                 Glide.with(context).load(imageWord).into(imgWordStudy)
                 tvWord.text = word

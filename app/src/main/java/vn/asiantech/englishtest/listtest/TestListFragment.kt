@@ -12,13 +12,13 @@ import android.view.ViewGroup
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
-import vn.asiantech.englishtest.model.TestListItem
+import vn.asiantech.englishtest.model.TestList
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import vn.asiantech.englishtest.takingtest.TestResultFragment
 
 class TestListFragment : Fragment(), TestListAdapter.OnClickTestItem {
 
-    private var testList = mutableListOf<TestListItem>()
+    private var testList = mutableListOf<TestList>()
     private var testAdapter: TestListAdapter? = null
     private var level: Int? = null
 
@@ -81,7 +81,7 @@ class TestListFragment : Fragment(), TestListAdapter.OnClickTestItem {
         val maxTestNumber = 10
         for (i in 0 until maxTestNumber) {
             testList.add(
-                TestListItem(
+                TestList(
                     "${getString(R.string.practice)} ${i + 1}",
                     getString(R.string.timeDefault), getString(R.string.scoreDefault)
                 )
@@ -95,7 +95,7 @@ class TestListFragment : Fragment(), TestListAdapter.OnClickTestItem {
         val json = preferences?.getString("$level", null)
         if (json != null) {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val listTimeandScore = gson.fromJson(json, Array<TestListItem>::class.java).toList()
+            val listTimeandScore = gson.fromJson(json, Array<TestList>::class.java).toList()
             for (testPosition in testList) {
                 for (timeAndScorePosition in listTimeandScore) {
                     if (testPosition.testNumber == timeAndScorePosition.testNumber) {

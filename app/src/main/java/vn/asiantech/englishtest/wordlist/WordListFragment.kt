@@ -12,12 +12,12 @@ import kotlinx.android.synthetic.main.fragment_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListActivity
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.WordListItem
+import vn.asiantech.englishtest.model.WordList
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
 class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
 
-    private var wordList = arrayListOf<WordListItem>()
+    private var wordList = arrayListOf<WordList>()
     private var wordListAdapter: WordListAdapter? = null
     private var databaseReference: DatabaseReference? = null
 
@@ -70,7 +70,7 @@ class WordListFragment : Fragment(), WordListAdapter.OnWordListClickListener {
             override fun onDataChange(wordListData: DataSnapshot) {
                 (activity as TestListActivity).dismissProgressDialog()
                 for (i in wordListData.children) {
-                    val wordList = i.getValue(WordListItem::class.java)
+                    val wordList = i.getValue(WordList::class.java)
                     wordList?.let {
                         this@WordListFragment.wordList.add(it)
                     }

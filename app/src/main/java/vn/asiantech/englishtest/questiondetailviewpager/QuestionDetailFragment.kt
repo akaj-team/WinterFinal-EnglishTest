@@ -16,14 +16,14 @@ import kotlinx.android.synthetic.main.activity_taking_test.*
 import kotlinx.android.synthetic.main.fragment_question_detail.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
-import vn.asiantech.englishtest.model.QuestionDetailItem
+import vn.asiantech.englishtest.model.QuestionDetail
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
 class QuestionDetailFragment : Fragment() {
 
-    private var data: QuestionDetailItem? = null
+    private var data: QuestionDetail? = null
     private var position = -1
     private var level: Int? = null
     private var isDestroy = false
@@ -32,7 +32,7 @@ class QuestionDetailFragment : Fragment() {
         const val ARG_POSITION = "arg_position"
         const val ARG_DATA = "arg_data"
 
-        fun getInstance(position: Int, question: QuestionDetailItem): QuestionDetailFragment =
+        fun getInstance(position: Int, question: QuestionDetail): QuestionDetailFragment =
             QuestionDetailFragment().apply {
                 val bundle = Bundle().apply {
                     putInt(ARG_POSITION, position)
@@ -45,7 +45,7 @@ class QuestionDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         arguments?.let {
             position = it.getInt(ARG_POSITION)
-            data = it.getParcelable(ARG_DATA) as QuestionDetailItem
+            data = it.getParcelable(ARG_DATA) as QuestionDetail
         }
         (activity as TakingTestActivity).apply {
             progressDialog?.dismiss()

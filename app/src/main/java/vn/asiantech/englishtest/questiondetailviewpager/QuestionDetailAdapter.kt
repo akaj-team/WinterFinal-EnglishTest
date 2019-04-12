@@ -3,9 +3,9 @@ package vn.asiantech.englishtest.questiondetailviewpager
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
-import vn.asiantech.englishtest.model.QuestionDetailItem
+import vn.asiantech.englishtest.model.QuestionDetail
 
-class QuestionDetailAdapter(fm: FragmentManager, private var questionList: ArrayList<QuestionDetailItem>) :
+class QuestionDetailAdapter(fm: FragmentManager, private var questionList: ArrayList<QuestionDetail>) :
     FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int) = QuestionDetailFragment.getInstance(position, questionList[position])

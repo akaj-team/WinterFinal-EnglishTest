@@ -44,7 +44,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
     var mediaPlayer: MediaPlayer? = null
     var score = 0
     var review = false
-    var level: Int = -1
+    var level: Int = 0
     var position: Int = -1
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -52,7 +52,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         level = intent.getIntExtra(TestListFragment.ARG_LEVEL, 0)
-        position = intent.getIntExtra(TestListFragment.ARG_POSITION, 0)
+        position = intent.getIntExtra(TestListFragment.ARG_POSITION, -1)
 
         setContentView(R.layout.activity_taking_test)
         window.statusBarColor = resources.getColor(R.color.colorBlue)

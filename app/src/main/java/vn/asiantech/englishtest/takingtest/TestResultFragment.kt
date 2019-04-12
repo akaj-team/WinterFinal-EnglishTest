@@ -19,8 +19,8 @@ import java.lang.StringBuilder
 
 class TestResultFragment : Fragment(), View.OnClickListener {
 
-    private var position: Int? = null
-    private var level: Int? = null
+    private var position = -1
+    private var level = 0
 
     companion object {
         const val KEY_TIME = "key_time"
@@ -69,7 +69,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                             .putExtra(KEY_SCORE, (activity as TakingTestActivity).score.toString())
                             .putExtra(
                                 TestListFragment.ARG_POSITION,
-                                activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, 0)
+                                activity?.intent?.getIntExtra(TestListFragment.ARG_POSITION, -1)
                             )
                     )
                     finish()
@@ -90,7 +90,7 @@ class TestResultFragment : Fragment(), View.OnClickListener {
                 ?: arrayListOf()
         listTimeandScore.add(
             TestListItem(
-                "${getString(R.string.practice)} ${position?.let { it + 1 }}",
+                "${getString(R.string.practice)} ${position + 1}",
                 (activity as TakingTestActivity).chronometer.text.toString(),
                 (activity as TakingTestActivity).score.toString()
             )

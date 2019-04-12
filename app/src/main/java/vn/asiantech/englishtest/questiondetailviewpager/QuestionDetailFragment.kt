@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 class QuestionDetailFragment : Fragment() {
 
     private var data: QuestionDetailItem? = null
-    private var position = 0
+    private var position = -1
     private var level: Int? = null
     private var isDestroy = false
 

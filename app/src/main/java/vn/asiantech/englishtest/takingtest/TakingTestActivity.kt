@@ -14,11 +14,15 @@ import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.CompoundButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_test.*
+import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
@@ -29,6 +33,7 @@ import vn.asiantech.englishtest.model.QuestionDetail
 import vn.asiantech.englishtest.model.QuestionNumber
 import vn.asiantech.englishtest.model.WordList
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
+import vn.asiantech.englishtest.settings.SettingFragment
 import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
@@ -46,6 +51,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
     var review = false
     var level: Int = 0
     var position: Int = -1
+    var isSwitchAnswerOn = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,6 +168,15 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                     wordList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
                     tvLevel.text = wordList[position].testTitle
                     initGrammarDetailFragment()
+                }
+                else -> {
+                    dismissProgressDialog()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frListQuestions, SettingFragment())
+                        commit()
+                    }
+                    frListQuestions.visibility = View.VISIBLE
+                    tvLevel.text = getString(R.string.settings)
                 }
             }
         }

@@ -5,6 +5,7 @@ package vn.asiantech.englishtest.listtest
 import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_list_test.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
 import vn.asiantech.englishtest.grammarlist.GrammarListFragment
+import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import vn.asiantech.englishtest.wordlist.WordListFragment
 
 class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +39,7 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         initDrawerLayout()
         initReferenceFragment(GrammarDetailFragment.getInstance(R.id.itemToeicIntroduction))
         window.statusBarColor = resources.getColor(R.color.colorBlue)
+        onClickSetting()
     }
 
     override fun onBackPressed() = when {
@@ -163,6 +166,12 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 dismissProgressDialog()
                 Toast.makeText(this, getString(R.string.networkNotification), Toast.LENGTH_LONG).show()
             }, 5000)
+        }
+    }
+
+    private fun onClickSetting(){
+        btnSetting.setOnClickListener {
+            startActivity(Intent(this, TakingTestActivity::class.java))
         }
     }
 }

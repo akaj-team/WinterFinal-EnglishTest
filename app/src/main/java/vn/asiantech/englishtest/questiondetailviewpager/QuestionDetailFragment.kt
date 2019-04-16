@@ -1,12 +1,14 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +23,48 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
-class QuestionDetailFragment : Fragment() {
+class QuestionDetailFragment : Fragment(), View.OnClickListener {
+    override fun onClick(v: View?) {
+        (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+            data?.apply {
+                myAnswer = answerA
+
+                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                    rbAnswerA.text = answerA
+                    rbAnswerB.text = answerB
+                    rbAnswerC.text = answerC
+                    rbAnswerD.text = answerD
+                    tvQuestionContent.text =
+                        if (level == R.id.itemPart2) questionDetail else questionContent
+                } else {
+                    cardViewExplanation.visibility = View.VISIBLE
+                }
+                with(this) {
+                    if (myAnswer != correctAnswer) {
+                        when (correctAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                        }
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.RED)
+                        }
+                    }
+                }
+                with(false) {
+                    rbAnswerA.isClickable = this
+                    rbAnswerB.isClickable = this
+                    rbAnswerC.isClickable = this
+                    rbAnswerD.isClickable = this
+                }
+
+            }
+        }
+    }
 
     private var data: QuestionDetail? = null
     private var position = -1
@@ -62,7 +105,13 @@ class QuestionDetailFragment : Fragment() {
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
         showView()
-        setValueForMyAnswer()
+        val switchState = activity?.getSharedPreferences("switchcase", Context.MODE_PRIVATE)
+        val isSwitchAnswer = switchState?.getBoolean("switchState", false)
+        Log.i("xxx", isSwitchAnswer.toString())
+        if (isSwitchAnswer == true) {
+            onClickOptions()
+        } else
+            setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
     }
@@ -245,6 +294,13 @@ class QuestionDetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onClickOptions() {
+        rbAnswerA.setOnClickListener(this)
+        rbAnswerB.setOnClickListener(this)
+        rbAnswerC.setOnClickListener(this)
+        rbAnswerD.setOnClickListener(this)
     }
 
     private fun seekBarChangeListener() =

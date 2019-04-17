@@ -11,5 +11,6 @@ data class WordStudy(
     val definition: String = "",
     val meaning: String = "",
     val example: String = "",
-    val translation: String = ""
+    val translation: String = "",
+    val audio : String = ""
 ) : Parcelable

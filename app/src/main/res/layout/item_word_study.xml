@@ -36,6 +36,14 @@
                     android:textColor="@color/colorRed"
                     android:textSize="@dimen/dimen18dp"/>
 
+            <Button android:layout_width="@dimen/dimen25dp"
+                    android:layout_height="@dimen/dimen25dp"
+                    android:padding="@dimen/dimen10dp"
+                    android:id="@+id/btnSound"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dimen20dp"
+                    android:background="@drawable/ic_volume_up_black_18dp"/>
+
         </LinearLayout>
 
         <RelativeLayout

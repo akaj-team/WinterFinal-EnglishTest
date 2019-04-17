@@ -14,15 +14,11 @@ import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.CompoundButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_test.*
-import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
@@ -72,6 +68,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is GrammarDetailFragment -> finish()
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is WordStudyFragment -> finish()
+        supportFragmentManager.findFragmentById(R.id.frListQuestions) is SettingFragment -> finish()
         frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
             animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
             visibility = View.GONE
@@ -175,6 +172,8 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                         replace(R.id.frListQuestions, SettingFragment())
                         commit()
                     }
+                    chronometer.visibility = View.INVISIBLE
+                    btnListQuestions.visibility = View.INVISIBLE
                     frListQuestions.visibility = View.VISIBLE
                     tvLevel.text = getString(R.string.settings)
                 }

@@ -1,5 +1,7 @@
 package vn.asiantech.englishtest.wordstudy
 
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +15,8 @@ import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.WordStudy
 import vn.asiantech.englishtest.takingtest.TakingTestActivity
 
-class WordStudyFragment : Fragment() {
+@Suppress("DEPRECATION")
+class WordStudyFragment : Fragment(), WordStudyAdapter.OnClickWordAudio {
 
     private var wordStudyList = mutableListOf<WordStudy>()
     private var wordStudyAdapter: WordStudyAdapter? = null
@@ -29,9 +32,21 @@ class WordStudyFragment : Fragment() {
         initData()
     }
 
+    override fun onClickWordAudio(position: Int) {
+        (activity as TakingTestActivity).apply {
+            mediaPlayer = MediaPlayer()
+            mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer?.apply {
+                setDataSource(wordStudyList[position].audio)
+                setOnPreparedListener { mp -> mp.start() }
+                prepare()
+            }
+        }
+    }
+
     private fun initRecyclerView() = recycleViewGrammarDetail.apply {
         layoutManager = LinearLayoutManager(activity)
-        wordStudyAdapter = WordStudyAdapter(wordStudyList)
+        wordStudyAdapter = WordStudyAdapter(wordStudyList, this@WordStudyFragment)
         adapter = wordStudyAdapter
     }
 

@@ -8,7 +8,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,48 +22,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
-class QuestionDetailFragment : Fragment(), View.OnClickListener {
-    override fun onClick(v: View?) {
-        (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
-            data?.apply {
-                myAnswer = answerA
-
-                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                    rbAnswerA.text = answerA
-                    rbAnswerB.text = answerB
-                    rbAnswerC.text = answerC
-                    rbAnswerD.text = answerD
-                    tvQuestionContent.text =
-                        if (level == R.id.itemPart2) questionDetail else questionContent
-                } else {
-                    cardViewExplanation.visibility = View.VISIBLE
-                }
-                with(this) {
-                    if (myAnswer != correctAnswer) {
-                        when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
-                        }
-                        when (myAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.RED)
-                        }
-                    }
-                }
-                with(false) {
-                    rbAnswerA.isClickable = this
-                    rbAnswerB.isClickable = this
-                    rbAnswerC.isClickable = this
-                    rbAnswerD.isClickable = this
-                }
-
-            }
-        }
-    }
+class QuestionDetailFragment : Fragment() {
 
     private var data: QuestionDetail? = null
     private var position = -1
@@ -107,7 +65,6 @@ class QuestionDetailFragment : Fragment(), View.OnClickListener {
         showView()
         val switchState = activity?.getSharedPreferences("switchcase", Context.MODE_PRIVATE)
         val isSwitchAnswer = switchState?.getBoolean("switchState", false)
-        Log.i("xxx", isSwitchAnswer.toString())
         if (isSwitchAnswer == true) {
             onClickOptions()
         } else
@@ -297,10 +254,158 @@ class QuestionDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickOptions() {
-        rbAnswerA.setOnClickListener(this)
-        rbAnswerB.setOnClickListener(this)
-        rbAnswerC.setOnClickListener(this)
-        rbAnswerD.setOnClickListener(this)
+        rbAnswerA.setOnClickListener {
+            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+                data?.apply {
+                    myAnswer = answerA
+                    isQuestionChecked = true
+                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text =
+                            if (level == R.id.itemPart2) questionDetail else questionContent
+                    } else {
+                        cardViewExplanation.visibility = View.VISIBLE
+                    }
+                    with(this) {
+                        if (myAnswer != correctAnswer) {
+                            when (correctAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                            }
+                            when (myAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.RED)
+                            }
+                        }
+                    }
+                    with(false) {
+                        rbAnswerA.isClickable = this
+                        rbAnswerB.isClickable = this
+                        rbAnswerC.isClickable = this
+                        rbAnswerD.isClickable = this
+                    }
+
+                }
+            }
+        }
+        rbAnswerB.setOnClickListener {
+            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+                data?.apply {
+                    myAnswer = answerB
+                    isQuestionChecked = true
+                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text =
+                            if (level == R.id.itemPart2) questionDetail else questionContent
+                    } else {
+                        cardViewExplanation.visibility = View.VISIBLE
+                    }
+                    with(this) {
+                        if (myAnswer != correctAnswer) {
+                            when (correctAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                            }
+                            when (myAnswer) {
+                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.RED)
+                            }
+                        }
+                    }
+                    with(false) {
+                        rbAnswerA.isClickable = this
+                        rbAnswerB.isClickable = this
+                        rbAnswerC.isClickable = this
+                        rbAnswerD.isClickable = this
+                    }
+
+                }
+            }
+        }
+        rbAnswerC.setOnClickListener {
+            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+                data?.apply {
+                    myAnswer = answerC
+                    isQuestionChecked = true
+                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text =
+                            if (level == R.id.itemPart2) questionDetail else questionContent
+                    } else {
+                        cardViewExplanation.visibility = View.VISIBLE
+                    }
+                    with(this) {
+                        if (myAnswer != correctAnswer) {
+                            when (correctAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                            }
+                            when (myAnswer) {
+                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.RED)
+                            }
+                        }
+                    }
+                    with(false) {
+                        rbAnswerA.isClickable = this
+                        rbAnswerB.isClickable = this
+                        rbAnswerC.isClickable = this
+                        rbAnswerD.isClickable = this
+                    }
+
+                }
+            }
+        }
+        rbAnswerD.setOnClickListener {
+            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+                data?.apply {
+                    myAnswer = answerD
+                    isQuestionChecked = true
+                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                        rbAnswerA.text = answerA
+                        rbAnswerB.text = answerB
+                        rbAnswerC.text = answerC
+                        rbAnswerD.text = answerD
+                        tvQuestionContent.text =
+                            if (level == R.id.itemPart2) questionDetail else questionContent
+                    } else {
+                        cardViewExplanation.visibility = View.VISIBLE
+                    }
+                    with(this) {
+                        if (myAnswer != correctAnswer) {
+                            when (correctAnswer) {
+                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                            }
+                            when (myAnswer) {
+                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.RED)
+                            }
+                        }
+                    }
+                    with(false) {
+                        rbAnswerA.isClickable = this
+                        rbAnswerB.isClickable = this
+                        rbAnswerC.isClickable = this
+                        rbAnswerD.isClickable = this
+                    }
+
+                }
+            }
+        }
     }
 
     private fun seekBarChangeListener() =

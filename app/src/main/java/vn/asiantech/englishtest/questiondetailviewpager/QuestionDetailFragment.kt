@@ -22,7 +22,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
-class QuestionDetailFragment : Fragment() {
+class QuestionDetailFragment : Fragment(), View.OnClickListener {
 
     private var data: QuestionDetail? = null
     private var position = -1
@@ -71,6 +71,31 @@ class QuestionDetailFragment : Fragment() {
             setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.rbAnswerA -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerA
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerB -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerB
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerC -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerC
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerD -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerD
+                showAnswerAfterOnClick()
+            }
+        }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -254,26 +279,10 @@ class QuestionDetailFragment : Fragment() {
     }
 
     private fun onClickOptions() {
-        rbAnswerA.setOnClickListener {
-            data?.myAnswer =
-                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerA
-            showAnswerAfterOnClick()
-        }
-        rbAnswerB.setOnClickListener {
-            data?.myAnswer =
-                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerB
-            showAnswerAfterOnClick()
-        }
-        rbAnswerC.setOnClickListener {
-            data?.myAnswer =
-                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerC
-            showAnswerAfterOnClick()
-        }
-        rbAnswerD.setOnClickListener {
-            data?.myAnswer =
-                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerD
-            showAnswerAfterOnClick()
-        }
+        rbAnswerA.setOnClickListener(this)
+        rbAnswerB.setOnClickListener(this)
+        rbAnswerC.setOnClickListener(this)
+        rbAnswerD.setOnClickListener(this)
     }
 
     private fun showAnswerAfterOnClick() {
@@ -312,7 +321,6 @@ class QuestionDetailFragment : Fragment() {
                     rbAnswerC.isClickable = this
                     rbAnswerD.isClickable = this
                 }
-
             }
         }
     }

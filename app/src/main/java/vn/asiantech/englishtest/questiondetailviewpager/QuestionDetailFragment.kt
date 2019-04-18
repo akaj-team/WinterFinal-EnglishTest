@@ -255,155 +255,64 @@ class QuestionDetailFragment : Fragment() {
 
     private fun onClickOptions() {
         rbAnswerA.setOnClickListener {
-            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
-                data?.apply {
-                    myAnswer = answerA
-                    isQuestionChecked = true
-                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text =
-                            if (level == R.id.itemPart2) questionDetail else questionContent
-                    } else {
-                        cardViewExplanation.visibility = View.VISIBLE
-                    }
-                    with(this) {
-                        if (myAnswer != correctAnswer) {
-                            when (correctAnswer) {
-                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
-                            }
-                            when (myAnswer) {
-                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.RED)
-                            }
-                        }
-                    }
-                    with(false) {
-                        rbAnswerA.isClickable = this
-                        rbAnswerB.isClickable = this
-                        rbAnswerC.isClickable = this
-                        rbAnswerD.isClickable = this
-                    }
-
-                }
-            }
+            data?.myAnswer =
+                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerA
+            showAnswerAfterOnClick()
         }
         rbAnswerB.setOnClickListener {
-            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
-                data?.apply {
-                    myAnswer = answerB
-                    isQuestionChecked = true
-                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text =
-                            if (level == R.id.itemPart2) questionDetail else questionContent
-                    } else {
-                        cardViewExplanation.visibility = View.VISIBLE
-                    }
-                    with(this) {
-                        if (myAnswer != correctAnswer) {
-                            when (correctAnswer) {
-                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
-                            }
-                            when (myAnswer) {
-                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.RED)
-                            }
-                        }
-                    }
-                    with(false) {
-                        rbAnswerA.isClickable = this
-                        rbAnswerB.isClickable = this
-                        rbAnswerC.isClickable = this
-                        rbAnswerD.isClickable = this
-                    }
-
-                }
-            }
+            data?.myAnswer =
+                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerB
+            showAnswerAfterOnClick()
         }
         rbAnswerC.setOnClickListener {
-            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
-                data?.apply {
-                    myAnswer = answerC
-                    isQuestionChecked = true
-                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text =
-                            if (level == R.id.itemPart2) questionDetail else questionContent
-                    } else {
-                        cardViewExplanation.visibility = View.VISIBLE
-                    }
-                    with(this) {
-                        if (myAnswer != correctAnswer) {
-                            when (correctAnswer) {
-                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
-                            }
-                            when (myAnswer) {
-                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.RED)
-                            }
-                        }
-                    }
-                    with(false) {
-                        rbAnswerA.isClickable = this
-                        rbAnswerB.isClickable = this
-                        rbAnswerC.isClickable = this
-                        rbAnswerD.isClickable = this
-                    }
-
-                }
-            }
+            data?.myAnswer =
+                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerC
+            showAnswerAfterOnClick()
         }
         rbAnswerD.setOnClickListener {
-            (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
-                data?.apply {
-                    myAnswer = answerD
-                    isQuestionChecked = true
-                    if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text =
-                            if (level == R.id.itemPart2) questionDetail else questionContent
-                    } else {
-                        cardViewExplanation.visibility = View.VISIBLE
-                    }
-                    with(this) {
-                        if (myAnswer != correctAnswer) {
-                            when (correctAnswer) {
-                                answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
-                            }
-                            when (myAnswer) {
-                                answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.RED)
-                            }
+            data?.myAnswer =
+                (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerD
+            showAnswerAfterOnClick()
+        }
+    }
+
+    private fun showAnswerAfterOnClick() {
+        (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+            data?.apply {
+                isQuestionChecked = true
+                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                    rbAnswerA.text = answerA
+                    rbAnswerB.text = answerB
+                    rbAnswerC.text = answerC
+                    rbAnswerD.text = answerD
+                    tvQuestionContent.text =
+                        if (level == R.id.itemPart2) questionDetail else questionContent
+                } else {
+                    cardViewExplanation.visibility = View.VISIBLE
+                }
+                with(this) {
+                    if (myAnswer != correctAnswer) {
+                        when (correctAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                        }
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
                         }
                     }
-                    with(false) {
-                        rbAnswerA.isClickable = this
-                        rbAnswerB.isClickable = this
-                        rbAnswerC.isClickable = this
-                        rbAnswerD.isClickable = this
-                    }
-
                 }
+                with(false) {
+                    rbAnswerA.isClickable = this
+                    rbAnswerB.isClickable = this
+                    rbAnswerC.isClickable = this
+                    rbAnswerD.isClickable = this
+                }
+
             }
         }
     }

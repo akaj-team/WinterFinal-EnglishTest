@@ -172,8 +172,10 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                         replace(R.id.frListQuestions, SettingFragment())
                         commit()
                     }
-                    chronometer.visibility = View.INVISIBLE
-                    btnListQuestions.visibility = View.INVISIBLE
+                    with(View.INVISIBLE) {
+                        chronometer.visibility = this
+                        btnListQuestions.visibility = this
+                    }
                     frListQuestions.visibility = View.VISIBLE
                     tvLevel.text = getString(R.string.settings)
                 }

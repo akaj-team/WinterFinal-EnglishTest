@@ -175,41 +175,7 @@ class QuestionDetailFragment : Fragment(), View.OnClickListener {
             }
         }
         if ((activity as TakingTestActivity).review) {
-            if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                data?.let { it1 ->
-                    with(it1) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
-                    }
-                }
-            } else {
-                cardViewExplanation.visibility = View.VISIBLE
-            }
-            with(it) {
-                if (myAnswer != correctAnswer) {
-                    when (correctAnswer) {
-                        answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                    }
-                    when (myAnswer) {
-                        answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                        answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                        answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                        answerD -> rbAnswerD.setBackgroundColor(Color.RED)
-                    }
-                }
-            }
-            with(false) {
-                rbAnswerA.isClickable = this
-                rbAnswerB.isClickable = this
-                rbAnswerC.isClickable = this
-                rbAnswerD.isClickable = this
-            }
+            showAnswerAfterOnClick()
         }
     }
 
@@ -302,10 +268,10 @@ class QuestionDetailFragment : Fragment(), View.OnClickListener {
                 with(this) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerB -> rbAnswerB.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerC -> rbAnswerC.setBackgroundColor(android.graphics.Color.GREEN)
-                            answerD -> rbAnswerD.setBackgroundColor(android.graphics.Color.GREEN)
+                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
                         }
                         when (myAnswer) {
                             answerA -> rbAnswerA.setBackgroundColor(Color.RED)

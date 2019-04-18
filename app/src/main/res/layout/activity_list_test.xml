@@ -22,7 +22,17 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:elevation="4dp"
-                tools:targetApi="lollipop"/>
+                tools:targetApi="lollipop">
+
+            <Button
+                    android:layout_width="@dimen/dimen25dp"
+                    android:layout_height="@dimen/dimen25dp"
+                    android:layout_marginLeft="310dp"
+                    android:layout_marginRight="@dimen/dimen20dp"
+                    android:background="@drawable/ic_settings_white_18dp"
+                    android:id="@+id/btnSetting"/>
+
+        </android.support.v7.widget.Toolbar>
 
         <FrameLayout
                 android:background="@drawable/bg_fragment_list_test"

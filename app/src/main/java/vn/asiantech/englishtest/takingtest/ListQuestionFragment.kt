@@ -26,6 +26,9 @@ class ListQuestionFragment : Fragment(), ListQuestionAdapter.OnClickQuestionNumb
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
         onClickSubmit()
+        if ((activity as TakingTestActivity).review) {
+            btnSubmit.visibility = View.GONE
+        }
     }
 
     override fun onClickQuestionNumber(position: Int) {

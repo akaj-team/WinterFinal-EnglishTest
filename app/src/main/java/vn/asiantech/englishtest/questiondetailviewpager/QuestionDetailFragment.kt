@@ -1,6 +1,7 @@
 package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -21,7 +22,7 @@ import vn.asiantech.englishtest.takingtest.TakingTestActivity
 import java.text.SimpleDateFormat
 
 @Suppress("DEPRECATION")
-class QuestionDetailFragment : Fragment() {
+class QuestionDetailFragment : Fragment(), View.OnClickListener {
 
     private var data: QuestionDetail? = null
     private var position = -1
@@ -62,9 +63,39 @@ class QuestionDetailFragment : Fragment() {
             mediaPlayer?.setAudioStreamType(AudioManager.STREAM_MUSIC)
         }
         showView()
-        setValueForMyAnswer()
+        val switchState = activity?.getSharedPreferences("switchcase", Context.MODE_PRIVATE)
+        val isSwitchAnswer = switchState?.getBoolean("switchState", false)
+        if (isSwitchAnswer == true) {
+            onClickOptions()
+        } else
+            setValueForMyAnswer()
         onClickPlayAudio()
         setDataFirebase()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.rbAnswerA -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerA
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerB -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerB
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerC -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerC
+                showAnswerAfterOnClick()
+            }
+            R.id.rbAnswerD -> {
+                data?.myAnswer =
+                    (activity as TakingTestActivity).questionDetailList[(activity as TakingTestActivity).questionDetailPager.currentItem].answerD
+                showAnswerAfterOnClick()
+            }
+        }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -144,41 +175,7 @@ class QuestionDetailFragment : Fragment() {
             }
         }
         if ((activity as TakingTestActivity).review) {
-            if (level == R.id.itemPart1 || level == R.id.itemPart2) {
-                data?.let { it1 ->
-                    with(it1) {
-                        rbAnswerA.text = answerA
-                        rbAnswerB.text = answerB
-                        rbAnswerC.text = answerC
-                        rbAnswerD.text = answerD
-                        tvQuestionContent.text = if (level == R.id.itemPart2) questionDetail else questionContent
-                    }
-                }
-            } else {
-                cardViewExplanation.visibility = View.VISIBLE
-            }
-            with(it) {
-                if (myAnswer != correctAnswer) {
-                    when (correctAnswer) {
-                        answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                        answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                    }
-                    when (myAnswer) {
-                        answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                        answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                        answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                        answerD -> rbAnswerD.setBackgroundColor(Color.RED)
-                    }
-                }
-            }
-            with(false) {
-                rbAnswerA.isClickable = this
-                rbAnswerB.isClickable = this
-                rbAnswerC.isClickable = this
-                rbAnswerD.isClickable = this
-            }
+            showAnswerAfterOnClick()
         }
     }
 
@@ -242,6 +239,53 @@ class QuestionDetailFragment : Fragment() {
                         myAnswer = answerD
                         isQuestionChecked = true
                     }
+                }
+            }
+        }
+    }
+
+    private fun onClickOptions() {
+        rbAnswerA.setOnClickListener(this)
+        rbAnswerB.setOnClickListener(this)
+        rbAnswerC.setOnClickListener(this)
+        rbAnswerD.setOnClickListener(this)
+    }
+
+    private fun showAnswerAfterOnClick() {
+        (activity as TakingTestActivity).questionNumberList[(activity as TakingTestActivity).questionDetailPager.currentItem].apply {
+            data?.apply {
+                isQuestionChecked = true
+                if (level == R.id.itemPart1 || level == R.id.itemPart2) {
+                    rbAnswerA.text = answerA
+                    rbAnswerB.text = answerB
+                    rbAnswerC.text = answerC
+                    rbAnswerD.text = answerD
+                    tvQuestionContent.text =
+                        if (level == R.id.itemPart2) questionDetail else questionContent
+                } else {
+                    cardViewExplanation.visibility = View.VISIBLE
+                }
+                with(this) {
+                    if (myAnswer != correctAnswer) {
+                        when (correctAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                        }
+                        when (myAnswer) {
+                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
+                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
+                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
+                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                        }
+                    }
+                }
+                with(false) {
+                    rbAnswerA.isClickable = this
+                    rbAnswerB.isClickable = this
+                    rbAnswerC.isClickable = this
+                    rbAnswerD.isClickable = this
                 }
             }
         }

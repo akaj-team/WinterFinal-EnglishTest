@@ -57,4 +57,9 @@
     <string name="wordStudy">Word Study</string>
     <string name="study">Study</string>
     <string name="networkNotification">No Internet connection!</string>
+    <string name="settings">Settings</string>
+    <string name="showAnswer">Show Answer</string>
+    <string name="switchShowAnswer">Switch on to show correct answers and explanations immediately after selecting
+        answers
+    </string>
 </resources>

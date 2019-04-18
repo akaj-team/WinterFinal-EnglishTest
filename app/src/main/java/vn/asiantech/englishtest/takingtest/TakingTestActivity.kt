@@ -29,6 +29,7 @@ import vn.asiantech.englishtest.model.QuestionDetail
 import vn.asiantech.englishtest.model.QuestionNumber
 import vn.asiantech.englishtest.model.WordList
 import vn.asiantech.englishtest.questiondetailviewpager.QuestionDetailAdapter
+import vn.asiantech.englishtest.settings.SettingFragment
 import vn.asiantech.englishtest.wordlist.WordListFragment
 import vn.asiantech.englishtest.wordstudy.WordStudyFragment
 
@@ -46,6 +47,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
     var review = false
     var level: Int = 0
     var position: Int = -1
+    var isSwitchAnswerOn = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +68,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is TestResultFragment -> setResult()
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is GrammarDetailFragment -> finish()
         supportFragmentManager.findFragmentById(R.id.frListQuestions) is WordStudyFragment -> finish()
+        supportFragmentManager.findFragmentById(R.id.frListQuestions) is SettingFragment -> finish()
         frListQuestions.visibility == View.VISIBLE -> with(frListQuestions) {
             animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out_bottom)
             visibility = View.GONE
@@ -162,6 +165,19 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                     wordList = intent.getParcelableArrayListExtra(WordListFragment.ARG_LIST_TEST_TITLE)
                     tvLevel.text = wordList[position].testTitle
                     initGrammarDetailFragment()
+                }
+                else -> {
+                    dismissProgressDialog()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frListQuestions, SettingFragment())
+                        commit()
+                    }
+                    with(View.INVISIBLE) {
+                        chronometer.visibility = this
+                        btnListQuestions.visibility = this
+                    }
+                    frListQuestions.visibility = View.VISIBLE
+                    tvLevel.text = getString(R.string.settings)
                 }
             }
         }

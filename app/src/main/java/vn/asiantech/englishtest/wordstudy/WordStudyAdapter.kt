@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_word_study.view.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.model.WordStudy
 
-class WordStudyAdapter(private val wordStudy: MutableList<WordStudy>) :
+class WordStudyAdapter(private val wordStudy: MutableList<WordStudy>, private val listener : OnClickWordAudio) :
     RecyclerView.Adapter<WordStudyAdapter.WordStudyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): WordStudyViewHolder {
@@ -33,7 +33,14 @@ class WordStudyAdapter(private val wordStudy: MutableList<WordStudy>) :
                 tvMeaning.text = meaning
                 tvExample.text = example
                 tvTranslation.text = translation
+                btnSound.setOnClickListener {
+                    listener.onClickWordAudio(layoutPosition)
+                }
             }
         }
+    }
+
+    interface OnClickWordAudio {
+        fun onClickWordAudio(position: Int)
     }
 }

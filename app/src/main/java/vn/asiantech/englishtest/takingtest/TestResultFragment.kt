@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.listtest.TestListFragment
 import vn.asiantech.englishtest.model.TestList
-import java.lang.StringBuilder
 
 class TestResultFragment : Fragment(), View.OnClickListener {
 
@@ -52,7 +51,10 @@ class TestResultFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btnReview -> {
-                (activity as TakingTestActivity).review = true
+                (activity as TakingTestActivity).apply {
+                    review = true
+                    btnListQuestions.visibility = View.VISIBLE
+                }
                 activity?.apply {
                     frListQuestions?.visibility = View.GONE
                     questionDetailPager.apply {

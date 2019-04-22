@@ -15,7 +15,7 @@
               android:layout_marginTop="10dp"
               android:textSize="@dimen/dimen18dp"
               android:drawablePadding="@dimen/dimen10dp"
-              android:drawableLeft="@drawable/ic_rate_review_black_18dp"/>
+              android:drawableLeft="@drawable/ic_rate_review_black_24dp"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"

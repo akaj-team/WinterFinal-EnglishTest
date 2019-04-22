@@ -2,6 +2,7 @@
 
 package vn.asiantech.englishtest.takingtest
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
@@ -14,11 +15,13 @@ import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_taking_test.*
+import kotlinx.android.synthetic.main.fragment_notify_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_test_result.*
 import vn.asiantech.englishtest.R
 import vn.asiantech.englishtest.grammardetail.GrammarDetailFragment
@@ -172,7 +175,7 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
                         replace(R.id.frListQuestions, SettingFragment())
                         commit()
                     }
-                    with(View.INVISIBLE) {
+                    with(View.GONE) {
                         chronometer.visibility = this
                         btnListQuestions.visibility = this
                     }
@@ -239,18 +242,17 @@ class TakingTestActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun initAlertDialog() = AlertDialog.Builder(this).create().apply {
-        setTitle(getString(R.string.confirmExit))
-        setMessage(getString(R.string.doYouWantToExit))
-        setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.no))
-        { dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-        setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes))
-        { _, _ ->
+    @SuppressLint("InflateParams")
+    private fun initAlertDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.fragment_notify_dialog, null)
+        val dialog = AlertDialog.Builder(this).setView(dialogView)
+        val alertDialog = dialog.show()
+        dialogView.btnStay.setOnClickListener { alertDialog.dismiss() }
+        dialogView.btnLeave.setOnClickListener {
+            alertDialog.dismiss()
             finish()
         }
-    }.show()
+    }
 
     private fun initProgressDialog() = progressDialog?.apply {
         setProgressStyle(ProgressDialog.STYLE_SPINNER)

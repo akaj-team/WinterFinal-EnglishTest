@@ -2,7 +2,6 @@ package vn.asiantech.englishtest.questiondetailviewpager
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -268,16 +267,32 @@ class QuestionDetailFragment : Fragment(), View.OnClickListener {
                 with(this) {
                     if (myAnswer != correctAnswer) {
                         when (correctAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerB -> rbAnswerB.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerC -> rbAnswerC.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
-                            answerD -> rbAnswerD.setBackgroundColor(if (myAnswer.isBlank()) Color.YELLOW else Color.GREEN)
+                            answerA -> rbAnswerA.setBackgroundColor(
+                                if (myAnswer.isBlank()) resources.getColor(R.color.colorOrange) else resources.getColor(
+                                    R.color.colorBlueAnswer
+                                )
+                            )
+                            answerB -> rbAnswerB.setBackgroundColor(
+                                if (myAnswer.isBlank()) resources.getColor(R.color.colorOrange) else resources.getColor(
+                                    R.color.colorBlueAnswer
+                                )
+                            )
+                            answerC -> rbAnswerC.setBackgroundColor(
+                                if (myAnswer.isBlank()) resources.getColor(R.color.colorOrange) else resources.getColor(
+                                    R.color.colorBlueAnswer
+                                )
+                            )
+                            answerD -> rbAnswerD.setBackgroundColor(
+                                if (myAnswer.isBlank()) resources.getColor(R.color.colorOrange) else resources.getColor(
+                                    R.color.colorBlueAnswer
+                                )
+                            )
                         }
                         when (myAnswer) {
-                            answerA -> rbAnswerA.setBackgroundColor(Color.RED)
-                            answerB -> rbAnswerB.setBackgroundColor(Color.RED)
-                            answerC -> rbAnswerC.setBackgroundColor(Color.RED)
-                            answerD -> rbAnswerD.setBackgroundColor(Color.RED)
+                            answerA -> rbAnswerA.setBackgroundColor(resources.getColor(R.color.colorPink))
+                            answerB -> rbAnswerB.setBackgroundColor(resources.getColor(R.color.colorPink))
+                            answerC -> rbAnswerC.setBackgroundColor(resources.getColor(R.color.colorPink))
+                            answerD -> rbAnswerD.setBackgroundColor(resources.getColor(R.color.colorPink))
                         }
                     }
                 }

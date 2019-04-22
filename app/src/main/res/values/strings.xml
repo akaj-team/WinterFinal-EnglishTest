@@ -62,4 +62,8 @@
     <string name="switchShowAnswer">Switch on to show correct answers and explanations immediately after selecting
         answers
     </string>
+    <string name="endTest">End Test</string>
+    <string name="doYouWantToLeaveThisTest">Do you want to leave this test without submitting?</string>
+    <string name="stay">Stay</string>
+    <string name="leave">Leave</string>
 </resources>

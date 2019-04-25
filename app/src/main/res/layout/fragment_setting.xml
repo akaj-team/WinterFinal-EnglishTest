@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dimen30dp"
             android:layout_marginStart="@dimen/dimen10dp"
-            android:src="@drawable/img_header_avatar"/>
+            android:src="@drawable/ic_ques"/>
 
     <LinearLayout
             android:layout_weight="5"

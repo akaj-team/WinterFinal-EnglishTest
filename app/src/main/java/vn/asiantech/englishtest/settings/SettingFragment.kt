@@ -20,10 +20,10 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isSwitchOnOrOff()
+        setSwitchState()
     }
 
-    private fun isSwitchOnOrOff() {
+    private fun setSwitchState() {
         val switchState = activity?.getSharedPreferences("switchcase", Context.MODE_PRIVATE)
         val isSwitchChecked = switchState?.getBoolean("switchState", false)
         if(isSwitchChecked == true) {

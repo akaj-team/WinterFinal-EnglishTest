@@ -169,9 +169,7 @@ class TestListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
-    private fun onClickSetting(){
-        btnSetting.setOnClickListener {
-            startActivity(Intent(this, TakingTestActivity::class.java))
-        }
+    private fun onClickSetting() = btnSetting.setOnClickListener {
+        startActivity(Intent(this, TakingTestActivity::class.java))
     }
 }
